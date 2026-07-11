@@ -1,0 +1,811 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Shiftora &#183; Agent Systems in Production &#183; Prepared for EFESO Management Consultants</title><style>
+  :root{
+    --ink:#0B0B0C; --ink2:#2A2A2E; --paper:#FFFFFF; --paper2:#F5F5F4; --paper3:#EDEDEA;
+    --line:#E2E2DF; --line2:#CFCFCB; --muted:#6C6C70; --muted2:#9A9A9E;
+    --con-bg:#0B0B0C; --con-panel:#141416; --con-line:#262629; --con-text:#EAEAE7; --con-dim:#7C7C82;
+    --signal:#47A45A; --signal-bg:rgba(71,164,90,.14); --signal-line:rgba(71,164,90,.35);
+    --warn:#B98322;
+    --sans:Arial,'Helvetica Neue',Helvetica,sans-serif;
+    --heavy:'Arial Black',Arial,'Helvetica Neue',sans-serif;
+    --mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,Consolas,monospace;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ink);color:var(--paper)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- top bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .mark{font-family:var(--heavy);font-size:19px;letter-spacing:-.02em}
+  .mark span{display:inline-block;width:8px;height:8px;background:var(--ink);margin-left:3px;transform:translateY(-1px)}
+  .nav{display:flex;gap:22px;align-items:center}
+  .nav a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);transition:color .15s}
+  .nav a:hover{color:var(--ink)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line2);padding:5px 9px}
+  @media(max-width:960px){.nav{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 50px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:stretch}
+  .hero h1{font-family:var(--heavy);font-size:clamp(34px,5.2vw,66px);line-height:.98;letter-spacing:-.03em}
+  .hero h1 .lo{color:var(--muted2)}
+  .hero .lede{margin-top:24px;font-size:18.5px;max-width:50ch;color:var(--ink2)}
+  .hero .sub{margin-top:13px;font-size:15px;color:var(--muted);max-width:52ch}
+  .toc{margin-top:22px;border-top:1px solid var(--line)}
+  .toc a{display:flex;gap:16px;align-items:baseline;padding:10px 2px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink2);font-size:13.5px;line-height:1.45}
+  .toc a:hover{background:var(--paper2)}
+  .toc .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;color:var(--muted);min-width:24px}
+  .toc b{color:var(--ink);min-width:112px;font-weight:700}
+  @media(max-width:640px){.toc b{min-width:88px}}
+  .stat-row{display:flex;gap:0;margin-top:34px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .stat{padding:16px 22px 0 0;margin-right:22px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:0}
+  .stat b{font-family:var(--heavy);font-size:28px;letter-spacing:-.02em;display:block;line-height:1}
+  .stat small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:7px}
+  .stackrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .sk{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink2);border:1px solid var(--line2);padding:6px 10px;background:var(--paper2)}
+
+  .teaser{background:var(--con-bg);color:var(--con-text);font-family:var(--mono);font-size:12.5px;line-height:1.7;padding:18px 18px 16px;min-height:224px;position:relative;height:100%;box-sizing:border-box;display:flex;flex-direction:column}
+  #teaserBody{flex:1}
+  .teaser .hd{display:flex;align-items:center;gap:8px;color:var(--con-dim);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--con-line);padding-bottom:11px;margin-bottom:12px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 0 var(--signal-line);animation:pulse 2.2s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(71,164,90,.5)}70%{box-shadow:0 0 0 7px rgba(71,164,90,0)}100%{box-shadow:0 0 0 0 rgba(71,164,90,0)}}
+  .ln{white-space:pre-wrap}
+  .ln .k{color:var(--con-dim)} .ln .g{color:var(--signal)} .ln .w{color:var(--warn)} .ln .dim{color:var(--con-dim)}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+
+  /* ---------- section frame ---------- */
+  section{padding:70px 0;border-bottom:1px solid var(--line)}
+  section,.portal{scroll-margin-top:72px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+  .sec-code{font-family:var(--mono);font-size:12px;color:var(--muted2);letter-spacing:.06em}
+  .sec-head h2{font-family:var(--heavy);font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;line-height:1.02}
+  .sec-intro{max-width:64ch;color:var(--ink2);margin:16px 0 8px;font-size:17px}
+
+  /* ---------- domain groups ---------- */
+  .domhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:52px 0 6px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+  .domhead h3{font-family:var(--heavy);font-size:22px;letter-spacing:-.01em}
+  .domhead .dm{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- case study block ---------- */
+  .cs{display:grid;grid-template-columns:1.25fr .75fr;gap:0;border:1px solid var(--line);border-top:0}
+  .cs:first-of-type{border-top:1px solid var(--line)}
+  .cs .l{padding:28px;border-right:1px solid var(--line)}
+  .cs .r{padding:28px;background:var(--paper2)}
+  .cs .kick{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .cs .client{font-family:var(--heavy);font-size:20px;letter-spacing:-.01em}
+  .cs .geo{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .cs .prob{margin-top:12px;color:var(--ink2);font-size:15px}
+  .cs h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+  .cs .agents{list-style:none}
+  .cs .agents li{font-size:14px;color:var(--ink2);padding:5px 0 5px 16px;position:relative}
+  .cs .agents li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--ink)}
+  .cs .agents li b{font-weight:700;color:var(--ink)}
+  .cs .flowline{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:6px;line-height:1.8}
+  .cs .flowline b{color:var(--ink);font-weight:400}
+  .stackline{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+  .stackline i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--ink2);border:1px solid var(--line2);background:var(--paper);padding:4px 9px}
+  .met{display:flex;flex-direction:column}
+  .met .m{padding:14px 0;border-bottom:1px solid var(--line)}
+  .met .m:last-child{border-bottom:0}
+  .met .m b{font-family:var(--heavy);font-size:26px;letter-spacing:-.02em;display:block;line-height:1}
+  .met .m b.g{color:var(--signal)}
+  .met .m small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px}
+  .mathnote{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.65;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line2)}
+  .mathnote b{color:var(--ink);font-weight:400}
+  .demolink{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);padding:8px 12px;margin-top:18px;transition:all .15s}
+  .demolink:hover{background:var(--ink);color:var(--paper)}
+  @media(max-width:820px){.cs{grid-template-columns:1fr}.cs .l{border-right:0;border-bottom:1px solid var(--line)}}
+
+  .vig{background:var(--con-bg);color:var(--con-text);font-family:var(--mono);font-size:12.5px;line-height:1.75;padding:16px;margin-top:16px}
+  .vig .vh{display:flex;justify-content:space-between;color:var(--con-dim);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--con-line);padding-bottom:10px;margin-bottom:10px}
+
+  .callout{border-left:2px solid var(--ink);background:var(--paper2);padding:18px 22px;margin-top:22px;max-width:920px}
+  .callout .ct{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .callout p{font-size:14.5px;color:var(--ink2);line-height:1.6}
+
+  /* ---------- portals ---------- */
+  .portal{border:1px solid var(--line);margin-top:40px}
+  .pchrome{display:flex;align-items:center;gap:14px;background:var(--con-bg);color:var(--con-dim);padding:11px 16px;font-family:var(--mono);font-size:11px}
+  .pchrome .dots{display:flex;gap:5px}
+  .pchrome .dots i{width:9px;height:9px;border-radius:50%;background:#2c2c30;font-style:normal}
+  .pchrome .purl{color:var(--con-text);letter-spacing:.03em}
+  .pchrome .pmeta{margin-left:auto;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+  .pchrome .pmeta b{color:var(--signal);font-weight:400}
+  .phd{display:flex;justify-content:space-between;gap:16px;padding:22px 24px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .phd .l .dcode{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+  .phd .l h3{font-family:var(--heavy);font-size:22px;letter-spacing:-.01em;margin-top:4px}
+  .phd .l p{color:var(--muted);font-size:14px;margin-top:5px;max-width:58ch}
+  .phd .r{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.8;white-space:nowrap}
+  .phd .r b{color:var(--ink);font-weight:400}
+  .pbody{display:grid;grid-template-columns:300px 1fr;gap:0}
+  .pctrl{padding:24px;border-right:1px solid var(--line)}
+  .pout{padding:0}
+  @media(max-width:860px){.pbody{grid-template-columns:1fr}.pctrl{border-right:0;border-bottom:1px solid var(--line)}}
+
+  .fld{margin-bottom:18px}
+  .fld label{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .fld label b{color:var(--ink);font-weight:400}
+  input[type=range]{-webkit-appearance:none;width:100%;height:2px;background:var(--line2);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;background:var(--ink);cursor:pointer;border-radius:0;border:0}
+  input[type=range]::-moz-range-thumb{width:15px;height:15px;background:var(--ink);cursor:pointer;border-radius:0;border:0}
+  .chips{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-family:var(--mono);font-size:11.5px;letter-spacing:.03em;padding:8px 12px;border:1px solid var(--line2);background:var(--paper);cursor:pointer;transition:all .15s;text-transform:uppercase}
+  .chip:hover{border-color:var(--ink)}
+  .chip.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .chips.col{flex-direction:column;align-items:stretch}
+  .chips.col .chip{text-align:left;text-transform:none}
+  .btn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:12px 18px;background:var(--ink);color:var(--paper);border:1px solid var(--ink);cursor:pointer;transition:opacity .15s;width:100%;margin-top:6px}
+  .btn:hover{opacity:.84}
+  .btn:disabled{opacity:.4;cursor:default}
+  .note{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:14px;line-height:1.6}
+
+  .console{background:var(--con-bg);color:var(--con-text);font-family:var(--mono);font-size:12.5px;line-height:1.75;min-height:340px;display:flex;flex-direction:column;height:100%}
+  .console .chd{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;border-bottom:1px solid var(--con-line);color:var(--con-dim);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+  .console .chd .ll{display:flex;align-items:center;gap:8px}
+  .console .stream{padding:14px 16px;flex:0 1 auto;overflow-y:auto;max-height:320px}
+  .console .empty{color:var(--con-dim);padding:14px 16px}
+  .art .atitle{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:13px 16px;border-bottom:1px solid var(--con-line);border-top:1px solid var(--con-line);color:var(--con-dim)}
+  table.dt{width:100%;border-collapse:collapse;font-size:12.5px}
+  table.dt th{font-family:var(--mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--con-dim);text-align:left;padding:9px 12px;border-bottom:1px solid var(--con-line);font-weight:400}
+  table.dt td{padding:9px 12px;border-bottom:1px solid var(--con-line);color:var(--con-text)}
+  table.dt td .g,table.dt td.g{color:var(--signal)} table.dt td .w,table.dt td.w{color:var(--warn)} table.dt td .d,table.dt td.d{color:var(--con-dim)}
+  .chart-wrap{padding:14px 10px 4px}
+  svg .grid{stroke:var(--con-line);stroke-width:1}
+  svg .axis{fill:var(--con-dim);font-family:var(--mono);font-size:9px}
+  svg .band{fill:var(--signal-bg)}
+  svg .actual{fill:none;stroke:var(--con-text);stroke-width:2}
+  svg .fcast{fill:none;stroke:var(--signal);stroke-width:2;stroke-dasharray:4 3}
+  svg .mk{fill:var(--con-text)}
+  .kpis{display:flex;gap:0;border-top:1px solid var(--con-line)}
+  .kpi{flex:1;padding:13px 16px;border-right:1px solid var(--con-line)}
+  .kpi:last-child{border-right:0}
+  .kpi b{font-family:var(--heavy);font-size:22px;letter-spacing:-.02em;display:block;line-height:1;color:var(--con-text)}
+  .kpi b.g{color:var(--signal)}
+  .kpi small{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--con-dim);display:block;margin-top:6px}
+
+  /* answer card (RAG) */
+  .ans{padding:14px 16px;border-top:1px solid var(--con-line)}
+  .ans .atag{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--con-dim);margin-bottom:8px}
+  .ans .atext{font-family:var(--sans);font-size:13.5px;color:var(--con-text);line-height:1.6}
+  .ans sup{color:var(--signal);font-family:var(--mono);font-size:10px}
+
+  /* ---------- architecture ---------- */
+  .archwrap{background:var(--con-bg);border:1px solid var(--con-line);margin-top:30px;padding:20px 16px 8px}
+  .archwrap .ah{display:flex;justify-content:space-between;color:var(--con-dim);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:0 4px 12px;border-bottom:1px solid var(--con-line);margin-bottom:6px}
+  svg.arch text{font-family:var(--mono)}
+  svg.arch .bx{fill:var(--con-panel);stroke:var(--con-line)}
+  svg.arch .bxg{fill:rgba(71,164,90,.08);stroke:rgba(71,164,90,.45)}
+  svg.arch .bxw{fill:rgba(185,131,34,.08);stroke:rgba(185,131,34,.5)}
+  svg.arch .tt{fill:var(--con-text);font-size:10.5px}
+  svg.arch .ts{fill:var(--con-dim);font-size:8.5px}
+  svg.arch .tg{fill:var(--signal);font-size:8.5px}
+  svg.arch .tw{fill:var(--warn);font-size:9px}
+  svg.arch .ar{stroke:var(--con-dim);stroke-width:1;fill:none;marker-end:url(#arr)}
+  svg.arch .tb{stroke:var(--signal);stroke-dasharray:5 4;fill:none;stroke-width:1}
+  .deploy{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-top:0}
+  .deploy div{border-right:1px solid var(--line);padding:18px 20px}
+  .deploy div:last-child{border-right:0}
+  .deploy .t{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink)}
+  .deploy .s{font-size:13px;color:var(--muted);margin-top:6px}
+  @media(max-width:760px){.deploy{grid-template-columns:1fr}.deploy div{border-right:0;border-bottom:1px solid var(--line)}}
+
+  /* ---------- reliability ---------- */
+  .relgrid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-top:30px}
+  .relgrid .cell{padding:24px;border-right:1px solid var(--line)}
+  .relgrid .cell:last-child{border-right:0}
+  @media(max-width:860px){.relgrid{grid-template-columns:1fr}.relgrid .cell{border-right:0;border-bottom:1px solid var(--line)}.relgrid .cell:last-child{border-bottom:0}}
+  .gates{width:100%;border-collapse:collapse;margin-top:28px;border:1px solid var(--line)}
+  .gates th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);font-weight:400;background:var(--paper2)}
+  .gates td{padding:12px 16px;border-bottom:1px solid var(--line);font-size:13.5px;color:var(--ink2)}
+  .gates td:first-child{font-family:var(--mono);font-size:12px;color:var(--ink)}
+  .gates td:last-child{font-family:var(--mono);font-size:12px}
+  .gates tr:last-child td{border-bottom:0}
+
+  /* module anatomy */
+  .man{background:var(--con-bg);color:var(--con-text);font-family:var(--mono);font-size:12.5px;line-height:1.8;padding:20px;margin-top:26px;overflow-x:auto;white-space:pre}
+  .man .c{color:var(--con-dim)} .man .kk{color:var(--signal)} .man .vv{color:var(--con-text)} .man .ww{color:var(--warn)}
+
+  /* ---------- IP flow / lib / poc / build ---------- */
+  .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:stretch;border:1px solid var(--line);margin-top:30px}
+  .flow .node{padding:26px 24px}
+  .flow .node .n{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .flow .node h4{font-family:var(--heavy);font-size:19px;margin:8px 0 8px;letter-spacing:-.01em}
+  .flow .node p{font-size:14px;color:var(--ink2)}
+  .flow .arw{display:flex;align-items:center;justify-content:center;padding:0 10px;font-family:var(--mono);color:var(--muted2);font-size:20px;border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  @media(max-width:820px){.flow{grid-template-columns:1fr}.flow .arw{padding:10px;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(90deg)}}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-top:30px}
+  .twocol > div{padding:24px}
+  .twocol > div:first-child{border-right:1px solid var(--line)}
+  .twocol h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .twocol li{font-size:14.5px;color:var(--ink2);padding:6px 0 6px 15px;position:relative;list-style:none}
+  .twocol li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .guard{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}
+  .guard .g{font-family:var(--mono);font-size:11px;color:var(--ink2);background:var(--paper2);border:1px solid var(--line2);padding:7px 13px}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}.twocol>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+
+  /* ---------- footer ---------- */
+  footer{padding:46px 0;background:var(--con-bg);color:var(--con-text)}
+  footer .fmeta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  footer .fmark{font-family:var(--heavy);font-size:17px;color:var(--con-text);letter-spacing:-.01em}
+  footer .fmeta a,footer .fmeta span{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--con-dim)}
+  footer .fmeta a:hover{color:var(--con-text)}
+  footer .fnote{font-family:var(--mono);font-size:11px;color:var(--con-dim);margin-top:18px;border-top:1px solid var(--con-line);padding-top:16px;line-height:1.7}
+
+  /* pre-read note + summary lists */
+  .pre{border:1px solid var(--line);background:var(--paper2);padding:16px 18px;margin-top:26px}
+  .pre .pt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .pre ul{list-style:none}
+  .pre li{font-size:13.5px;color:var(--ink2);padding:4px 0 4px 15px;position:relative;line-height:1.55}
+  .pre li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .pre li b,.pre p b{font-weight:700;color:var(--ink)}
+  .pre p{font-size:13.5px;color:var(--ink2);margin-top:10px;padding-top:10px;border-top:1px dashed var(--line2)}
+
+  /* deployment dossiers */
+  .dossier{border-top:1px solid var(--line);padding:26px 24px 28px;background:var(--paper)}
+  .dossier .dos-tag{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding-bottom:14px;border-bottom:1px solid var(--line)}
+  .dossier .dos-tag b{color:var(--ink);font-weight:400}
+  .dossier h6{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:24px 0 10px}
+  .dprof{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line)}
+  .dprof div{border-right:1px solid var(--line);padding:12px 16px}
+  .dprof div:last-child{border-right:0}
+  .dprof .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .dprof .v{font-size:13px;color:var(--ink2);margin-top:4px;line-height:1.5}
+  @media(max-width:760px){.dprof{grid-template-columns:1fr}.dprof div{border-right:0;border-bottom:1px solid var(--line)}.dprof div:last-child{border-bottom:0}}
+  .dfind{list-style:none}
+  .dfind li{font-size:13.5px;color:var(--ink2);padding:5px 0 5px 16px;position:relative;line-height:1.55;max-width:80ch}
+  .dfind li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .dfind li b{font-weight:700;color:var(--ink)}
+  .dpattern{font-family:var(--mono);font-size:11.5px;color:var(--muted);margin-top:12px;padding:10px 14px;border-left:2px solid var(--ink);background:var(--paper2);max-width:80ch;line-height:1.6}
+  .darch{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line)}
+  .darch .da{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 18px}
+  .darch .da:nth-child(2n){border-right:0}
+  .darch .da .dat{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);margin-bottom:6px}
+  .darch .da p{font-size:13px;color:#46535f;line-height:1.55}
+  .darch .da p b{font-weight:700;color:var(--ink)}
+  @media(max-width:760px){.darch{grid-template-columns:1fr}.darch .da{border-right:0}}
+  .dtable{width:100%;border-collapse:collapse;border:1px solid var(--line)}
+  .dtable th{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);font-weight:400;background:var(--paper2)}
+  .dtable td{padding:11px 14px;border-bottom:1px solid var(--line);font-size:13px;color:var(--ink2);vertical-align:top}
+  .dtable td:first-child{font-family:var(--mono);font-size:11.5px;color:var(--ink);white-space:nowrap}
+  .dtable tr:last-child td{border-bottom:0}
+  .dtable td .g2{font-family:var(--mono);color:var(--signal)}
+  .dtable tr.tot td{background:var(--paper2);font-weight:700;color:var(--ink)}
+  .resgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line)}
+  .resgrid .res{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 18px}
+  .resgrid .res:nth-child(3n){border-right:0}
+  .resgrid .res b{font-family:var(--heavy);font-size:23px;letter-spacing:-.02em;display:block;line-height:1;color:var(--ink)}
+  .resgrid .res b.g{color:var(--signal)}
+  .resgrid .res small{font-family:var(--mono);font-size:9.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:block;margin-top:7px;line-height:1.5}
+  @media(max-width:760px){.resgrid{grid-template-columns:1fr}.resgrid .res{border-right:0}}
+  .dnote2{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.65;margin-top:14px;max-width:86ch}
+  .dnote2 b{color:var(--ink);font-weight:400}
+  .js-anim .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .js-anim .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.dot{animation:none}}
+</style></head><body><div class="bar"><div class="wrap"><div class="mark">SHIFTORA<span></span></div><nav class="nav"><a href="#cases">01 Production</a><a href="#demos">02 Environments</a><a href="#fit">03 Partnership</a><a href="#econ">04 Economics</a><a href="#arch">Appendix</a></nav><div class="tag">Prepared for EFESO Management Consultants</div></div></div><header class="hero"><div class="wrap"><div class="hero-grid"><div><div class="eyebrow">Shiftora &#215; EFESO Management Consultants &nbsp;/&nbsp; pre-read &nbsp;/&nbsp; 11 Jul 2026 &nbsp;/&nbsp; confidential</div><h1>One partnership,<br>an agent layer for<br><span class='lo'>1,500 programmes a year.</span></h1><p class="lede">EFESO runs 1,500+ industrial programmes a year with 1,000+ specialists, and the results live in plants that keep operating after the programme ends. Shiftora is the AI and ML engineering arm that builds the client-specific agents at the edges of EFESO&#8217;s stack, forecasting, plant knowledge, daily management, with a human gate on every consequential step.</p><nav class='toc'><a href='#cases'><span class='n'>01</span><b>Production</b><span>Systems in production, each with a measured result and its method.</span></a><a href='#demos'><span class='n'>02</span><b>Environments</b><span>Live consoles executing in this page, chosen for EFESO Management Consultants.</span></a><a href='#fit'><span class='n'>03</span><b>Partnership</b><span>Where Shiftora sits as your AI execution arm, internal and external.</span></a><a href='#econ'><span class='n'>04</span><b>Economics</b><span>Value modelled conservatively, method beside every figure.</span></a></nav><div class="stat-row"><div class="stat"><b>71&#8594;86</b><small>Forecast accuracy, backtested</small></div><div class="stat"><b>85&#8594;96.8%</b><small>Agent accuracy under override loop, 16 wks</small></div><div class="stat"><b>13&#8211;17</b><small>Engineers, Dubai + Mumbai, ~50% AI/ML</small></div></div><p class="sub" style="margin-top:14px">Every figure carries its measurement method beside it. Production accuracy figures are backtested; the reference engagement is modeled with methodology shown; console data is illustrative.</p><div class="stackrow"><span class="sk">Python</span><span class="sk">TypeScript</span><span class="sk">.NET Minimal API</span><span class="sk">MongoDB &#183; multi-tenant</span><span class="sk">Next.js</span><span class="sk">React Native</span><span class="sk">MCP-native tool registry</span><span class="sk">RL eval environments</span></div></div><div><div class="teaser"><div class="hd"><span class="dot"></span> agent_runtime &nbsp;&#183;&nbsp; live</div><div id="teaserBody"></div></div></div></div></div></header><section id="intro" style="padding:46px 0"><div class="wrap"><div class="sec-head"><span class="sec-code">00</span><h2>What Shiftora is, and what this proposes</h2></div><div class="twocol rv" style="margin-top:22px"><div><h4>The firm</h4><p style="font-size:15px;color:var(--ink2);line-height:1.62"><b>Shiftora is an AI-native engineering firm.</b> Thirteen to seventeen engineers across Dubai and Mumbai, roughly half in AI and ML, building agent systems, copilots, and automations inside enterprise stacks and running them in production under a human gate. Not a strategy shop and not a staffing desk: the bench that designs, builds, evaluates, and ships the software.</p></div><div><h4>What this proposes</h4><p style="font-size:15px;color:var(--ink2);line-height:1.62">Shiftora becomes EFESO&#8217;s <b>AI execution partner</b>. EFESO owns the client relationships, the industrial methods, and the existing digital stack; Shiftora owns the engineering of the client-specific agents at its edges, deployed inside EFESO&#8217;s programmes. The relationship is structured as an <b>outcome-aligned commercial partnership</b> that shares in the value created, rather than billing time and materials.</p></div></div></div></section><section id="cases"><div class="wrap"><div class="sec-head"><span class="sec-code">01</span><h2>What already runs in production</h2></div><p class="sec-intro">EFESO combines deep industrial capability with an existing digital stack, and 1,500+ programmes a year generate more client-specific build demand than any internal team can absorb. The four systems below, led by a production demand-forecasting deployment, are the patterns that turn that overflow into deployed software.</p><p class="sec-intro">Four production systems follow, each with a measured number and the method that produced it. Nothing here is a pilot; the protocol below is the one behind every accuracy figure in this document.</p>
+    <div class="domhead"><h3>Operations &amp; Supply Chain</h3><div class="dm">2 systems in production</div></div>
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">Building-materials manufacturer: demand forecasting</div><div class="geo">Listed manufacturer</div></div>
+        <p class="prob">Ordering ran on spreadsheets and instinct against long supplier lead times. Every forecast miss became dead stock or a stockout weeks later, and nobody could say which SKUs to trust.</p>
+        <h5>Agents deployed</h5>
+        <ul class="agents">
+          <li><b>Ingestion agent</b>: normalises 36 months of order history across SKUs, channels, regions; schema drift handled at the connector.</li>
+          <li><b>Seasonality agent</b>: decomposes each series into trend, seasonal index, and promotion uplift before any model sees it.</li>
+          <li><b>Forecast agent</b>: gradient-boosted ensemble over the decomposed series; 12-month rolling horizon with lead-time-aware reorder signals per SKU.</li>
+          <li><b>Backtest agent</b>: rolling-origin cross-validation, 12 folds, every cycle; publishes WAPE and bias against held-out actuals.</li>
+        </ul>
+        <div class="stackline"><i>Python</i><i>GBM ensemble + seasonal decomposition</i><i>rolling-origin CV</i><i>WAPE / bias gates</i></div>
+        <a class="demolink" href="#c1">Operate this pattern &#8594; forecast console</a>
+      </div>
+      <div class="r"><div class="met">
+        <div class="m"><b class="g">71&#8594;86%</b><small>forecast accuracy</small></div>
+        <div class="m"><b>12 folds</b><small>rolling-origin backtest</small></div>
+        <div class="m"><b>Per SKU</b><small>reorder signals</small></div>
+      </div>
+      <div class="mathnote"><b>Measurement.</b> Accuracy is 100 &#8722; WAPE on 12 held-out months, re-run every cycle, not a launch-day projection. Bias is tracked separately so a flattering WAPE cannot hide systematic over-ordering. We claim the number we can reproduce, and nothing downstream of it.</div>
+      </div>
+    </div>
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">Logistics operations: autonomous review loop</div><div class="geo">Enterprise</div></div>
+        <p class="prob">Critical operational context lived in contracts, meeting notes, and call transcripts that nobody had time to reconcile against the numbers. Inefficiencies sat buried in paperwork.</p>
+        <h5>One decision, traced</h5>
+        <div class="vig">
+          <div class="vh"><span>exception &#183; supplier delay, partial shortfall</span><span>$127K at risk</span></div>
+          <div class="ln"><span class="k">&#8250;</span> context &nbsp;340 units short &#183; 12 orders &#183; DC-7 holds 420 surplus &nbsp;<span class="g">98%</span> <span class="dim">1.8s</span></div>
+          <div class="ln"><span class="k">&#8250;</span> classify &nbsp;type 12 &#183; 1 of 31 automatable patterns &nbsp;<span class="g">96%</span> <span class="dim">0.9s</span></div>
+          <div class="ln"><span class="k">&#8250;</span> impact &nbsp;$127K across 12 orders &#183; 3 due in 48h &nbsp;<span class="g">94%</span> <span class="dim">1.4s</span></div>
+          <div class="ln"><span class="k">&#8250;</span> plan &nbsp;reroute 340 from DC-7 + expedite 60 &#183; cost $4,300 &nbsp;<span class="w">91% &#8594; human gate</span></div>
+          <div class="ln"><span class="k">&#8250;</span> <span class="g">coordinator approves, edits, or overrides.</span> never auto-executes.</div>
+        </div>
+      </div>
+      <div class="r"><div class="met">
+        <div class="m"><b>24/7</b><small>reviewing loop</small></div>
+        <div class="m"><b class="g">85&#8594;96.8%</b><small>agent accuracy, 16 wks</small></div>
+        <div class="m"><b>Human gate</b><small>on every consequential call</small></div>
+      </div>
+      <div class="mathnote"><b>What broke.</b> The first build resolved exceptions end to end, and coordinators overrode it constantly, nobody trusts a black box with a six-figure call. We pulled it back to recommend-and-approve. Adoption rose, and the override stream became labelled training data. The accuracy curve in 03 is that mechanism, measured.</div>
+      </div>
+    </div>
+    <div class="domhead"><h3>Revenue &amp; Sales</h3><div class="dm">1 system in production</div></div>
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">US legal marketplace: lead intelligence &amp; cadence</div><div class="geo">USA &#183; $80M business</div></div>
+        <p class="prob">A large sales floor spreading effort evenly across leads regardless of quality. High-intent prospects and dead ends got the same follow-up, and nobody could defend why.</p>
+        <h5>Agents and models deployed</h5>
+        <ul class="agents">
+          <li><b>Scoring models</b>: three calibrated stage models, P(Set), P(Complete), P(Deal), trained on geography, area of law, demographics, prior contact; calibration error tracked, not assumed.</li>
+          <li><b>Prioritisation agent</b>: ranks the book by expected value; feature attributions rendered to the rep, so every rank is explainable.</li>
+          <li><b>Cadence agent</b>: generates and times outreach conditioned on each prospect&#8217;s response history.</li>
+          <li><b>Call assist</b>: surfaces context and next-best action in the workflow the reps already use, Salesforce-native.</li>
+        </ul>
+        <div class="stackline"><i>Salesforce-native</i><i>3 calibrated stage models</i><i>feature attributions</i><i>override &#8594; retrain loop</i></div>
+      </div>
+      <div class="r"><div class="met">
+        <div class="m"><b>3-stage</b><small>conversion model, live</small></div>
+        <div class="m"><b>Explainable</b><small>attributions per rank</small></div>
+        <div class="m"><b>Audit trail</b><small>every score, every action</small></div>
+      </div>
+      <div class="mathnote"><b>Measurement.</b> P(Deal) is a calibrated probability, when the model says 60%, roughly 60 in 100 close. Calibration is measured weekly; the override loop retrains on every human correction, so accuracy is a monitored curve, not a launch-day claim that quietly decays.</div>
+      </div>
+    </div>
+    <div class="domhead"><h3>Platforms &amp; Applied AI</h3><div class="dm">1 system in production</div></div>
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">UAE travel group: visa platform &amp; travel assistant</div><div class="geo">UAE &#183; longest partnership</div></div>
+        <p class="prob">Visa processing was manual and document-heavy, dying on errors nobody caught until submission. Support could not reason across a customer&#8217;s own passport and visa history.</p>
+        <h5>What we built</h5>
+        <ul class="agents">
+          <li><b>Document intelligence agent</b>: OCR with confidence-routed extraction; low-confidence fields route to review, and nothing submits until it validates against country rules.</li>
+          <li><b>Visa workflow agent</b>: a versioned rule engine per route and visa type; rule changes ship as versions, so past decisions stay reproducible.</li>
+          <li><b>Travel assistant</b>: books, plans, and self-corrects with live context on visa and passport validity.</li>
+          <li><b>Platform</b>: multi-tenant MongoDB with EntityId scoping on every query path; .NET Minimal API core; Next.js and React Native surfaces.</li>
+        </ul>
+        <div class="stackline"><i>multi-tenant MongoDB &#183; EntityId scoping</i><i>.NET Minimal API</i><i>Next.js</i><i>React Native</i><i>versioned rule engine</i><i>confidence-routed OCR</i></div>
+      </div>
+      <div class="r"><div class="met">
+        <div class="m"><b>Web + App</b><small>shipped, in production</small></div>
+        <div class="m"><b>End to end</b><small>visa automation</small></div>
+        <div class="m"><b>Tenant-isolated</b><small>cross-tenant integrity audited</small></div>
+      </div>
+      <div class="mathnote"><b>Why it matters here.</b> Domain judgement, a visa specialist&#8217;s, encoded into a configurable, versioned, multi-tenant platform. Structurally the same leap a consulting firm makes when it turns its methodology into a deployable module. The tenant-isolation work here is exactly the hard problem a multi-client platform hits first.</div>
+      </div>
+    </div>
+
+    <div class='callout rv'>
+      <div class='ct'>The backtest protocol, published in full</div>
+      <ul class='dfind'>
+        <li><b>Holdout, frozen at kickoff.</b> The most recent 12 months of history are sealed before any model work begins; nothing ever trains on them.</li>
+        <li><b>Rolling-origin evaluation.</b> Each holdout month is forecast from an origin that sees only earlier data; the origin rolls forward and repeats. Twelve origins, twelve out-of-sample tests.</li>
+        <li><b>Accuracy and bias, gated together.</b> Accuracy is reported as 100 minus WAPE; bias is gated at plus or minus 3 percent alongside it, so accuracy cannot be achieved through systematic over- or under-forecasting.</li>
+        <li><b>Baseline first.</b> The incumbent method is scored under the identical protocol before ours; the claim is the difference, same data, same window, same math.</li>
+        <li><b>Re-proven every cycle.</b> The backtest re-runs on every retrain and rule change. Any figure that fails re-validation is withdrawn.</li>
+      </ul>
+    </div>
+</div></section><section id="demos"><div class="wrap"><div class="sec-head"><span class="sec-code">02</span><h2>Operate the systems yourself</h2></div><p class="sec-intro">Two environments execute within this page, the two that map most directly to EFESO&#8217;s work: the demand forecast agent that keeps plans honest between programme reviews, and the plant-knowledge copilot that makes standards and deviations retrievable with citations. Inputs are adjustable and each agent shows its working. Console data is illustrative; each dossier is a modeled EFESO engagement anchored to Shiftora&#8217;s named production systems.</p><div class="portal rv" id="c1"><div class="pchrome"><span class="dots"><i></i><i></i><i></i></span><span class="purl">shiftora.demo / forecast</span><span class="pmeta">operations &#183; <b>pattern: demand forecasting</b></span></div><div class="phd"><div class="l"><div class="dcode">forecast agent &#183; industrial demand forecasting</div><h3>A 12-month plant forecast, backtested before it is trusted.</h3><p>Adjust the operating conditions. The agent rebuilds the rolling forecast, backtests it rolling-origin, and reports WAPE and bias, the same gates Shiftora&#8217;s production system runs every cycle, with lead-time-aware reorder signals per SKU per plant.</p></div><div class="r">model <b>gbm ensemble + seasonal</b><br>validation <b>rolling-origin &#183; 12 folds</b><br>data <b>illustrative</b></div></div><div class="pbody"><div class="pctrl"><div class="chips" style="margin-bottom:20px"><button class="chip on" data-scn="base">Baseline</button><button class="chip" data-scn="festive">Peak season</button><button class="chip" data-scn="launch">Line ramp-up</button></div><div class="fld"><label>Base monthly demand <b id="v_base">8,000 units</b></label><input type="range" id="f_base" min="2000" max="20000" step="500" value="8000"></div><div class="fld"><label>Seasonality strength <b id="v_seas">40%</b></label><input type="range" id="f_seas" min="0" max="90" step="5" value="40"></div><div class="fld"><label>Supplier lead time <b id="v_lead">6 wks</b></label><input type="range" id="f_lead" min="1" max="16" step="1" value="6"></div><div class="fld"><label>Promotion uplift <b id="v_promo">15%</b></label><input type="range" id="f_promo" min="0" max="60" step="5" value="15"></div><button class="btn" id="runFcast">Run forecast + backtest</button><p class="note">Longer supplier lead times widen the interval; the backtest holds out the last 12 months entirely and scores the incumbent method under the identical protocol first. This is the engine that keeps an EFESO programme&#8217;s gains from decaying after handover.</p></div><div class="pout"><div class="console"><div class="chd"><span class="ll"><span class="dot"></span> forecast_agent</span><span id="fc_status">ready</span></div><div class="chart-wrap"><svg id="fcChart" viewBox="0 0 560 200" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto"></svg></div><div class="kpis"><div class="kpi"><b class="g" id="k_acc">86%</b><small>accuracy &#183; 100&#8722;WAPE</small></div><div class="kpi"><b id="k_wape">14%</b><small>WAPE &#183; 12 folds</small></div><div class="kpi"><b id="k_bias">+1.2%</b><small>bias &#183; signed error</small></div></div><div class="stream" id="fc_stream"><div class="empty">The baseline forecast runs on load; move the sliders and re-run.</div></div></div></div></div><div class="dossier"><div class="dos-tag"><span>Environment brief &#183; <b>modeled reference engagement</b> &#183; sized to an EFESO industrial client</span><span>anchored to the forecast console above</span></div><h6>The org, sized to your client base</h6><div class="dprof"><div><div class="k">Profile</div><div class="v">Industrial manufacturer &#183; &#8364;600M revenue &#183; 4 plants &#183; EFESO running the operations programme</div></div><div><div class="k">Catalogue</div><div class="v">2,600 SKUs &#183; supplier lead times 3 to 12 weeks</div></div><div><div class="k">Before</div><div class="v">Planning on category averages; programme gains decay after handover</div></div></div><h6>The audit, embedded</h6><ul class="dfind"><li><b>No SKU-level forecast</b>; production plans and inventory strategy sit on averages that hide the variance that matters.</li><li>Promotion and seasonal uplift never separated from base demand, so each plan inherits the last plan&#8217;s errors.</li><li>Reorder and safety-stock parameters static while supplier lead times move.</li><li>The programme&#8217;s daily management routines have no live engine feeding them after the consultants rotate off.</li></ul><div class="dpattern">EFESO installs world-class operations and hands them over. The forecasting engine that keeps plans, staffing, and inventory aligned, cycle after cycle, is the deployable module the programme does not leave behind today.</div><h6>The operating layer</h6><div class="darch"><div class="da"><div class="dat">Decomposition</div><p><b>Ingestion + seasonality agents</b> normalising history across SKUs, channels, and plants, separating trend, seasonal index, and promotion uplift before any model runs.</p></div><div class="da"><div class="dat">Forecast + proof</div><p><b>Forecast agent</b>, gradient-boosted ensemble, lead-time-aware reorder signals per SKU per plant; <b>backtest agent</b> re-running rolling-origin validation every cycle, publishing WAPE and bias.</p></div></div><h6>Results, from and to</h6><div class="resgrid"><div class="res"><b class="g">71 &#8594; 86%</b><small>forecast accuracy, backtested</small></div><div class="res"><b>Per SKU/plant</b><small>reorder + safety-stock signals</small></div><div class="res"><b>&#177;3%</b><small>bias gate held with WAPE</small></div><div class="res"><b>Lead-time aware</b><small>interval widens with horizon</small></div><div class="res"><b>Every cycle</b><small>re-proven, not launch-day</small></div><div class="res"><b>Sustains</b><small>the programme, not just a report</small></div></div><h6>Value, modeled conservatively</h6><table class="dtable" style="margin-top:12px"><thead><tr><th>Value driver</th><th>Modeled range</th><th>Methodology</th></tr></thead><tbody><tr><td>Stockout revenue protected</td><td>&#8364;1.4 to 2.2M / client / yr</td><td>Stockout incidence delta &#215; margin on lost sales</td></tr><tr><td>Dead-stock carrying cost released</td><td>&#8364;0.8 to 1.3M / client / yr</td><td>Excess-cover reduction &#215; carrying cost of capital</td></tr><tr><td>Planner hours redirected</td><td>&#8364;0.2 to 0.4M / client / yr</td><td>Hours freed &#215; loaded cost, discounted 30%</td></tr></tbody></table><p class="dnote2"><b>Anchor.</b> The accuracy figure is Shiftora&#8217;s production number (71 to 86 in production), re-proven every cycle. The euro ranges model one EFESO client of this size; each value re-derives from the stated method.</p></div></div><div class="portal rv" id="c4"><div class="pchrome"><span class="dots"><i></i><i></i><i></i></span><span class="purl">shiftora.demo / plant-knowledge</span><span class="pmeta">plant knowledge &#183; grounded retrieval &#183; <b>pattern: talk to the data room</b></span></div><div class="phd"><div class="l"><div class="dcode">plant copilot &#183; RAG &#183; standards, deviations, contracts</div><h3>Query the plant&#8217;s documents; the retrieval is shown step by step.</h3><p>Grounded question-answering over a plant corpus: standard work, deviation logs, maintenance contracts. Embed, ANN search, cross-encoder rerank, grounded synthesis with citations, PII guardrail before release.</p></div><div class="r">index <b>plant-scoped</b><br>pipeline <b>embed &#8594; ANN &#8594; rerank &#8594; cite</b><br>data <b>illustrative</b></div></div><div class="pbody"><div class="pctrl"><div class="eyebrow" style="margin-bottom:13px">Ask the plant corpus</div><div class="chips col"><button class="chip" data-q="q1">What is the changeover standard on line 2?</button><button class="chip" data-q="q2">Which quality deviations repeated this quarter?</button><button class="chip" data-q="q3">What does the maintenance contract cover?</button></div><p class="note">Corpus: Standard_Work.pdf &#183; Deviation_Log.csv &#183; Maintenance_Contract.pdf. Citation coverage is enforced at 100%; an ungrounded answer does not reach the floor. That is how a programme&#8217;s knowledge survives the handover.</p></div><div class="pout"><div class="console"><div class="chd"><span class="ll"><span class="dot"></span> rag_pipeline</span><span id="rg_status">idle</span></div><div class="stream" id="rg_stream"><div class="empty">First question runs on load; pick any other to re-run the retrieval.</div></div><div id="rg_art"></div></div></div></div><div class="dossier"><div class="dos-tag"><span>Environment brief &#183; <b>modeled reference engagement</b> &#183; sized to one EFESO client site</span><span>anchored to the retrieval pipeline above</span></div><h6>The org, sized to your client base</h6><div class="dprof"><div><div class="k">Context</div><div class="v">Plant documentation for one EFESO client site &#183; standards and actuals</div></div><div><div class="k">Corpus</div><div class="v">Standard work, deviation logs, maintenance contracts, energy reports</div></div><div><div class="k">Team</div><div class="v">Consultants and plant leaders reconciling standards against actual performance</div></div></div><h6>The audit, embedded</h6><ul class="dfind"><li><b>Standards checked against actuals by hand</b>, deviation by deviation.</li><li>Repeat quality deviations rediscovered instead of retrieved with their countermeasures.</li><li>Maintenance contract coverage unclear at exactly the moment a claim depends on it.</li></ul><h6>The operating layer</h6><div class="darch"><div class="da"><div class="dat">Ingestion</div><p><b>OCR + layout parsing</b> of standards, logs, and contracts; chunking tuned per document class.</p></div><div class="da"><div class="dat">Retrieval + synthesis</div><p><b>Plant-scoped index</b>, ANN + rerank, <b>citation coverage enforced at 100%</b>; a deviation and obligation register builds as a by-product, each entry source-linked.</p></div></div><h6>Results, from and to</h6><div class="resgrid"><div class="res"><b class="g">hours &#8594; minutes</b><small>standard / contract retrieval</small></div><div class="res"><b>100%</b><small>citation coverage, enforced</small></div><div class="res"><b>Survives</b><small>the programme handover</small></div></div><p class="dnote2"><b>Anchor.</b> The pipeline above is this layer end to end; one client&#8217;s index never mixes with another&#8217;s, and an uncited answer is not released to the floor.</p></div></div></div></section><section id="fit"><div class="wrap"><div class="sec-head"><span class="sec-code">03</span><h2>Where Shiftora fits: your AI execution arm</h2></div><p class="sec-intro">EFESO combines deep industrial capability with an existing digital stack, and 1,500+ programmes a year generate more client-specific build demand than any internal team can absorb. Shiftora is the extension bench at the edges of that stack, internal to EFESO&#8217;s delivery and external inside client plants.</p><div class="pre rv"><div class="pt">Why EFESO Management Consultants, specifically</div><ul><li><b>The proof points line up exactly.</b> Shiftora&#8217;s named production systems are a demand-forecasting deployment (71 to 86, backtested) and an autonomous review loop at 96.8% over 16 weeks. Industrial operations is where Shiftora is strongest.</li><li><b>An extension studio, not a platform rival.</b> EFESO already has digital assets. Shiftora builds the client-specific agents at their edges, forecasting, plant knowledge, daily management, and integrates with what exists rather than replacing it.</li><li><b>Programmes need engines that survive them.</b> 1,500 programmes a year each hand over routines that decay without a live engine. The modules keep the client&#8217;s system fed after the consultants rotate off, protecting the result EFESO&#8217;s name is on.</li><li><b>Internal or external.</b> The agents run inside EFESO&#8217;s own delivery to raise consultant leverage, and inside client plants to hold the gains after handover.</li></ul></div><div class="flow rv"><div class="node"><div class="n">Today</div><h4>IP in people</h4><p>EFESO&#8217;s industrial methods live in 1,000+ specialists and programme documentation. Every plant re-applies them by hand, and the gains decay after handover.</p></div><div class="arw">&#8594;</div><div class="node"><div class="n">The artifact</div><h4>A module</h4><p>Judgement encoded as policy. Tools typed and registered over MCP. Client specifics as configuration. An eval suite as the definition of done.</p></div><div class="arw">&#8594;</div><div class="node"><div class="n">At the client</div><h4>Deploy + verify</h4><p>The same module ships into any mandate, passes its golden set against the client&#8217;s data, and runs under the human gate. Delivery scales with software.</p></div></div><div class="man rv"><span class="c"># module manifest, what "productised IP" actually is</span>
+<span class="kk">module:</span> <span class="vv">demand_forecast</span>          <span class="c"># the forecasting module, live in 02</span>
+<span class="kk">judgement:</span>
+  <span class="kk">policy:</span> <span class="vv">planning_policy@v4.0</span>        <span class="c"># the encoded consulting IP, versioned</span>
+  <span class="kk">rules:</span>  <span class="vv">materiality, cutoff, escalation thresholds</span>
+<span class="kk">tools:</span>  <span class="vv">[history.read, decompose.run, ensemble.fit, backtest.run]</span>   <span class="c"># typed &#183; MCP-registered</span>
+<span class="kk">guardrails:</span> <span class="vv">[approval_gate, pii_redact, spend_limit]</span>    <span class="ww"># consequential steps &#8594; human</span>
+<span class="kk">config:</span> <span class="vv">client_schema.json</span>          <span class="c"># entities, calendars, chart of accounts</span>
+<span class="kk">evals:</span>  <span class="vv">golden_set/ &#183; regression on every change</span>  <span class="c"># must pass to deploy</span>
+<span class="kk">audit:</span>  <span class="vv">every action &#8594; reasoning &#183; confidence &#183; timestamp</span></div><div class="deploy"><div><div class="t">Inside your firm</div><div class="s">Your own back office: an internal copilot across finance, delivery, and knowledge, so the firm runs on the same agents it sells.</div></div><div><div class="t">Inside your client</div><div class="s">The productised module deploys into a client mandate, passes its golden set on their data, and runs under a human gate. Delivery scales with software.</div></div><div><div class="t">As shared IP</div><div class="s">Your methodology becomes a versioned module you own; Shiftora is the engineering bench that builds, evaluates, and maintains it.</div></div></div><div class="callout rv" style="margin-top:26px"><div class="ct">The commercial model</div><p>Shiftora engages as an execution partner rather than a staffing line. We take ownership of the engineering and the integration into EFESO&#8217;s client delivery, and we structure the commercial relationship around delivered value: an outcome-aligned partnership that shares in the results rather than billing time and materials. In practice that can take the form of a value-share on the mandates the agents support, a per-deployment licence across the client base, or a blended arrangement, agreed per programme and scaled as adoption grows.</p></div><div class="relgrid rv"><div class="cell"><div class="eyebrow" style="margin-bottom:14px">Accuracy under the override loop &#183; production deployment</div><div style="background:var(--con-bg);padding:14px 10px 6px"><svg id="relChart" viewBox="0 0 500 190" style="width:100%;height:auto"></svg></div></div><div class="cell"><div class="eyebrow" style="margin-bottom:14px">The three things a platform build actually risks</div><p class="dnote2" style="margin-top:0">The engineering risk in productising IP is not the idea; it is <b>tenant isolation</b> (one client&#8217;s data never touches another&#8217;s), <b>versioning</b> (a method that ships, diffs, and rolls back like software), and <b>evaluation discipline</b> (a module that must pass its golden set to deploy). These are the three things every system in 01 already demonstrates, and the reason a methodology firm should not rebuild them from scratch.</p></div></div><div class="callout rv"><div class="ct">Precedent</div><p>Shiftora has already turned specialist judgement into a versioned, multi-tenant platform, a UAE travel group&#8217;s visa system, and runs a production forecasting system at 71 to 86 backtested. The forecast agent above is that same discipline. Deploying it across many client plants needs tenant isolation, versioning, and evaluation discipline, the three things every system here demonstrates.</p></div></div></section><section id="econ"><div class="wrap"><div class="sec-head"><span class="sec-code">04</span><h2>The economics, method beside every number</h2></div><p class="sec-intro">One EFESO industrial client, stated in euros. The partnership case is this figure multiplied across the client base.</p><div class="callout rv"><div class="ct">On the numbers, three classes, always labelled</div><p><b>Verified:</b> figures from production deployments (a demand-forecast system at 71 to 86, a UAE travel group&#8217;s visa platform shipped, the 16-week accuracy curve), backtested and reproducible on request. <b>Modeled:</b> the deployment dossier is a reference engagement sized to EFESO Management Consultants&#8217;s client base; every value line shows its methodology and conservative discounts. <b>Illustrative:</b> the data inside the live consoles, generated in-browser. A number that cannot survive one of those three labels does not appear here.</p></div><div class="dossier rv" style="border:1px solid var(--line);margin-top:22px"><div class="dos-tag"><span>Worked example &#183; <b>the reference forecasting engagement from 02</b></span><span>each value re-derivable</span></div><h6>Value, modeled conservatively</h6><p class="dnote2">Ranges use directly measurable operations lines, year-one realization discounted to 70 to 85%, the accuracy gain measured and the euro ranges modeled. Method stated beside every number.</p><table class="dtable" style="margin-top:12px"><thead><tr><th>Value driver</th><th>Modeled range, year one</th><th>Methodology</th></tr></thead><tbody><tr><td>Stockout revenue protected</td><td>&#8364;1.4 to 2.2M / client</td><td>Stockout incidence delta &#215; margin on lost sales</td></tr><tr><td>Dead-stock carrying cost released</td><td>&#8364;0.8 to 1.3M / client</td><td>Excess-cover reduction &#215; carrying cost of capital</td></tr><tr><td>Planner hours redirected</td><td>&#8364;0.2 to 0.4M / client</td><td>Hours freed &#215; loaded cost, discounted 30%</td></tr><tr class="tot"><td>Modeled total, per client</td><td>&#8364;2.4 to 3.9M</td><td>Recurring, accuracy measured, ranges modeled</td></tr></tbody></table><h6>The EBITDA and enterprise value view</h6><p class="dnote2">The recurring range above is EBITDA-level operating impact, so it carries a multiple. One-time releases are balance sheet: real, held permanently, counted once, never multiplied. Shown is the conservative case.</p><table class="dtable" style="margin-top:12px"><thead><tr><th>Line</th><th>Modeled</th><th>At 8x</th><th>At 10x</th><th>At 12x</th></tr></thead><tbody><tr><td>Recurring operating impact</td><td>&#8364;2.4 to 3.9M / client / yr</td><td><span class="g2">&#8364;19 to 31M</span></td><td><span class="g2">&#8364;24 to 39M</span></td><td><span class="g2">&#8364;29 to 47M</span></td></tr><tr><td>Working capital released, once</td><td>&#8364;3 to 6M / client</td><td>not multiplied</td><td>not multiplied</td><td>not multiplied</td></tr></tbody></table><p class="dnote2">This is one client site. EFESO delivers 1,500+ programmes a year; the partnership economics are this figure multiplied by deployment count, less the marginal cost of a client_schema.json.</p></div></div></section><section id="arch"><div class="wrap"><div class="sec-head"><span class="sec-code">APP &#183; A</span><h2>Appendix A: reference architecture</h2></div><div class="guard rv"><div class="g">Data stays in your tenancy</div><div class="g">Recommend and approve, never auto-execute</div><div class="g">NDA &#183; DPA &#183; full IP assignment</div><div class="g">Architected to ISO 42001 and SOC 2 Type II control frameworks &#183; GDPR aligned</div><div class="g">RBAC &#183; EntityId tenant isolation &#183; immutable audit log</div></div><p class="sec-intro">The topology behind every system above. One pattern: a tenant-scoped data plane, an agent runtime with a typed, MCP-native tool registry, a human gate on consequential actions, an evaluation harness wired in as a first-class component, and an audit log under everything.</p><div class="archwrap rv"><div class="ah"><span>system topology &#183; production pattern</span><span>tenant boundary shown dashed</span></div>
+      <svg class="arch" viewBox="0 0 1080 470" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+        <rect class="bx" x="20" y="60" width="150" height="150" rx="2"/>
+        <text class="tt" x="34" y="84">SOURCES</text>
+        <text class="ts" x="34" y="106">ERP · CRM · WMS</text>
+        <text class="ts" x="34" y="122">documents · PDFs</text>
+        <text class="ts" x="34" y="138">email · transcripts</text>
+        <text class="ts" x="34" y="154">spreadsheets · APIs</text>
+        <text class="ts" x="34" y="170">event streams</text>
+        <rect class="bx" x="205" y="60" width="150" height="150" rx="2"/>
+        <text class="tt" x="219" y="84">INGESTION</text>
+        <text class="ts" x="219" y="106">typed connectors</text>
+        <text class="ts" x="219" y="122">ETL · CDC</text>
+        <text class="ts" x="219" y="138">OCR · ASR</text>
+        <text class="ts" x="219" y="154">schema-drift guards</text>
+        <text class="ts" x="219" y="170">PII tagging at entry</text>
+        <rect class="bx" x="390" y="45" width="185" height="82" rx="2"/>
+        <text class="tt" x="404" y="69">LAKEHOUSE</text>
+        <text class="ts" x="404" y="89">curated tables · lineage</text>
+        <text class="ts" x="404" y="105">versioned datasets</text>
+        <rect class="bx" x="390" y="140" width="185" height="82" rx="2"/>
+        <text class="tt" x="404" y="164">VECTOR INDEX</text>
+        <text class="ts" x="404" y="184">tenant-scoped embeddings</text>
+        <text class="ts" x="404" y="200">ANN · reranker</text>
+        <rect class="bxg" x="610" y="45" width="220" height="180" rx="2"/>
+        <text class="tt" x="624" y="69">AGENT RUNTIME</text>
+        <text class="ts" x="624" y="92">planner · task graphs</text>
+        <text class="tg" x="624" y="110">tool registry · MCP-native</text>
+        <text class="ts" x="624" y="128">typed tool calls · retries</text>
+        <text class="ts" x="624" y="146">memory · run state</text>
+        <text class="ts" x="624" y="164">policy + guardrails</text>
+        <text class="ts" x="624" y="182">model router · small &#8596; frontier</text>
+        <text class="ts" x="624" y="200">confidence on every step</text>
+        <rect class="bxw" x="866" y="45" width="90" height="180" rx="2"/>
+        <text class="tw" x="880" y="69">HUMAN</text>
+        <text class="tw" x="880" y="84">GATE</text>
+        <text class="ts" x="880" y="106">approve</text>
+        <text class="ts" x="880" y="122">edit</text>
+        <text class="ts" x="880" y="138">override</text>
+        <text class="ts" x="880" y="166">overrides =</text>
+        <text class="ts" x="880" y="180">training signal</text>
+        <rect class="bx" x="980" y="45" width="86" height="180" rx="2"/>
+        <text class="tt" x="992" y="69">SURFACES</text>
+        <text class="ts" x="992" y="92">web app</text>
+        <text class="ts" x="992" y="108">mobile</text>
+        <text class="ts" x="992" y="124">Slack / Teams</text>
+        <text class="ts" x="992" y="140">API</text>
+        <text class="ts" x="992" y="156">ERP embeds</text>
+        <rect class="bxg" x="610" y="268" width="220" height="112" rx="2"/>
+        <text class="tt" x="624" y="292">EVAL HARNESS</text>
+        <text class="ts" x="624" y="312">golden datasets · regression suites</text>
+        <text class="ts" x="624" y="328">rolling-origin backtests</text>
+        <text class="ts" x="624" y="344">RL evaluation environments</text>
+        <text class="ts" x="624" y="360">drift monitors · canary rollout</text>
+        <rect class="bx" x="20" y="408" width="1046" height="44" rx="2"/>
+        <text class="tt" x="34" y="435">AUDIT LOG</text>
+        <text class="ts" x="130" y="435">every action · reasoning · confidence · timestamp · model + version · immutable, exportable to the client&#8217;s SIEM</text>
+        <rect class="tb" x="378" y="30" width="464" height="360" rx="4"/>
+        <text class="tg" x="392" y="376">tenant boundary · EntityId scoping on every query path · cross-tenant integrity audited</text>
+        <line class="ar" x1="170" y1="135" x2="205" y2="135"/>
+        <line class="ar" x1="355" y1="100" x2="390" y2="88"/>
+        <line class="ar" x1="355" y1="170" x2="390" y2="180"/>
+        <line class="ar" x1="575" y1="86" x2="610" y2="100"/>
+        <line class="ar" x1="575" y1="181" x2="610" y2="170"/>
+        <line class="ar" x1="830" y1="135" x2="866" y2="135"/>
+        <line class="ar" x1="956" y1="135" x2="980" y2="135"/>
+        <line class="ar" x1="720" y1="268" x2="720" y2="225"/>
+        <line class="ar" x1="911" y1="225" x2="911" y2="330"/>
+        <line class="ar" x1="911" y1="330" x2="830" y2="330"/>
+      </svg>
+</div></div></section><footer><div class="wrap"><div class="fmeta"><div class="fmark">SHIFTORA</div><div style="display:flex;gap:26px;flex-wrap:wrap"><a href="https://shiftora.ai">shiftora.ai</a><a href="mailto:info@shiftora.ai">info@shiftora.ai</a><span>Mumbai &#183; Dubai</span><span>Prepared for EFESO Management Consultants &#183; Jul 2026</span></div></div><div class="fnote">Demo environments run on illustrative data in the browser; production metrics are backtested and reproducible on request. A recorded walkthrough and an engineering appendix follow by email. Architecture, module manifests, and evaluation methodology reflect the production pattern deployed across the case studies in 01.</div></div></footer><script>
+(function(){
+  "use strict";
+  var FIRM = {"forecast": {"unit": "units"}, "rag": {"q": {"q1": {"steps": ["<span class='k'>&#8250;</span> embed query &nbsp;<span class='dim'>768-d &#183; 37ms</span>", "<span class='k'>&#8250;</span> ann search &nbsp;plant-scoped index &#183; top-6 &nbsp;<span class='dim'>20ms</span>", "<span class='k'>  </span>Standard &#167;CO-L2 <span class='g'>0.95</span> &#183; Standard rev log <span class='g'>0.88</span> &#183; deviations <span class='dim'>0.52</span>", "<span class='k'>&#8250;</span> rerank &nbsp;cross-encoder &nbsp;<span class='dim'>62ms</span> &nbsp;Standard &#167;CO-L2 <span class='g'>0.97</span> &#183; Standard rev log <span class='g'>0.91</span>", "<span class='k'>&#8250;</span> synthesize &nbsp;grounded &#183; citation coverage <span class='g'>100%</span>", "<span class='k'>&#8250;</span> guardrail &nbsp;pii scan 0 spans &nbsp;<span class='g'>release</span>"], "ans": "The line 2 changeover standard is <b>41 minutes across 14 steps</b>, with external setup completed while the line runs<sup>[1]</sup>. The last revision moved two inspection steps off the critical path<sup>[2]</sup>.", "cites": [{"n": 1, "doc": "Standard_Work.pdf", "sec": "&#167;Changeover L2", "score": "0.97"}, {"n": 2, "doc": "Standard_Work.pdf", "sec": "&#167;Revision log", "score": "0.91"}]}, "q2": {"steps": ["<span class='k'>&#8250;</span> embed query &nbsp;<span class='dim'>768-d &#183; 37ms</span>", "<span class='k'>&#8250;</span> ann search &nbsp;plant-scoped index &#183; top-6 &nbsp;<span class='dim'>20ms</span>", "<span class='k'>  </span>Deviation rows L4 <span class='g'>0.94</span> &#183; Deviation rows L1 <span class='g'>0.92</span> &#183; standard <span class='dim'>0.60</span>", "<span class='k'>&#8250;</span> rerank &nbsp;cross-encoder &nbsp;<span class='dim'>62ms</span> &nbsp;Deviation rows L4 <span class='g'>0.96</span> &#183; Deviation rows L1 <span class='g'>0.93</span>", "<span class='k'>&#8250;</span> reason &nbsp;recurrence check &#183; 2 repeat deviations &nbsp;<span class='dim'>frontier</span>", "<span class='k'>&#8250;</span> synthesize &nbsp;grounded &#183; citation coverage <span class='g'>100%</span>", "<span class='k'>&#8250;</span> guardrail &nbsp;pii scan 0 spans &nbsp;<span class='g'>release</span>"], "ans": "Two quality deviations repeated this quarter<sup>[1]</sup>: <b>fill-weight drift on line 4</b> (9 lots flagged) and <b>seal integrity on line 1</b> (5 lots)<sup>[2]</sup>. Both have prior countermeasures recorded and not re-applied.", "cites": [{"n": 1, "doc": "Deviation_Log.csv", "sec": "rows: line 4 fill weight", "score": "0.96"}, {"n": 2, "doc": "Deviation_Log.csv", "sec": "rows: line 1 seal", "score": "0.93"}]}, "q3": {"steps": ["<span class='k'>&#8250;</span> embed query &nbsp;<span class='dim'>768-d &#183; 37ms</span>", "<span class='k'>&#8250;</span> ann search &nbsp;plant-scoped index &#183; top-6 &nbsp;<span class='dim'>20ms</span>", "<span class='k'>  </span>Contract &#167;3 <span class='g'>0.94</span> &#183; Contract &#167;3.6 <span class='g'>0.90</span> &#183; log <span class='dim'>0.48</span>", "<span class='k'>&#8250;</span> rerank &nbsp;cross-encoder &nbsp;<span class='dim'>62ms</span> &nbsp;Contract &#167;3 <span class='g'>0.96</span> &#183; Contract &#167;3.6 <span class='g'>0.92</span>", "<span class='k'>&#8250;</span> synthesize &nbsp;grounded &#183; citation coverage <span class='g'>100%</span>", "<span class='k'>&#8250;</span> guardrail &nbsp;pii scan 0 spans &nbsp;<span class='g'>release</span>"], "ans": "The contract covers <b>monthly preventive visits and parts up to &#8364;25k per year</b><sup>[1]</sup>. Vibration monitoring is excluded and billed separately under &#167;3.6<sup>[2]</sup>.", "cites": [{"n": 1, "doc": "Maintenance_Contract.pdf", "sec": "&#167;3 Coverage", "score": "0.96"}, {"n": 2, "doc": "Maintenance_Contract.pdf", "sec": "&#167;3.6 Exclusions", "score": "0.92"}]}}}};
+  window.FIRM = FIRM;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if(!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if(!id) return;
+    var t = document.getElementById(id);
+    if(!t) return;
+    e.preventDefault();
+    t.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'start'});
+    try{ history.replaceState(null, '', '#'+id); }catch(err){}
+  });
+
+  function el(sel,ctx){return (ctx||document).querySelector(sel);}
+  function els(sel,ctx){return Array.prototype.slice.call((ctx||document).querySelectorAll(sel));}
+  function fmt(n){return Math.round(n).toLocaleString('en-US');}
+  function line(html){var d=document.createElement('div');d.className='ln';d.innerHTML=html;return d;}
+  function stream(target, lines, done){
+    target.innerHTML='';
+    if(reduce){ lines.forEach(function(l){target.appendChild(line(l));}); if(done)done(); return; }
+    var i=0;
+    (function next(){
+      if(i>=lines.length){ if(done)done(); return; }
+      var d=line(lines[i]); target.appendChild(d); target.scrollTop=target.scrollHeight; i++;
+      setTimeout(next, 240+Math.random()*200);
+    })();
+  }
+  function animateCount(node, to, suffix){
+    suffix=suffix||''; var from=parseFloat(node.getAttribute('data-v')||to); var t0=null; var dur=520;
+    if(reduce){node.textContent=to+suffix;node.setAttribute('data-v',to);return;}
+    function step(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/dur); var val=from+(to-from)*(1-Math.pow(1-p,3));
+      node.textContent=(Math.round(val))+suffix; if(p<1)requestAnimationFrame(step); else node.setAttribute('data-v',to); }
+    requestAnimationFrame(step);
+  }
+
+  /* hero teaser */
+  var tlines = (FIRM.teaser && FIRM.teaser.length) ? FIRM.teaser : [
+    "<span class='k'>&#8250;</span> controller_copilot &nbsp;<span class='dim'>route: 8B extract &#183; frontier reason</span>",
+    "<span class='k'>  close</span> projected 8d &nbsp;<span class='w'>&#8594; human gate</span>",
+    "<span class='k'>&#8250;</span> rag_pipeline &nbsp;<span class='dim'>embed &#8594; ANN &#8594; rerank</span>",
+    "<span class='k'>  cite</span> coverage 100% &#183; pii 0 &nbsp;<span class='g'>release</span>",
+    "<span class='k'>&#8250;</span> forecast_agent &nbsp;<span class='dim'>gbm&#215;3 + seasonal</span>",
+    "<span class='k'>  backtest</span> WAPE 14.2% &#183; bias +1.2% &nbsp;<span class='g'>pass</span>",
+    "<span class='k'>&#8250;</span> live environments below <span class='g'>&#9662;</span>"
+  ];
+  (function(){
+    var body=el('#teaserBody'); if(!body)return; var i=0;
+    if(reduce){ tlines.forEach(function(l){body.appendChild(line(l));}); return; }
+    (function next(){ if(i>=tlines.length)return; body.appendChild(line(tlines[i])); i++; setTimeout(next, 430); })();
+  })();
+
+  /* reveal */
+  try{
+    if('IntersectionObserver' in window && !reduce){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.08});
+      document.documentElement.classList.add('js-anim');
+      els('.rv').forEach(function(n){io.observe(n);});
+      setTimeout(function(){ els('.rv').forEach(function(n){n.classList.add('in');}); },1400);
+    }
+  }catch(revErr){ document.documentElement.classList.remove('js-anim'); }
+
+  /* auto-run: no console is ever empty */
+  setTimeout(function(){ try{ var c=el('#c2 .chip'); if(c) c.click(); }catch(e){} },350);
+  setTimeout(function(){ try{ var c=el('#c4 .chip'); if(c) c.click(); }catch(e){} },950);
+  setTimeout(function(){ try{ var b=el('#runFcast'); if(b && !b.disabled) b.click(); }catch(e){} },1550);
+  setTimeout(function(){ try{ var b=el('#genCad'); if(b && !b.disabled) b.click(); }catch(e){} },2150);
+
+  /* ============ FORECAST (c1) ============ */
+  if(el('#f_base')){
+    var FUNIT=(FIRM.forecast&&FIRM.forecast.unit)?FIRM.forecast.unit:'u';
+    var F={base:8000,seas:40,lead:6,promo:15};
+    var scn={ base:{base:8000,seas:40,lead:6,promo:15}, festive:{base:9000,seas:80,lead:8,promo:45}, launch:{base:4000,seas:30,lead:10,promo:20} };
+    function seasFactor(m,strength){ return 1 + (strength/100)*Math.sin((m/12)*2*Math.PI - Math.PI/2)*0.9 + (m===9?(strength/100)*0.25:0); }
+    function buildSeries(){
+      var pts=[];
+      for(var m=0;m<24;m++){
+        var basef = F.base*seasFactor(m,F.seas);
+        if(m>=12) basef *= (1+F.promo/100*0.5);
+        var noise = (m<12)? (1+(Math.sin(m*3.3)*0.05)) : 1;
+        var actual = (m<=11)? basef*noise : null;
+        var fcast = (m>=11)? basef : null;
+        var spread = (m>=11)? basef*(0.05 + (F.lead/16)*0.22)*((m-10)/13+0.5) : 0;
+        pts.push({m:m,actual:actual,fcast:fcast,lo:fcast?fcast-spread:null,hi:fcast?fcast+spread:null});
+      }
+      return pts;
+    }
+    function drawFcast(){
+      var pts=buildSeries();
+      var W=560,H=200,pl=34,pr=12,pt=12,pb=22;
+      var maxY=0; pts.forEach(function(p){ maxY=Math.max(maxY, p.actual||0, p.hi||0, p.fcast||0); });
+      maxY*=1.12;
+      function X(m){ return pl + (m/23)*(W-pl-pr); }
+      function Y(v){ return H-pb - (v/maxY)*(H-pt-pb); }
+      var svg='';
+      for(var g=0;g<=3;g++){ var yy=pt+(g/3)*(H-pt-pb); var val=Math.round(maxY*(1-g/3)); svg+='<line class="grid" x1="'+pl+'" y1="'+yy+'" x2="'+(W-pr)+'" y2="'+yy+'"/>'; svg+='<text class="axis" x="4" y="'+(yy+3)+'">'+ (val>=1000?(Math.round(val/1000)+'k'):val) +'</text>'; }
+      ['M1','M6','M12','M18','M24'].forEach(function(lb,ix){ var mm=[0,5,11,17,23][ix]; svg+='<text class="axis" x="'+X(mm)+'" y="'+(H-6)+'" text-anchor="middle">'+lb+'</text>'; });
+      var top='',bot=''; pts.forEach(function(p){ if(p.hi!=null){ top+=X(p.m)+','+Y(p.hi)+' '; } });
+      for(var i=pts.length-1;i>=0;i--){ if(pts[i].lo!=null){ bot+=X(pts[i].m)+','+Y(pts[i].lo)+' '; } }
+      if(top) svg+='<polygon class="band" points="'+top+bot+'"/>';
+      var ap=''; pts.forEach(function(p){ if(p.actual!=null) ap+=X(p.m)+','+Y(p.actual)+' '; });
+      svg+='<polyline class="actual" points="'+ap+'"/>';
+      var fp=''; pts.forEach(function(p){ if(p.fcast!=null) fp+=X(p.m)+','+Y(p.fcast)+' '; });
+      svg+='<polyline class="fcast" points="'+fp+'"/>';
+      svg+='<circle class="mk" cx="'+X(11)+'" cy="'+Y(pts[11].actual)+'" r="3"/>';
+      el('#fcChart').innerHTML=svg;
+    }
+    function updFcastLabels(){
+      el('#v_base').textContent=fmt(F.base)+' '+FUNIT;
+      el('#v_seas').textContent=F.seas+'%';
+      el('#v_lead').textContent=F.lead+' wks';
+      el('#v_promo').textContent=F.promo+'%';
+    }
+    function syncFcastInputs(){ el('#f_base').value=F.base; el('#f_seas').value=F.seas; el('#f_lead').value=F.lead; el('#f_promo').value=F.promo; }
+    el('#f_base').addEventListener('input',function(){F.base=+this.value;updFcastLabels();drawFcast();});
+    el('#f_seas').addEventListener('input',function(){F.seas=+this.value;updFcastLabels();drawFcast();});
+    el('#f_lead').addEventListener('input',function(){F.lead=+this.value;updFcastLabels();drawFcast();});
+    el('#f_promo').addEventListener('input',function(){F.promo=+this.value;updFcastLabels();drawFcast();});
+    els('#c1 .chip').forEach(function(ch){
+      ch.addEventListener('click',function(){
+        els('#c1 .chip').forEach(function(x){x.classList.remove('on');}); ch.classList.add('on');
+        var s=scn[ch.getAttribute('data-scn')]; F.base=s.base;F.seas=s.seas;F.lead=s.lead;F.promo=s.promo;
+        syncFcastInputs();updFcastLabels();drawFcast();
+      });
+    });
+    el('#runFcast').addEventListener('click',function(){
+      var btn=this; btn.disabled=true; el('#fc_status').textContent='running';
+      var wape = (5 + (F.lead/16)*14 + (F.promo/60)*6 - (F.seas/90)*3);
+      wape = Math.max(6.2, Math.min(28, wape));
+      var w1 = wape.toFixed(1);
+      var acc = Math.round(100-wape);
+      var bias = ((F.promo/60)*2.4 - (F.seas/90)*0.8 + 0.4).toFixed(1);
+      var lines=[
+        "<span class='k'>&#8250;</span> ingest order_history &nbsp;36 months &#183; 3 channels &nbsp;<span class='g'>ok</span> <span class='dim'>0.8s</span>",
+        "<span class='k'>&#8250;</span> decompose &nbsp;trend / seasonal / promo &nbsp;<span class='dim'>STL-style, per series</span>",
+        "<span class='k'>  </span>seasonal index built &nbsp;peak &#8594; month 10",
+        "<span class='k'>&#8250;</span> fit ensemble &nbsp;gbm &#215;3 + seasonal naive &nbsp;<span class='dim'>412ms</span>",
+        "<span class='k'>&#8250;</span> model lead_time = "+F.lead+"w &nbsp;interval widens with horizon",
+        "<span class='k'>&#8250;</span> backtest rolling-origin &nbsp;12 folds, last 12 mo held out",
+        "<span class='k'>  </span>WAPE <span class='g'>"+w1+"%</span> &#183; bias <span class='g'>"+(bias>=0?'+':'')+bias+"%</span> &nbsp;vs baseline 29%",
+        "<span class='k'>&#8250;</span> gates &nbsp;WAPE <span class='g'>pass</span> &#183; |bias| &#8804; 3% <span class='g'>pass</span> &#8594; reorder signals published"
+      ];
+      stream(el('#fc_stream'),lines,function(){
+        el('#fc_status').textContent='complete'; btn.disabled=false;
+        animateCount(el('#k_acc'),acc,'%'); animateCount(el('#k_wape'),Math.round(wape),'%');
+        el('#k_bias').textContent=(bias>=0?'+':'')+bias+'%';
+      });
+    });
+    updFcastLabels(); drawFcast();
+  }
+
+  /* ============ CONTROLLER COPILOT (c2) ============ */
+  if(el('#c2')){
+    function row(a,b,c){ return '<tr><td>'+a+'</td><td>'+b+'</td><td class="d">'+c+'</td></tr>'; }
+    function cashBars(){
+      var v=[100,96,104,110,101,94,88,97,108,115,109,118,123]; var max=130;
+      var W=520,H=110,pb=16,pl=8,pr=8; var gap=(W-pl-pr)/v.length; var bw=gap*0.62;
+      var s='<div class="chart-wrap"><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto">';
+      v.forEach(function(val,i){ var h=(val/max)*(H-pb-8); var x=pl+i*gap+(gap-bw)/2; var y=H-pb-h;
+        var col = val<95?'#B98322':'#47A45A';
+        s+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" fill="'+col+'" opacity="0.9"/>';
+        if(i%3===0) s+='<text class="axis" x="'+(x+bw/2)+'" y="'+(H-4)+'" text-anchor="middle">w'+(i+1)+'</text>';
+      });
+      s+='</svg></div>'; return s;
+    }
+    var finTasks={
+      close:{
+        steps:[
+          "<span class='k'>&#8250;</span> load close_policy@v3.2 &nbsp;<span class='dim'>encoded judgement &#183; versioned</span>",
+          "<span class='k'>&#8250;</span> erp.read &nbsp;entities &nbsp;<span class='g'>ok</span> <span class='dim'>MCP &#183; 320ms</span>",
+          "<span class='k'>&#8250;</span> reconcile intercompany &nbsp;<span class='dim'>route: 8B extract &#8594; frontier reason</span>",
+          "<span class='k'>  </span>3 entities pending &nbsp;<span class='w'>variance &gt; 0.5% &#8594; flagged</span>",
+          "<span class='k'>&#8250;</span> scan accruals + journals &nbsp;anomaly check &nbsp;<span class='g'>clean</span>",
+          "<span class='k'>&#8250;</span> project close &nbsp;<span class='g'>8 days</span> &#183; conf 92% &nbsp;<span class='w'>&#8594; controller confirms cut-off</span>"
+        ],
+        art:function(){ return '<div class="atitle">Close readiness &#183; projected 8 days &#183; policy v3.2</div>'+
+          '<table class="dt"><thead><tr><th>Task</th><th>Status</th><th>Owner</th></tr></thead><tbody>'+
+          row('Bank reconciliation','<span class="g">done</span>','AP')+
+          row('Intercompany match','<span class="w">3 pending</span>','Close')+
+          row('Accruals posted','<span class="g">done</span>','GL')+
+          row('Revenue cut-off','<span class="w">review</span>','FP&amp;A')+
+          row('Fixed assets','<span class="g">done</span>','GL')+
+          '</tbody></table>'; }
+      },
+      ap:{
+        steps:[
+          "<span class='k'>&#8250;</span> erp.read open_invoices &nbsp;612 items &nbsp;<span class='g'>ok</span> <span class='dim'>MCP &#183; 280ms</span>",
+          "<span class='k'>&#8250;</span> classify exceptions &nbsp;<span class='dim'>12 learned types &#183; conf &#8805; 94%</span>",
+          "<span class='k'>&#8250;</span> three-way match &nbsp;PO + receipt + GL &nbsp;<span class='dim'>p95 41ms/item</span>",
+          "<span class='k'>&#8250;</span> auto-resolve 571 &nbsp;<span class='g'>within policy</span> &#183; route 41 &nbsp;<span class='w'>&#8594; human</span>",
+          "<span class='k'>&#8250;</span> audit &nbsp;612 decisions logged &#183; reasoning + confidence &nbsp;<span class='g'>ok</span>"
+        ],
+        art:function(){ return '<div class="atitle">AP exceptions &#183; 612 in, 41 routed &#183; ICX-1147 held for approval</div>'+
+          '<table class="dt"><thead><tr><th>Exception</th><th>Count</th><th>Action</th></tr></thead><tbody>'+
+          row('Price variance','218','<span class="g">auto</span>')+
+          row('Missing PO','164','<span class="g">auto</span>')+
+          row('Quantity mismatch','121','<span class="g">auto</span>')+
+          row('Duplicate suspect','68','<span class="g">auto</span>')+
+          row('Unknown vendor','41','<span class="w">routed</span>')+
+          '</tbody></table>'; }
+      },
+      cash:{
+        steps:[
+          "<span class='k'>&#8250;</span> bank.fetch balances &nbsp;6 accounts / 3 ccy &nbsp;<span class='g'>ok</span> <span class='dim'>MCP</span>",
+          "<span class='k'>&#8250;</span> project receipts + payments &nbsp;13 wks &nbsp;<span class='dim'>AR &#183; AP &#183; payroll</span>",
+          "<span class='k'>&#8250;</span> fx exposure &nbsp;<span class='w'>wk 7 concentration &#8594; treasury</span>",
+          "<span class='k'>&#8250;</span> position published &nbsp;<span class='g'>07:00 daily</span> &#183; full lineage to source"
+        ],
+        art:function(){ return '<div class="atitle">13-week cash position &#183; indexed</div>'+cashBars(); }
+      },
+      "var":{
+        steps:[
+          "<span class='k'>&#8250;</span> gl.query actuals vs budget &nbsp;<span class='g'>ok</span> <span class='dim'>MCP &#183; 190ms</span>",
+          "<span class='k'>&#8250;</span> compute variances by line &nbsp;2 material &nbsp;<span class='w'>flagged</span>",
+          "<span class='k'>&#8250;</span> draft commentary &nbsp;<span class='dim'>frontier &#183; grounded in flagged lines only</span>",
+          "<span class='k'>&#8250;</span> guardrails &nbsp;numbers cross-checked to GL &nbsp;<span class='g'>pass</span> &nbsp;<span class='w'>&#8594; controller approves</span>"
+        ],
+        art:function(){ return '<div class="atitle">Variance commentary &#183; draft &#183; grounded</div>'+
+          '<div style="padding:14px 16px;color:var(--con-text);font-family:var(--sans);font-size:13px;line-height:1.6">'+
+          'Gross margin came in 2.4 points below plan, driven mainly by input costs where freight ran ahead of budget. SG&amp;A was favourable by 3.1%, largely timing on planned hires that slipped a quarter. Two variances are material: freight recovery, and a one-off legal provision. Both annotated with root cause and prior-period context, cross-checked to the GL before release.'+
+          '</div>'; }
+      }
+    };
+    els('#c2 .chip').forEach(function(ch){
+      ch.addEventListener('click',function(){
+        els('#c2 .chip').forEach(function(x){x.classList.remove('on');}); ch.classList.add('on');
+        var key=ch.getAttribute('data-task'); var task=finTasks[key];
+        el('#fin_status').textContent='running'; el('#fin_art').innerHTML='';
+        els('#c2 .chip').forEach(function(x){x.style.pointerEvents='none';});
+        stream(el('#fin_stream'),task.steps,function(){
+          el('#fin_status').textContent='complete';
+          el('#fin_art').innerHTML=task.art();
+          els('#c2 .chip').forEach(function(x){x.style.pointerEvents='auto';});
+        });
+      });
+    });
+  }
+
+  /* ============ DATA-ROOM RAG (c4) ============ */
+  if(el('#c4')){
+    var ragQ = (FIRM.rag && FIRM.rag.q) ? FIRM.rag.q : {};
+    function ragArt(q){
+      var h='<div class="ans"><div class="atag">grounded answer &#183; every sentence cited</div><div class="atext">'+q.ans+'</div></div>';
+      h+='<div class="art"><div class="atitle">Retrieved chunks &#183; post-rerank</div><table class="dt"><thead><tr><th>#</th><th>Document</th><th>Section</th><th>Rerank</th></tr></thead><tbody>';
+      q.cites.forEach(function(c){ h+='<tr><td class="d">['+c.n+']</td><td>'+c.doc+'</td><td class="d">'+c.sec+'</td><td class="g">'+c.score+'</td></tr>'; });
+      h+='</tbody></table></div>';
+      return h;
+    }
+    els('#c4 .chip').forEach(function(ch){
+      ch.addEventListener('click',function(){
+        els('#c4 .chip').forEach(function(x){x.classList.remove('on');}); ch.classList.add('on');
+        var q=ragQ[ch.getAttribute('data-q')]; if(!q) return;
+        el('#rg_status').textContent='retrieving'; el('#rg_art').innerHTML='';
+        els('#c4 .chip').forEach(function(x){x.style.pointerEvents='none';});
+        stream(el('#rg_stream'),q.steps,function(){
+          el('#rg_status').textContent='released';
+          el('#rg_art').innerHTML=ragArt(q);
+          els('#c4 .chip').forEach(function(x){x.style.pointerEvents='auto';});
+        });
+      });
+    });
+  }
+
+  /* ============ LEAD INTELLIGENCE (c3) ============ */
+  if(el('#w_geo')){
+    var W3={geo:50,area:60,rec:40,resp:70};
+    var leads = (FIRM.lead && FIRM.lead.leads) ? FIRM.lead.leads.slice() : [];
+    var subjectMap = (FIRM.lead && FIRM.lead.subjectMap) ? FIRM.lead.subjectMap : {};
+    var colHead = (FIRM.lead && FIRM.lead.cols) ? FIRM.lead.cols : {area:'Area',geo:'Geo'};
+    var thArea=el('#ld_th_area'), thGeo=el('#ld_th_geo');
+    if(thArea) thArea.textContent=colHead.area; if(thGeo) thGeo.textContent=colHead.geo;
+    function scoreLeads(){
+      var wsum=(W3.geo+W3.area+W3.rec+W3.resp)/100 || 1;
+      leads.forEach(function(L){
+        var raw=(L.geoFit*W3.geo + L.areaFit*W3.area + L.rec*W3.rec + L.resp*W3.resp)/100;
+        var norm=raw/wsum;
+        L.pset=Math.max(.08,Math.min(.97, 0.35 + norm*0.55));
+        L.pcomp=Math.max(.05,Math.min(.95, L.pset*(0.7+norm*0.2)));
+        L.pdeal=Math.max(.03,Math.min(.9, L.pcomp*(0.55+L.base*0.4)));
+      });
+      leads.sort(function(a,b){return b.pdeal-a.pdeal;});
+    }
+    function pct(x){return Math.round(x*100)+'%';}
+    function renderLeads(){
+      scoreLeads();
+      var tb=el('#ld_rows'); tb.innerHTML='';
+      leads.forEach(function(L,i){
+        var cls = L.pdeal>0.5?'g':(L.pdeal<0.28?'d':'');
+        tb.innerHTML += '<tr><td class="d">'+(i+1)+'</td><td>'+L.n+'</td><td class="d">'+L.area+'</td><td class="d">'+L.geo+'</td><td>'+pct(L.pset)+'</td><td class="'+cls+'">'+pct(L.pdeal)+'</td></tr>';
+      });
+    }
+    function updW3(){ el('#v_geo').textContent=W3.geo+'%'; el('#v_area').textContent=W3.area+'%'; el('#v_rec').textContent=W3.rec+'%'; el('#v_resp').textContent=W3.resp+'%'; el('#ld_status').textContent='ranked'; }
+    el('#w_geo').addEventListener('input',function(){W3.geo=+this.value;updW3();renderLeads();});
+    el('#w_area').addEventListener('input',function(){W3.area=+this.value;updW3();renderLeads();});
+    el('#w_rec').addEventListener('input',function(){W3.rec=+this.value;updW3();renderLeads();});
+    el('#w_resp').addEventListener('input',function(){W3.resp=+this.value;updW3();renderLeads();});
+    function cadSubject(L){ return subjectMap[L.area] || "The right next step on your matter"; }
+    el('#genCad').addEventListener('click',function(){
+      var btn=this; btn.disabled=true; scoreLeads(); var top=leads[0];
+      el('#ld_status').textContent='writing';
+      var lines=[
+        "<span class='k'>&#8250;</span> select top lead &nbsp;<span class='g'>"+top.n+"</span> &#183; P(Deal) "+pct(top.pdeal),
+        "<span class='k'>&#8250;</span> attributions &nbsp;<span class='dim'>segment "+top.area+" &#183; geo "+top.geo+" &#183; prior response</span>",
+        "<span class='k'>&#8250;</span> calibration check &nbsp;ECE 2.1% &nbsp;<span class='g'>trusted</span>",
+        "<span class='k'>&#8250;</span> draft 3-touch sequence &nbsp;t1 email <span class='g'>now</span> &#183; t2 call +2d &#183; t3 email +5d",
+        "<span class='k'>&#8250;</span> subject: \""+cadSubject(top)+"\" &nbsp;<span class='w'>&#8594; owner approves send</span>"
+      ];
+      stream(el('#ld_stream'),lines,function(){ el('#ld_status').textContent='ready'; btn.disabled=false; });
+    });
+    renderLeads();
+  }
+
+  /* ============ RELIABILITY CHART (override loop) ============ */
+  if(el('#relChart')){
+    var v=[85.0,86.1,87.4,88.2,89.5,90.1,91.2,91.8,92.6,93.3,94.0,94.6,95.2,95.8,96.4,96.8];
+    var W=500,H=190,pl=38,pr=12,pt=14,pb=26;
+    var minY=83,maxY=98;
+    function X(i){ return pl + (i/(v.length-1))*(W-pl-pr); }
+    function Y(val){ return H-pb - ((val-minY)/(maxY-minY))*(H-pt-pb); }
+    var s='';
+    [85,90,95].forEach(function(g){ var yy=Y(g); s+='<line class="grid" x1="'+pl+'" y1="'+yy+'" x2="'+(W-pr)+'" y2="'+yy+'"/><text class="axis" x="6" y="'+(yy+3)+'">'+g+'%</text>'; });
+    [1,4,8,12,16].forEach(function(w){ s+='<text class="axis" x="'+X(w-1)+'" y="'+(H-8)+'" text-anchor="middle">wk'+w+'</text>'; });
+    var pl2=''; v.forEach(function(val,i){ pl2+=X(i)+','+Y(val)+' '; });
+    s+='<polyline class="fcast" points="'+pl2+'" style="stroke-dasharray:none"/>';
+    s+='<circle class="mk" cx="'+X(0)+'" cy="'+Y(v[0])+'" r="3" style="fill:#7C7C82"/>';
+    s+='<circle cx="'+X(15)+'" cy="'+Y(v[15])+'" r="3.5" fill="#47A45A"/>';
+    s+='<text class="axis" x="'+(X(15)-4)+'" y="'+(Y(v[15])-8)+'" text-anchor="end" style="fill:#47A45A">96.8%</text>';
+    s+='<text class="axis" x="'+(X(0)+6)+'" y="'+(Y(v[0])+12)+'">85.0%</text>';
+    el('#relChart').innerHTML=s;
+  }
+
+})();
+</script></body></html>
