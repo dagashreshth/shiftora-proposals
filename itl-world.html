@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiftora.ai · For ITL World · Tailored Enterprise AI, Proven in Travel</title>
+<style>
+  :root{
+    --ink:#0B0B0C; --ink2:#2A2A2E; --paper:#FFFFFF; --paper2:#F5F5F4; --paper3:#EDEDEA;
+    --line:#E2E2DF; --line2:#CFCFCB; --muted:#6C6C70; --muted2:#9A9A9E;
+    --con-bg:#0B0B0C; --con-panel:#141416; --con-line:#262629; --con-text:#EAEAE7; --con-dim:#7C7C82;
+    --signal:#47A45A; --signal-bg:rgba(71,164,90,.14); --signal-line:rgba(71,164,90,.35);
+    --warn:#B98322;
+    --sans:Arial,'Helvetica Neue',Helvetica,sans-serif;
+    --heavy:'Arial Black',Arial,'Helvetica Neue',sans-serif;
+    --mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,Consolas,monospace;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ink);color:var(--paper)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- top bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .mark{font-family:var(--heavy);font-size:19px;letter-spacing:-.02em}
+  .mark em{font-style:normal;font-family:var(--sans);font-weight:700;color:var(--muted);letter-spacing:0}
+  .nav{display:flex;gap:22px;align-items:center}
+  .nav a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);transition:color .15s}
+  .nav a:hover{color:var(--ink)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line2);padding:5px 9px}
+  @media(max-width:960px){.nav{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 50px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:stretch}
+  .hero h1{font-family:var(--heavy);font-size:clamp(28px,4.1vw,50px);line-height:1.02;letter-spacing:-.025em}
+  .hero h1 .lo{color:var(--muted2)}
+  .hero .lede{margin-top:24px;font-size:18.5px;max-width:50ch;color:var(--ink2)}
+  .hero .sub{margin-top:13px;font-size:15px;color:var(--muted);max-width:52ch}
+  .stat-row{display:flex;gap:0;margin-top:34px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .stat{padding:16px 22px 0 0;margin-right:22px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:0}
+  .stat b{font-family:var(--heavy);font-size:28px;letter-spacing:-.02em;display:block;line-height:1}
+  .stat small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:7px}
+  .stackrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .sk{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink2);border:1px solid var(--line2);padding:6px 10px;background:var(--paper2)}
+
+  .shipped{border:1px solid var(--ink);height:100%;box-sizing:border-box;display:flex;flex-direction:column;background:var(--paper)}
+  .shipped .hd{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:12px 18px;display:flex;justify-content:space-between;gap:12px}
+  .shipped .hd i{font-style:normal;color:var(--signal)}
+  .shipped .row{padding:14px 18px;border-bottom:1px solid var(--line);flex:1;display:flex;flex-direction:column;justify-content:center}
+  .shipped .row:last-of-type{border-bottom:0}
+  .shipped .row b{font-family:var(--heavy);font-size:15.5px;letter-spacing:-.01em;display:block}
+  .shipped .row span{font-size:13px;color:var(--muted);display:block;margin-top:3px;line-height:1.5}
+  .shipped .ft{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ink);padding:11px 18px;background:var(--paper2)}
+  .shipped .ft b{color:var(--signal);font-weight:400}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+
+  /* ---------- section frame ---------- */
+  section{padding:70px 0;border-bottom:1px solid var(--line)}
+  section{scroll-margin-top:72px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+  .sec-code{font-family:var(--mono);font-size:12px;color:var(--muted2);letter-spacing:.06em}
+  .sec-head h2{font-family:var(--heavy);font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;line-height:1.02}
+  .sec-intro{max-width:64ch;color:var(--ink2);margin:16px 0 8px;font-size:17px}
+
+  /* ---------- domain groups ---------- */
+  .domhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:52px 0 6px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+  .domhead h3{font-family:var(--heavy);font-size:22px;letter-spacing:-.01em}
+  .domhead .dm{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- case study block ---------- */
+  .cs{display:grid;grid-template-columns:1.25fr .75fr;gap:0;border:1px solid var(--line);border-top:0}
+  .cs:first-of-type{border-top:1px solid var(--line)}
+  .cs .l{padding:28px;border-right:1px solid var(--line)}
+  .cs .r{padding:28px;background:var(--paper2)}
+  .cs .kick{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .cs .client{font-family:var(--heavy);font-size:20px;letter-spacing:-.01em}
+  .cs .geo{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .cs .prob{margin-top:12px;color:var(--ink2);font-size:15px}
+  .cs h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+  .cs .agents{list-style:none}
+  .cs .agents li{font-size:14px;color:var(--ink2);padding:5px 0 5px 16px;position:relative}
+  .cs .agents li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--ink)}
+  .cs .agents li b{font-weight:700;color:var(--ink)}
+  .stackline{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+  .stackline i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--ink2);border:1px solid var(--line2);background:var(--paper);padding:4px 9px}
+  .met{display:flex;flex-direction:column}
+  .met .m{padding:14px 0;border-bottom:1px solid var(--line)}
+  .met .m:last-child{border-bottom:0}
+  .met .m b{font-family:var(--heavy);font-size:26px;letter-spacing:-.02em;display:block;line-height:1}
+  .met .m b.g{color:var(--signal)}
+  .met .m small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px}
+  .mathnote{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.65;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line2)}
+  .mathnote b{color:var(--ink);font-weight:400}
+  @media(max-width:820px){.cs{grid-template-columns:1fr}.cs .l{border-right:0;border-bottom:1px solid var(--line)}}
+
+  .callout{border-left:2px solid var(--ink);background:var(--paper2);padding:18px 22px;margin-top:22px;max-width:920px}
+  .callout .ct{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .callout p{font-size:14.5px;color:var(--ink2);line-height:1.6}
+  .callout p b{color:var(--ink)}
+
+  /* ---------- architecture panels ---------- */
+  .archwrap{background:var(--con-bg);border:1px solid var(--con-line);margin-top:30px;padding:20px 16px 10px}
+  .archwrap .ah{display:flex;justify-content:space-between;color:var(--con-dim);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:0 4px 12px;border-bottom:1px solid var(--con-line);margin-bottom:10px}
+  .archwrap .ah b{color:var(--con-text);font-weight:400}
+  .archwrap svg{width:100%;height:auto;display:block}
+  svg.arch text{font-family:var(--mono)}
+  svg.arch .bx{fill:var(--con-panel);stroke:var(--con-line)}
+  svg.arch .bxg{fill:rgba(71,164,90,.08);stroke:rgba(71,164,90,.45)}
+  svg.arch .bxw{fill:rgba(185,131,34,.08);stroke:rgba(185,131,34,.5)}
+  svg.arch .tt{fill:var(--con-text);font-size:11px}
+  svg.arch .ts{fill:var(--con-dim);font-size:9px}
+  svg.arch .tg{fill:var(--signal);font-size:9px}
+  svg.arch .tw{fill:var(--warn);font-size:9px}
+  svg.arch .lane{fill:var(--con-dim);font-size:9.5px;letter-spacing:.12em}
+  svg.arch .ar{stroke:var(--con-dim);stroke-width:1;fill:none}
+  svg.arch .arg{stroke:rgba(71,164,90,.55);stroke-width:1;fill:none;stroke-dasharray:5 4}
+
+  /* explainer under diagrams */
+  .anat{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-top:0}
+  .anat > div{padding:24px}
+  .anat > div:first-child{border-right:1px solid var(--line)}
+  .anat h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .anat ul{list-style:none}
+  .anat li{font-size:14px;color:var(--ink2);padding:5px 0 5px 15px;position:relative;line-height:1.55}
+  .anat li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .anat li b{color:var(--ink)}
+  @media(max-width:760px){.anat{grid-template-columns:1fr}.anat>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+
+  /* ---------- mini result visuals ---------- */
+  .viz3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--con-line);margin-top:26px;background:var(--con-bg)}
+  .viz3 .vc{padding:18px 18px 14px;border-right:1px solid var(--con-line)}
+  .viz3 .vc:last-child{border-right:0}
+  .viz3 .vt{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--con-dim)}
+  .viz3 .vn{font-family:var(--heavy);font-size:23px;letter-spacing:-.02em;color:var(--con-text);margin-top:6px}
+  .viz3 .vn i{font-style:normal;color:var(--signal)}
+  .viz3 svg{width:100%;height:auto;display:block;margin-top:10px}
+  .viz3 .vs{font-family:var(--mono);font-size:10px;color:var(--con-dim);line-height:1.6;margin-top:10px}
+  .viz3 .vs b{color:var(--con-text);font-weight:400}
+  @media(max-width:820px){.viz3{grid-template-columns:1fr}.viz3 .vc{border-right:0;border-bottom:1px solid var(--con-line)}.viz3 .vc:last-child{border-bottom:0}}
+  svg.mini text{font-family:var(--mono);font-size:8.5px;fill:var(--con-dim)}
+  svg.mini .axis{stroke:var(--con-line);stroke-width:1}
+  svg.mini .ser{fill:none;stroke:var(--signal);stroke-width:2}
+  svg.mini .ser2{fill:none;stroke:var(--con-dim);stroke-width:1.5;stroke-dasharray:4 3}
+  svg.mini .pt{fill:var(--con-text)}
+  svg.mini .barb{fill:rgba(71,164,90,.25);stroke:rgba(71,164,90,.6)}
+  svg.mini .lbl{fill:var(--con-text)}
+  .viz3 .vrow{margin-top:13px}
+  .viz3 .vlbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);display:block}
+  .viz3 .vrow p{font-size:12.5px;color:#ADADAA;line-height:1.6;margin-top:4px}
+  .viz3 .vrow p b{color:var(--con-text);font-weight:400}
+  .viz3 .vread{font-family:var(--mono);font-size:10px;color:var(--con-dim);margin-top:9px;min-height:16px;border-top:1px dashed var(--con-line);padding-top:8px}
+  .viz3 .vread i{font-style:normal;color:var(--signal)}
+  svg.mini.ix{cursor:crosshair}
+  svg.mini .hln{stroke:rgba(71,164,90,.45);stroke-width:1;stroke-dasharray:2 3;opacity:0}
+  svg.mini .hpt{fill:var(--signal);opacity:0}
+  svg.mini .hln.on,svg.mini .hpt.on{opacity:1}
+  svg.mini rect.barb{cursor:pointer;transition:fill .15s}
+  svg.mini rect.barb.on{fill:rgba(71,164,90,.55)}
+  .js-anim .viz3 .ser{stroke-dasharray:1;stroke-dashoffset:1}
+  .js-anim .viz3.in .ser{transition:stroke-dashoffset 1.5s ease .25s;stroke-dashoffset:0}
+  .js-anim .viz3 rect.barb{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0)}
+  .js-anim .viz3.in rect.barb{transition:transform .7s ease .1s;transform:scaleY(1)}
+  .js-anim .viz3.in rect.barb:nth-of-type(2){transition-delay:.25s}
+  .js-anim .viz3.in rect.barb:nth-of-type(3){transition-delay:.4s}
+  @media(prefers-reduced-motion:reduce){.js-anim .viz3 .ser{stroke-dasharray:none;stroke-dashoffset:0}.js-anim .viz3 rect.barb{transform:none}}
+  svg.mini .nd{fill:var(--con-panel);stroke:var(--con-line)}
+  svg.mini .lnk{stroke:var(--con-line);stroke-width:1;fill:none}
+  svg.mini .lnkg{stroke:rgba(71,164,90,.55);stroke-width:1;fill:none;stroke-dasharray:4 3}
+  svg.mini g.hz{cursor:pointer}
+  svg.mini g.hz.on rect{stroke:var(--signal)}
+  svg.mini g.hz.on path{stroke:var(--signal)}
+  svg.mini g.hz.on text{fill:var(--con-text)}
+  svg.mini .seg1{fill:rgba(71,164,90,.35);stroke:rgba(71,164,90,.6)}
+  svg.mini .seg2{fill:rgba(71,164,90,.15);stroke:rgba(71,164,90,.45)}
+
+  /* ---------- assessment grid (02) ---------- */
+  .darch{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-top:30px}
+  .darch .da{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 24px}
+  .darch .da:nth-child(2n){border-right:0}
+  .darch .da:nth-last-child(-n+2){border-bottom:0}
+  .darch .da .dcode{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+  .darch .da h4{font-family:var(--heavy);font-size:18px;letter-spacing:-.01em;margin:6px 0 8px}
+  .darch .da p{font-size:14px;color:var(--ink2);line-height:1.55}
+  .darch .da p b{font-weight:700;color:var(--ink)}
+  @media(max-width:760px){.darch{grid-template-columns:1fr}.darch .da{border-right:0}.darch .da:nth-last-child(2){border-bottom:1px solid var(--line)}}
+
+  /* ---------- use case cards (03) ---------- */
+  .ucgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:26px}
+  .uc{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px;display:flex;flex-direction:column;position:relative;background:var(--paper)}
+  .uc .code{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+  .uc h4{font-family:var(--heavy);font-size:18px;letter-spacing:-.01em;margin:7px 0 9px;line-height:1.15}
+  .uc p{font-size:13.5px;color:var(--ink2);line-height:1.55;flex:1}
+  .uc .m{margin-top:16px;padding-top:13px;border-top:1px solid var(--line)}
+  .uc .m b{font-family:var(--heavy);font-size:19px;letter-spacing:-.02em;display:block;line-height:1.05}
+  .uc .m b.g{color:var(--signal)}
+  .uc .m small{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px;line-height:1.5}
+  .uc .own{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);margin-top:10px}
+  .uc.pick{background:var(--paper2)}
+  .uclist{border:1px solid var(--line);border-bottom:0;margin-top:26px}
+  .uclist .ur{display:grid;grid-template-columns:190px 1fr 250px;gap:18px;align-items:baseline;padding:13px 20px;border-bottom:1px solid var(--line)}
+  .uclist .ur .c{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--signal);white-space:nowrap}
+  .uclist .ur .t{font-size:14px;color:var(--ink2)}
+  .uclist .ur .t b{font-family:var(--heavy);font-size:14px;letter-spacing:-.01em;color:var(--ink)}
+  .uclist .ur .mres{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;white-space:nowrap}
+  .uclist .ur .mres b{color:var(--ink);font-weight:400}
+  @media(max-width:820px){.uclist .ur{grid-template-columns:1fr;gap:3px}.uclist .ur .mres{text-align:left}}
+  .roi{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:stretch;border:1px solid var(--ink);margin-top:26px;background:var(--paper)}
+  .roi .rc{padding:22px 20px}
+  .roi .rc b{font-family:var(--heavy);font-size:25px;letter-spacing:-.02em;display:block;line-height:1.08}
+  .roi .rc b.g{color:var(--signal)}
+  .roi .rc span{font-size:13px;color:var(--muted);display:block;margin-top:8px;line-height:1.55}
+  .roi .ra{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:17px;color:var(--muted2);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  @media(max-width:820px){.roi{grid-template-columns:1fr}.roi .ra{display:none}.roi .rc{border-bottom:1px solid var(--line)}.roi .rc:last-child{border-bottom:0}}
+  @media(max-width:900px){.ucgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:640px){.ucgrid{grid-template-columns:1fr}}
+
+  /* ---------- engagement (04) ---------- */
+  .poc{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:34px}
+  .poc .wk{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px;position:relative}
+  .poc .wk .w{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+  .poc .wk h4{font-family:var(--heavy);font-size:18px;margin:8px 0 12px;letter-spacing:-.01em}
+  .poc .wk ul{list-style:none}
+  .poc .wk li{font-size:14px;color:var(--ink2);padding:5px 0 5px 15px;position:relative}
+  .poc .wk li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--ink)}
+  .poc .wk li b{color:var(--ink)}
+  @media(max-width:760px){.poc{grid-template-columns:1fr}}
+
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-top:30px}
+  .twocol > div{padding:24px}
+  .twocol > div:first-child{border-right:1px solid var(--line)}
+  .twocol h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .twocol ul{list-style:none}
+  .twocol li{font-size:14.5px;color:var(--ink2);padding:6px 0 6px 15px;position:relative;list-style:none}
+  .twocol li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .twocol li b{color:var(--ink)}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}.twocol>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+
+  .dnote2{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.65;margin-top:14px;max-width:86ch}
+  .dnote2 b{color:var(--ink);font-weight:400}
+
+  /* ---------- footer ---------- */
+  footer{padding:46px 0;background:var(--con-bg);color:var(--con-text)}
+  footer .fmeta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  footer .fmark{font-family:var(--heavy);font-size:17px;color:var(--con-text);letter-spacing:-.01em}
+  footer .fmark em{font-style:normal;font-family:var(--sans);font-weight:700;color:var(--con-dim);letter-spacing:0}
+  footer .fmeta a,footer .fmeta span{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--con-dim)}
+  footer .fmeta a:hover{color:var(--con-text)}
+  footer .fnote{font-family:var(--mono);font-size:11px;color:var(--con-dim);margin-top:18px;border-top:1px solid var(--con-line);padding-top:16px;line-height:1.7}
+
+  .js-anim .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .js-anim .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="bar">
+  <div class="wrap">
+    <div class="mark">Shiftora<em>.ai</em></div>
+    <nav class="nav">
+      <a href="#built">01 The visa platform</a>
+      <a href="#record">02 Beyond travel</a>
+      <a href="#assessment">03 What we see</a>
+      <a href="#proposal">04 Where we could bring value</a>
+    </nav>
+    <div class="tag">Prepared for ITL World</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Shiftora.ai &#215; ITL World &nbsp;/&nbsp; introduction &nbsp;/&nbsp; July 2026 &nbsp;/&nbsp; confidential</div>
+        <h1>Tailored AI platforms and systems for large enterprises. <span class="lo">Deep domain expertise in travel.</span></h1>
+        <p class="lede">Shiftora designs and builds custom, native AI platforms inside large enterprises across the UAE, India, and the USA. Travel is our deepest domain: we work across the industry, for more than one operator, on pain points that run from the booking desk to back-office finance. The flagship is the complete visa and travel platform behind one of the UAE&#8217;s leading travel enterprises: web, app, booking beyond flights, a dedicated visa engine, and one AI travel brain that books, builds itineraries, hunts the best fares, and carries every visa and follow-up on its own. Live in eleven weeks; today it is a product a new operator can run in roughly three weeks.</p>
+        <p class="sub">This document is an introduction to Shiftora for ITL World. The client above is unnamed under confidentiality, which is exactly the protection ITL would receive, and figures are labelled verified, modeled, or illustrative where they appear.</p>
+        <div class="stat-row">
+          <div class="stat"><b>Web + App</b><small>One platform, shipped end to end</small></div>
+          <div class="stat"><b>11 wks</b><small>Original build, kickoff to launch</small></div>
+          <div class="stat"><b>~3 wks</b><small>To go live for a new operator today</small></div>
+          <div class="stat"><b>1M+</b><small>Visas processed by ITL, per our research</small></div>
+        </div>
+        <div class="stackrow">
+          <span class="sk">Next.js</span><span class="sk">React Native</span><span class="sk">.NET Minimal API</span><span class="sk">MongoDB · multi-tenant</span><span class="sk">versioned rule engines</span><span class="sk">confidence-routed OCR</span><span class="sk">agent orchestration</span>
+        </div>
+      </div>
+      <div>
+        <div class="shipped">
+          <div class="hd"><span>What we shipped</span><span><i>&#9679;</i> in production</span></div>
+          <div class="row"><b>Whole app · iOS + Android</b><span>The entire journey in one app, with passport scan and auto-extraction · React Native</span></div>
+          <div class="row"><b>Consumer website</b><span>Visa discovery, eligibility, application, payment, and live tracking · Next.js</span></div>
+          <div class="row"><b>Travel booking · beyond flights</b><span>Fare search across suppliers; bookings, refunds, and disputes tracked end to end</span></div>
+          <div class="row"><b>Visa engine</b><span>Versioned country rules; documents read with confidence-routed OCR</span></div>
+          <div class="row"><b>The AI travel brain</b><span>One intelligent AI for all of travel: flights, itineraries, best fares and discounts, visas, and follow-ups. Smart, accurate, and always on, with a human approving every consequential move</span></div>
+          <div class="ft">GCC travel enterprise · <b>built in 11 weeks</b> · now a product</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 01 WHAT WE BUILT -->
+<section id="built">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">01</span><h2>The visa platform we built</h2></div>
+    <p class="sec-intro">This is not a pilot and it is not a demo; it is ITL&#8217;s industry, region, and workflow, running live in production. This section covers what shipped, the technology inside it, and the architecture as it runs today. If ITL reads one section of this document, it should be this one.</p>
+
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">End-to-end visa platform &amp; AI travel orchestration</div><div class="geo">GCC travel enterprise · web + app</div></div>
+        <p class="prob">Visa processing was manual and document-heavy, with errors surfacing only at submission, and support teams could not reason across a customer&#8217;s own passport and visa history. We designed, built, and launched the entire platform, web and app: a consumer visa product comparable in scope to Atlys, together with one AI travel brain that runs travel operations from fare search and itineraries through to visa follow-up.</p>
+        <h5>What we built</h5>
+        <ul class="agents">
+          <li><b>The whole platform, complete</b>: discovery and eligibility through application, payment, submission, and tracking, on Next.js web and React Native mobile, live in production 11 weeks after kickoff.</li>
+          <li><b>Document intelligence</b>: OCR (optical character recognition, the machine reading of documents) with confidence-routed extraction; any field the system is not confident about routes to human review, and no application proceeds until it validates against country rules.</li>
+          <li><b>The visa engine</b>: eligibility, pricing, and document requirements defined as versioned configuration per route and visa type; rule changes ship as new versions, so any past decision can be reproduced exactly as the rules stood that day.</li>
+          <li><b>The AI travel brain, one intelligence for everything travel</b>: it hunts the cheapest viable fare across suppliers, builds itineraries, finds the best discount on every booking, tracks every order and refund, drives visa applications and follow-ups, drafts and files dispute refutations, and heals its own broken support conversations. Failed steps are retried, re-planned, or escalated to a person; nothing consequential executes without approval.</li>
+        </ul>
+        <h5>Stack</h5>
+        <div class="stackline"><i>multi-tenant MongoDB</i><i>.NET Minimal API</i><i>Next.js</i><i>React Native</i><i>versioned rule engines</i><i>confidence-routed OCR</i><i>agent orchestrator</i></div>
+      </div>
+      <div class="r">
+        <div class="met">
+          <div class="m"><b>Web + App</b><small>entire platform, shipped end to end</small></div>
+          <div class="m"><b class="g">11 weeks</b><small>kickoff to launch</small></div>
+          <div class="m"><b>40+ APIs</b><small>across application, booking, and order flows</small></div>
+        </div>
+        <div class="mathnote"><b>Relevance.</b> A visa specialist&#8217;s judgement, encoded as versioned rules and confidence-routed extraction, delivered as a working platform within one quarter. The anatomy below is described in detail because it maps one-to-one onto a visa operation run at ITL&#8217;s scale.</div>
+      </div>
+    </div>
+
+    <div class="archwrap rv">
+      <div class="ah"><span>Platform anatomy · <b>the operating spine</b></span><span>simplified · production architecture</span></div>
+      <svg class="arch" viewBox="0 0 940 400" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+        <text class="lane" x="20" y="26">CUSTOMER SURFACES</text>
+        <text class="lane" x="330" y="26">THE OPERATING SPINE · ALL RULES AS CONFIGURATION</text>
+        <text class="lane" x="726" y="26">OPERATIONS &amp; FULFILMENT</text>
+
+        <!-- left: surfaces -->
+        <rect class="bx" x="20" y="40" width="240" height="86" rx="2"/>
+        <text class="tt" x="34" y="63">Web · Next.js</text>
+        <text class="ts" x="34" y="80">discover · check eligibility · apply</text>
+        <text class="ts" x="34" y="94">pay · track status</text>
+        <text class="tg" x="34" y="112">one journey, rule-driven at every step</text>
+
+        <rect class="bx" x="20" y="138" width="240" height="70" rx="2"/>
+        <text class="tt" x="34" y="161">App · React Native</text>
+        <text class="ts" x="34" y="178">same journey, same rules</text>
+        <text class="ts" x="34" y="192">passport scan with auto-extraction</text>
+
+        <rect class="bx" x="20" y="220" width="240" height="64" rx="2"/>
+        <text class="tt" x="34" y="243">Document intake</text>
+        <text class="ts" x="34" y="260">OCR extraction · confidence scored</text>
+        <text class="tw" x="34" y="274">low confidence → human review</text>
+
+        <!-- middle: spine -->
+        <rect class="bxg" x="330" y="40" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="60">Eligibility rules engine</text>
+        <text class="ts" x="344" y="76">nationality &#215; residency &#215; destination &#215; visa mode</text>
+
+        <rect class="bxg" x="330" y="96" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="116">Pricing rules engine</text>
+        <text class="ts" x="344" y="132">fees and offers resolved per route, type, entity</text>
+
+        <rect class="bxg" x="330" y="152" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="172">Document requirements engine</text>
+        <text class="ts" x="344" y="188">checklist generated per case, shipped as config</text>
+
+        <rect class="bxg" x="330" y="208" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="228">Application flow manager</text>
+        <text class="ts" x="344" y="244">journey steps composed per visa type, no code</text>
+
+        <rect class="bxg" x="330" y="264" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="284">Order management &amp; fulfilment</text>
+        <text class="ts" x="344" y="300">payment → submission → decision → delivery</text>
+
+        <text class="tg" x="330" y="336">every ruleset versioned · past decisions reproducible</text>
+
+        <!-- right: ops -->
+        <rect class="bx" x="700" y="40" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="63">Review queues</text>
+        <text class="ts" x="714" y="80">exceptions surfaced with context</text>
+
+        <rect class="bxw" x="700" y="116" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="139">Human gate</text>
+        <text class="ts" x="714" y="156">people approve; nothing</text>
+        <text class="ts" x="714" y="168">consequential executes automatically</text>
+
+        <rect class="bx" x="700" y="192" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="215">Status &amp; notifications</text>
+        <text class="ts" x="714" y="232">traveller informed automatically,</text>
+        <text class="ts" x="714" y="244">portal and email</text>
+
+        <rect class="bx" x="700" y="268" width="220" height="44" rx="2"/>
+        <text class="tt" x="714" y="288">Integrations</text>
+        <text class="ts" x="714" y="302">payments · identity · messaging</text>
+
+        <!-- arrows -->
+        <line class="ar" x1="260" y1="83" x2="326" y2="83" marker-end="url(#arr)"/>
+        <line class="ar" x1="260" y1="173" x2="326" y2="173" marker-end="url(#arr)"/>
+        <line class="ar" x1="260" y1="252" x2="326" y2="252" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="72" x2="696" y2="72" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="148" x2="696" y2="148" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="232" x2="696" y2="224" marker-end="url(#arr)"/>
+        <line class="arg" x1="810" y1="180" x2="810" y2="192"/>
+
+        <!-- base -->
+        <rect class="bx" x="20" y="352" width="900" height="34" rx="2"/>
+        <text class="ts" x="34" y="373">FOUNDATION &nbsp;·&nbsp; multi-tenant data layer, every query scoped to its entity &nbsp;·&nbsp; full audit trail on every decision &nbsp;·&nbsp; one platform, several country businesses</text>
+      </svg>
+    </div>
+
+    <div class="archwrap rv" style="border-top:0;margin-top:0">
+      <div class="ah"><span>API &amp; agent architecture · <b>one core, B2C and B2B</b></span><span>as designed and shipped</span></div>
+      <svg class="arch" viewBox="0 0 940 470" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arr3" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+
+        <text class="lane" x="20" y="26">CHANNELS · CONSUMER AND PARTNER</text>
+
+        <rect class="bx" x="20" y="36" width="205" height="52" rx="2"/>
+        <text class="tt" x="32" y="57">B2C · Web</text>
+        <text class="ts" x="32" y="73">consumer visa &amp; travel journeys</text>
+
+        <rect class="bx" x="245" y="36" width="205" height="52" rx="2"/>
+        <text class="tt" x="257" y="57">B2C · App</text>
+        <text class="ts" x="257" y="73">iOS + Android · React Native</text>
+
+        <rect class="bx" x="470" y="36" width="215" height="52" rx="2"/>
+        <text class="tt" x="482" y="57">B2B · Partner portal</text>
+        <text class="ts" x="482" y="73">sub-agents · corporate desks</text>
+
+        <rect class="bx" x="705" y="36" width="215" height="52" rx="2"/>
+        <text class="tt" x="717" y="57">B2B · API clients</text>
+        <text class="ts" x="717" y="73">system-to-system · webhooks out</text>
+
+        <line class="ar" x1="122" y1="88" x2="122" y2="106" marker-end="url(#arr3)"/>
+        <line class="ar" x1="347" y1="88" x2="347" y2="106" marker-end="url(#arr3)"/>
+        <line class="ar" x1="577" y1="88" x2="577" y2="106" marker-end="url(#arr3)"/>
+        <line class="ar" x1="812" y1="88" x2="812" y2="106" marker-end="url(#arr3)"/>
+
+        <rect class="bxg" x="20" y="110" width="900" height="40" rx="2"/>
+        <text class="tt" x="34" y="128">API gateway</text>
+        <text class="ts" x="34" y="142">OAuth2 + JWT authentication · tenant resolution on every call · rate limiting · versioned REST APIs</text>
+
+        <line class="ar" x1="122" y1="150" x2="122" y2="168" marker-end="url(#arr3)"/>
+        <line class="ar" x1="470" y1="150" x2="470" y2="168" marker-end="url(#arr3)"/>
+        <line class="ar" x1="812" y1="150" x2="812" y2="168" marker-end="url(#arr3)"/>
+
+        <rect class="bx" x="20" y="172" width="140" height="44" rx="2"/><text class="tt" x="32" y="198">Applications</text>
+        <rect class="bx" x="172" y="172" width="140" height="44" rx="2"/><text class="tt" x="184" y="198">Visa booking</text>
+        <rect class="bx" x="324" y="172" width="140" height="44" rx="2"/><text class="tt" x="336" y="198">Pricing</text>
+        <rect class="bx" x="476" y="172" width="140" height="44" rx="2"/><text class="tt" x="488" y="198">Documents</text>
+        <rect class="bx" x="628" y="172" width="140" height="44" rx="2"/><text class="tt" x="640" y="198">Payments</text>
+        <rect class="bx" x="780" y="172" width="140" height="44" rx="2"/><text class="tt" x="792" y="198">Notifications</text>
+        <text class="tg" x="20" y="234">.NET Minimal API services · 40+ production endpoints across application, booking, and order flows</text>
+
+        <line class="ar" x1="122" y1="240" x2="122" y2="258" marker-end="url(#arr3)"/>
+        <line class="ar" x1="347" y1="240" x2="347" y2="258" marker-end="url(#arr3)"/>
+        <line class="ar" x1="577" y1="240" x2="577" y2="258" marker-end="url(#arr3)"/>
+
+        <rect class="bxg" x="20" y="262" width="620" height="112" rx="2"/>
+        <text class="tt" x="34" y="284">The AI travel brain · one intelligence, many hands</text>
+        <text class="ts" x="34" y="304">fare-search agent · cheapest viable fare across suppliers</text>
+        <text class="ts" x="34" y="320">booking tracker · watches every order and refund</text>
+        <text class="ts" x="34" y="336">visa agent · applications, follow-ups, deadlines</text>
+        <text class="ts" x="330" y="304">disputes agent · drafts and files refutations</text>
+        <text class="ts" x="330" y="320">support chatbot · self-healing conversation flows</text>
+        <text class="ts" x="330" y="336">follow-up agent · documents, payments, nudges</text>
+        <text class="tg" x="34" y="362">self-healing: failed steps are retried, re-planned, or escalated to a person</text>
+
+        <rect class="bxw" x="660" y="262" width="260" height="50" rx="2"/>
+        <text class="tt" x="674" y="283">Human gate</text>
+        <text class="ts" x="674" y="299">approval on consequential actions</text>
+
+        <rect class="bx" x="660" y="322" width="260" height="52" rx="2"/>
+        <text class="tt" x="674" y="343">Event backbone</text>
+        <text class="ts" x="674" y="359">queues · retries · webhooks to partners</text>
+
+        <line class="ar" x1="640" y1="287" x2="656" y2="287" marker-end="url(#arr3)"/>
+        <line class="arg" x1="640" y1="348" x2="656" y2="348"/>
+
+        <line class="ar" x1="470" y1="374" x2="470" y2="392" marker-end="url(#arr3)"/>
+
+        <rect class="bx" x="20" y="396" width="900" height="36" rx="2"/>
+        <text class="ts" x="34" y="418">DATA &nbsp;·&nbsp; multi-tenant MongoDB, every query scoped to its tenant &nbsp;·&nbsp; full audit trail &nbsp;·&nbsp; per-entity configuration</text>
+
+        <text class="tg" x="20" y="456">one API core serves consumer, corporate, and partner traffic; the agents consume the same APIs as the front ends</text>
+      </svg>
+    </div>
+
+    <div class="dnote2 rv"><b>Adoption beyond one client.</b> The platform core is multi-tenant by design and is being extended to further travel enterprises that lead their segments, including operators in the $40-50M annual revenue range; their names are protected, as ITL&#8217;s would be.</div>
+
+    <div class="archwrap rv" style="margin-top:26px">
+      <div class="ah"><span>One application, end to end · <b>as the system runs it</b></span><span>illustrative timings</span></div>
+      <svg class="arch" viewBox="0 0 940 150" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arr2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+        <rect class="bx" x="20" y="30" width="118" height="46" rx="2"/><text class="tt" x="32" y="50">Intake</text><text class="ts" x="32" y="65">passport + docs</text>
+        <rect class="bxg" x="158" y="30" width="118" height="46" rx="2"/><text class="tt" x="170" y="50">Extract</text><text class="ts" x="170" y="65">fields · confidence</text>
+        <rect class="bxg" x="296" y="30" width="118" height="46" rx="2"/><text class="tt" x="308" y="50">Validate</text><text class="ts" x="308" y="65">country rules</text>
+        <rect class="bxg" x="434" y="30" width="118" height="46" rx="2"/><text class="tt" x="446" y="50">Checklist</text><text class="ts" x="446" y="65">per nationality</text>
+        <rect class="bx" x="572" y="30" width="118" height="46" rx="2"/><text class="tt" x="584" y="50">Pay</text><text class="ts" x="584" y="65">order created</text>
+        <rect class="bx" x="710" y="30" width="118" height="46" rx="2"/><text class="tt" x="722" y="50">Submit</text><text class="ts" x="722" y="65">queued · tracked</text>
+        <rect class="bx" x="848" y="30" width="72" height="46" rx="2"/><text class="tt" x="858" y="50">Decide</text><text class="ts" x="858" y="65">notify</text>
+        <line class="ar" x1="138" y1="53" x2="154" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="276" y1="53" x2="292" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="414" y1="53" x2="430" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="552" y1="53" x2="568" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="690" y1="53" x2="706" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="828" y1="53" x2="844" y2="53" marker-end="url(#arr2)"/>
+        <rect class="bxw" x="158" y="98" width="272" height="34" rx="2"/>
+        <text class="ts" x="170" y="119">uncertain field → human review → rejoins flow</text>
+        <line class="arg" x1="217" y1="76" x2="217" y2="94"/>
+        <line class="arg" x1="355" y1="94" x2="355" y2="80"/>
+        <text class="tg" x="470" y="119">the person handles judgement; the system handles the rest</text>
+      </svg>
+    </div>
+
+    <div class="anat rv">
+      <div>
+        <h4>What the spine replaces</h4>
+        <ul>
+          <li><b>Rules held in people&#8217;s heads</b> become configuration: who is eligible, what it costs, which documents apply, and what steps follow are all defined by operations staff, not engineers.</li>
+          <li><b>Re-keying between systems</b> disappears: one application record flows from intake to decision, and every touch is logged against it.</li>
+          <li><b>Uncaught errors at submission</b> become validation at entry: an application cannot advance while it breaches the rules of its route.</li>
+          <li><b>Status enquiries</b> become automatic notification: the traveller is informed at each stage without an agent writing an email.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Why this anatomy fits ITL</h4>
+        <ul>
+          <li><b>Rules differ by market.</b> ITL operates across the UAE, Saudi Arabia, Kuwait, Qatar, Bahrain, Oman, and beyond; a versioned rules spine holds each market&#8217;s requirements without forking the platform.</li>
+          <li><b>One spine, many fronts.</b> B2C and B2B share one API core, so the same engines can sit behind ITL&#8217;s portal, its corporate desks, and its sub-agent network without the front ends changing.</li>
+          <li><b>Institutional knowledge is preserved,</b> not displaced: what senior visa staff know becomes configuration the whole firm executes consistently, in every office.</li>
+          <li><b>Scale stops costing linearly.</b> Volume growth loads the system, not the headcount plan.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="domhead"><h3>Beyond the visa engine, in travel</h3><div class="dm">same client, same core · distribution, finance, integrations</div></div>
+    <p class="sec-intro" style="font-size:15.5px">The platform did not stop at B2C visas. On the same core, we built the channels a travel business sells through and the finance rails it settles on. The read-across to ITL&#8217;s sub-agent network, corporate desks, and back office is direct.</p>
+
+    <div class="viz3 rv">
+      <div class="vc">
+        <div class="vt">B2B distribution · visa-as-a-service APIs · rolling out</div>
+        <div class="vn">B2C <i>→ B2B</i></div>
+        <div class="vrow"><span class="vlbl">What it is</span><p>The same visa core, exposed as APIs other travel businesses resell: partner authentication, a per-country visa catalog, dynamic application schemas, document submission with review loops, and webhooks pushing every status change back. <b>Each partner is a channel with its own pricing and commission, set as configuration</b>; a semi-white-label front covers low-tech partners.</p></div>
+        <div class="vrow"><span class="vlbl">How it flows · hover a node</span></div>
+        <svg class="mini" id="vxB2B" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="arrM" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+          <g class="hz" data-t="&lt;i&gt;partner systems&lt;/i&gt; · OTAs, aggregators, and airlines authenticate and sell visas inside their own products">
+            <rect class="nd" x="4" y="22" width="78" height="32" rx="2"/>
+            <text class="lbl" x="10" y="36">Partner</text><text x="10" y="48">OTA · airline</text>
+          </g>
+          <line class="lnk" x1="82" y1="38" x2="100" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;gateway&lt;/i&gt; · authentication, channel resolution, and per-partner pricing and commission on every call">
+            <rect class="nd" x="102" y="22" width="84" height="32" rx="2"/>
+            <text class="lbl" x="108" y="36">Gateway</text><text x="108" y="48">auth · pricing</text>
+          </g>
+          <line class="lnk" x1="186" y1="38" x2="204" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;the same visa core&lt;/i&gt; · catalog, application schema, documents, and review loops; one engine behind every channel">
+            <rect class="nd" x="206" y="22" width="70" height="32" rx="2"/>
+            <text class="lbl" x="212" y="36">Visa core</text><text x="212" y="48">same engine</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;webhooks&lt;/i&gt; · every status change pushed back to the partner in real time; no polling, no blind spots">
+            <path class="lnkg" d="M241,54 L241,74 L43,74 L43,58" marker-end="url(#arrM)"/>
+            <text x="64" y="92">webhooks · every status change</text>
+          </g>
+        </svg>
+        <div class="vread" id="vxB2B-r">hover a node for what it does</div>
+        <div class="vs">Read-across for ITL: the sub-agent network and corporate desks consume the same APIs the consumer portal runs on.</div>
+      </div>
+      <div class="vc">
+        <div class="vt">Travel finance · sync &amp; auto-invoicing · in build</div>
+        <div class="vn">Every sale <i>→ the ledger</i></div>
+        <div class="vrow"><span class="vlbl">What it is</span><p>Real-time sync of every visa transaction, across all channels, into the client&#8217;s internal finance platform: <b>a structured invoice per order, generated automatically</b>, partial and full refunds flowing back structured, and every SKU, ancillary, and channel mapped to ledger codes.</p></div>
+        <div class="vrow"><span class="vlbl">One order, split · hover a segment</span></div>
+        <svg class="mini" id="vxFin" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <text x="20" y="14">one order · AED 570 · illustrative</text>
+          <g class="hz" data-t="&lt;i&gt;visa fee · AED 440&lt;/i&gt; · supplier payable and customer receivable split automatically per order">
+            <rect class="seg1" x="20" y="24" width="182" height="24"/>
+            <text class="lbl" x="28" y="39">visa fee · 440</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;processing · AED 130&lt;/i&gt; · supplier and service components carried line by line">
+            <rect class="seg2" x="204" y="24" width="56" height="24"/>
+            <text class="lbl" x="222" y="39">130</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;ledger mapping&lt;/i&gt; · commissions, tax, service fees, and discounts coded for reconciliation; refunds carry the same structure">
+            <path class="lnk" d="M20,56 L20,62 L260,62 L260,56"/>
+            <text x="41" y="78">commissions · tax · fees → ledger codes</text>
+          </g>
+          <line class="lnkg" x1="24" y1="86" x2="24" y2="98" marker-end="url(#arrM)"/>
+          <text x="34" y="97">synced to the finance platform · real time</text>
+        </svg>
+        <div class="vread" id="vxFin-r">hover a segment · every line lands on a ledger code</div>
+        <div class="vs">Read-across for ITL: reconciliation and client reporting stop being month-end assembly; they fall out of the data.</div>
+      </div>
+      <div class="vc">
+        <div class="vt">Integration fabric · payments, identity, delivery · on the core</div>
+        <div class="vn">One core <i>many rails</i></div>
+        <div class="vrow"><span class="vlbl">What it is</span><p>The platform already speaks to the rails a travel operation runs on: <b>two payment gateways behind one orchestration layer</b>, OTP identity behind a JWT-secured gateway, the support desk, automatic delivery of issued visas to the traveller, insurance at checkout, and embassy appointment-slot providers.</p></div>
+        <div class="vrow"><span class="vlbl">The rails · hover one</span></div>
+        <svg class="mini" id="vxInt" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="lnk" x1="112" y1="44" x2="40" y2="24"/>
+          <line class="lnk" x1="140" y1="44" x2="140" y2="24"/>
+          <line class="lnk" x1="168" y1="44" x2="237" y2="24"/>
+          <line class="lnk" x1="112" y1="68" x2="35" y2="88"/>
+          <line class="lnk" x1="140" y1="68" x2="140" y2="88"/>
+          <line class="lnk" x1="168" y1="68" x2="232" y2="88"/>
+          <rect class="nd" x="103" y="44" width="74" height="24" rx="2"/>
+          <text class="lbl" x="107" y="60">platform core</text>
+          <g class="hz" data-t="&lt;i&gt;payments&lt;/i&gt; · two gateways behind one orchestration layer; a third is an integration, not a rebuild">
+            <rect class="nd" x="6" y="8" width="68" height="16" rx="2"/><text x="12" y="19">payments ×2</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;identity&lt;/i&gt; · OTP login, with a JWT-secured gateway in front of every API">
+            <rect class="nd" x="113" y="8" width="53" height="16" rx="2"/><text x="119" y="19">identity</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;support desk&lt;/i&gt; · cases and inquiries flow into the existing helpdesk, with context attached">
+            <rect class="nd" x="200" y="8" width="74" height="16" rx="2"/><text x="206" y="19">support desk</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;insurance&lt;/i&gt; · offered at checkout as an ancillary, with coverage comparison">
+            <rect class="nd" x="6" y="88" width="58" height="16" rx="2"/><text x="12" y="99">insurance</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;delivery&lt;/i&gt; · issued visas reach the traveller automatically, by push and email today, with WhatsApp delivery rolling out">
+            <rect class="nd" x="96" y="88" width="88" height="16" rx="2"/><text x="102" y="99">WhatsApp · push</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;appointment slots&lt;/i&gt; · external slot providers consumed where embassies require them">
+            <rect class="nd" x="190" y="88" width="84" height="16" rx="2"/><text x="196" y="99">slot providers</text>
+          </g>
+        </svg>
+        <div class="vread" id="vxInt-r">hover a rail for how it connects</div>
+        <div class="vs">Read-across for ITL: existing systems plug in the same way; nothing ITL runs today needs replacing to start.</div>
+      </div>
+    </div>
+    <div class="dnote2 rv"><b>And the phases beyond.</b> Flights, hotels, and full travel orchestration sit as later phases of the same arc, laid out in section 04; the AI travel brain&#8217;s fare and itinerary intelligence already reaches beyond visas today.</div>
+
+  </div>
+</section>
+
+<!-- 02 WIDER RECORD -->
+<section id="record">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">02</span><h2>Beyond travel, in brief</h2></div>
+    <p class="sec-intro">The visa platform is the heart of this document; this section simply shows it is not a one-off. The same discipline, a measured number, a human gate, and weekly accuracy reporting, runs in production across manufacturing, logistics, and legal services. Three engagements, each told the same way: the company, what we did, and the measured result.</p>
+
+    <div class="viz3 rv">
+      <div class="vc">
+        <div class="vt">Listed manufacturer · India · demand forecasting</div>
+        <div class="vn">71 <i>→ 86%</i></div>
+        <div class="vrow"><span class="vlbl">The company</span><p>A publicly listed manufacturer whose production, inventory, and staffing plans hung off spreadsheet demand forecasts, maintained market by market.</p></div>
+        <div class="vrow"><span class="vlbl">What we did</span><p>Replaced the spreadsheet process with a demand-forecasting model, held to a hard test: <b>scored only on months it had never seen</b>. Planning now reads straight off the forecast.</p></div>
+        <div class="vrow"><span class="vlbl">The result · trace the curve</span></div>
+        <svg class="mini ix" id="vzA" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="axis" x1="28" y1="10" x2="28" y2="88"/>
+          <line class="axis" x1="28" y1="88" x2="270" y2="88"/>
+          <text x="6" y="16">90</text><text x="6" y="52">80</text><text x="6" y="90">70</text>
+          <polyline class="ser2" points="28,84 270,84"/>
+          <polyline class="ser" pathLength="1" points="28,81 68,74 108,62 148,50 188,38 228,30 268,26"/>
+          <line class="hln" x1="28" y1="10" x2="28" y2="88"/>
+          <circle class="hpt" cx="28" cy="81" r="3"/>
+          <text x="34" y="78" class="lbl">baseline 71</text>
+          <text x="212" y="18" class="lbl">ours 86</text>
+          <text x="90" y="103">tested only on unseen months</text>
+        </svg>
+        <div class="vread" id="vzA-r">hover the curve for month-by-month accuracy</div>
+        <div class="vs">Read-across for ITL: seasonal visa and booking volumes are forecastable the same way, and staffing plans follow.</div>
+      </div>
+      <div class="vc">
+        <div class="vt">Enterprise logistics · continuous review loop</div>
+        <div class="vn">85 <i>→ 96.8%</i></div>
+        <div class="vrow"><span class="vlbl">The company</span><p>An enterprise logistics operator whose document and exception handling leaned on operator judgement, applied one case at a time, at national volume.</p></div>
+        <div class="vrow"><span class="vlbl">What we did</span><p>Put that judgement on a supervised weekly loop: <b>every operator correction becomes training data</b>, so the system improves in production rather than at launch.</p></div>
+        <div class="vrow"><span class="vlbl">The result · trace the curve</span></div>
+        <svg class="mini ix" id="vzB" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="axis" x1="28" y1="10" x2="28" y2="88"/>
+          <line class="axis" x1="28" y1="88" x2="270" y2="88"/>
+          <text x="6" y="16">97</text><text x="6" y="52">91</text><text x="6" y="90">85</text>
+          <polyline class="ser" pathLength="1" points="28,86 58,78 88,68 118,57 148,46 178,36 208,28 238,22 268,18"/>
+          <line class="hln" x1="28" y1="10" x2="28" y2="88"/>
+          <circle class="hpt" cx="268" cy="18" r="3"/>
+          <text x="34" y="80" class="lbl">week 1</text>
+          <text x="216" y="12" class="lbl">week 16</text>
+          <text x="66" y="103">accuracy as a monitored curve, weekly</text>
+        </svg>
+        <div class="vread" id="vzB-r">hover the curve for the week-by-week climb</div>
+        <div class="vs">Read-across for ITL: the same loop runs airline queues and overnight disruption, improving weekly under supervision.</div>
+      </div>
+      <div class="vc">
+        <div class="vt">Legal-services marketplace · USA, $80M revenue · lead intelligence</div>
+        <div class="vn">3 <i>calibrated models</i></div>
+        <div class="vrow"><span class="vlbl">The company</span><p>A US legal-services marketplace, roughly $80M in revenue, with far more inbound leads than its sales team could work evenly.</p></div>
+        <div class="vrow"><span class="vlbl">What we did</span><p>Built three calibrated probability models, one per funnel stage, so <b>every account is ranked by expected value and every rank is explainable</b>.</p></div>
+        <div class="vrow"><span class="vlbl">The result · hover a stage</span></div>
+        <svg class="mini" id="vzC" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="axis" x1="28" y1="88" x2="270" y2="88"/>
+          <rect class="barb" data-k="s1" x="46" y="48" width="48" height="40"/>
+          <rect class="barb" data-k="s2" x="122" y="34" width="48" height="54"/>
+          <rect class="barb" data-k="s3" x="198" y="20" width="48" height="68"/>
+          <text x="44" y="100">P(Set)</text><text x="110" y="100">P(Complete)</text><text x="198" y="100">P(Deal)</text>
+          <text x="46" y="42" class="lbl">stage 1</text><text x="122" y="28" class="lbl">stage 2</text><text x="198" y="14" class="lbl">stage 3</text>
+        </svg>
+        <div class="vread" id="vzC-r">hover a bar to see what each model scores</div>
+        <div class="vs">Read-across for ITL: the same discipline prioritises corporate accounts, renewals, and inbound RFPs by likelihood and size.</div>
+      </div>
+    </div>
+    <div class="dnote2 rv"><b>On these figures.</b> Calibrated means the probabilities behave like probabilities: when a model says 60 percent, roughly 60 in 100 such cases occur. A figure that stops passing its test stops being claimed.</div>
+  </div>
+</section>
+
+<!-- 03 WHAT WE SEE -->
+<section id="assessment">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">03</span><h2>What we see at ITL</h2></div>
+    <p class="sec-intro">Four observations drawn from ITL&#8217;s published footprint and from how operations at this scale typically run, beginning with the one that matters most: visas. They are offered as the lens we would bring rather than as settled conclusions; the people running the operation will see further than we can from outside.</p>
+
+    <div class="darch rv">
+      <div class="da">
+        <div class="dcode">Observation 01 · visa operations</div>
+        <h4>The portal captures; people process.</h4>
+        <p>Expert-guided handling from form-filling through submission is a genuine service commitment; at ITL&#8217;s volumes, north of a million applications by our research, it is also a cost line, an error surface, and a growth ceiling headcount cannot lift.</p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 02 · distribution</div>
+        <h4>One platform core could power every front.</h4>
+        <p>Five sub-brands, corporate desks, and a wide sub-agent network serve travel from one operation, and Tripmakers already gives flights and hotels a shared B2B rail. Visas have no equivalent spine yet; a visa core built once would sit behind every front at once.</p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 03 · service scaling</div>
+        <h4>Service promises currently scale with headcount.</h4>
+        <p>Express visas, overnight rebooking, and round-the-clock GDS queue coverage are sustained by shift work today, and every manual touch erodes a fee-based margin.</p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 04 · client reporting</div>
+        <h4>Reports are assembled, not generated.</h4>
+        <p>RFP responses and periodic reviews consume analyst-days of manual compilation, and quality is bounded by available time rather than by the data.</p>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="ct">Context</div>
+      <p><b>On a fee-based margin, every minute of manual handling removed accrues directly to profit,</b> and ITL, with visas at its core, holds an unusually large stock of them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 THE PROPOSAL -->
+<section id="proposal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">04</span><h2>Where we could bring value</h2></div>
+    <p class="sec-intro">This section is offered as orientation rather than as a pitch. The most natural fit is the visa platform: it now exists as a product, and it could be live for ITL in roughly three weeks. Around it sit the phases that would follow and a set of further areas where value could sit. All of it comes from external research, and a conversation with ITL&#8217;s internal team would produce a sharper list than ours.</p>
+
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">The visa platform, for ITL</div><div class="geo">the natural starting point · live in ~3 weeks</div></div>
+        <p class="prob">Confidence-routed passport and document extraction, versioned country-rule validation per market, and automatic status communication to the traveller, all behind ITL&#8217;s existing portal and brand, which remain exactly as they are. The manual middle layer is removed; any field the system is not confident about routes to ITL&#8217;s team, never into an application. And the minutes are only the cost lens: where today&#8217;s manual loop lets a document error surface at submission, the traveller loses days to the resubmission cycle; with validation at entry, the same application is right the first time.</p>
+        <h5>How three weeks would run</h5>
+        <ul class="agents">
+          <li><b>Week 1 · configure:</b> ITL&#8217;s markets, country rules, branding, and integrations are set up on the existing platform core; nothing is built from scratch.</li>
+          <li><b>Week 2 · shadow mode:</b> the system runs silently alongside the live process, and the minutes-per-application baseline is measured rather than estimated.</li>
+          <li><b>Week 3 · human-gated live:</b> extraction and rule validation in production, with ITL&#8217;s team approving every output; accuracy is reported weekly from then on.</li>
+        </ul>
+      </div>
+      <div class="r">
+        <div class="met">
+          <div class="m"><b class="g">&#8722;70%</b><small>minutes per application · modeled</small></div>
+          <div class="m"><b>~3 wks</b><small>from start to live · the platform already exists</small></div>
+          <div class="m"><b class="g">Quick</b><small>payback · set by ITL&#8217;s volume, not the calendar</small></div>
+        </div>
+        <div class="mathnote"><b>Why the timeline is short.</b> The eleven weeks in section 01 were spent building the platform, and that work is done. What remains for a new operator is configuration: rules, branding, integrations, and the measurement.</div>
+      </div>
+    </div>
+
+    <div class="domhead"><h3>One platform, in phases</h3><div class="dm">visas now · flights and hotels later</div></div>
+    <div class="roi rv">
+      <div class="rc"><b>Phase 1 · Visas</b><span>The visa platform live behind ITL&#8217;s portal and brand, in roughly three weeks. This is the phase this document is about.</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b>Phase 2 · Flights</b><span>The AI travel brain layered on the booking rails ITL already runs, Tripmakers included: fare intelligence across suppliers, itineraries, refunds, disputes, and follow-ups, augmenting rather than replacing.</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b>Phase 3 · Hotels &amp; beyond</b><span>Rate assurance and the same agentic layer across hotels and holidays, then full travel orchestration across ITL&#8217;s brands, when and if the earlier phases earn it.</span></div>
+    </div>
+
+    <div class="domhead"><h3>The arithmetic, briefly</h3><div class="dm">modeled · three inputs, all of them ITL&#8217;s own</div></div>
+    <div class="roi rv">
+      <div class="rc"><b>&#8776;10-12 min</b><span>freed per application, modeled at &#8722;70% of a 15-17 minute manual handle from document check to status update</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b>AED 15-20</b><span>of handling cost returned per application, at a loaded staff cost of roughly AED 90-100 per hour</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b class="g">Payback scales with volume</b><span>every application processed returns AED 15-20 of the build fee, so throughput sets the payback date; at ITL&#8217;s visa volumes, it arrives quickly</span></div>
+    </div>
+    <div class="dnote2 rv"><b>How to read this.</b> The model has three inputs: monthly application volume, minutes freed per application, and loaded cost per minute. We deliberately do not quote a payback date, because volume sets it: every application processed returns a slice of the build fee, and the return compounds with throughput. At ITL&#8217;s visa volumes, which our research puts above a million applications processed, the platform pays for itself very quickly by any reading of the inputs. Every input is ITL&#8217;s to correct. The model is also deliberately conservative: it prices staff minutes only. Where a fully manual process lets errors ride until submission, each round trip costs the traveller days; that saved turnaround, and the service reputation it buys, sits on top of the arithmetic.</div>
+
+    <div class="domhead"><h3>Where else value could sit</h3><div class="dm">potential areas, from external research · not an exhaustive list</div></div>
+    <div class="ucgrid rv">
+      <div class="uc">
+        <div class="code">corporate desks</div>
+        <h4>Email-to-booking agent</h4>
+        <p>Corporate travel requests still arrive as free-text email and WhatsApp alongside any booking tool. The system reads each request, checks it against the client&#8217;s travel policy, and drafts the booking for a consultant to approve with one click.</p>
+        <div class="m"><b>20 → 2 min</b><small>handling per request · modeled</small></div>
+      </div>
+      <div class="uc">
+        <div class="code">ticketing · finance</div>
+        <h4>Ticketing &amp; fare-compliance engine</h4>
+        <p>GDS queues are watched continuously rather than on a shift schedule: routine items are actioned, consequential ones escalated. Fare rules are checked at ticketing, so airline debit memos are prevented rather than disputed.</p>
+        <div class="m"><b>&#8594; 0</b><small>missed queue deadlines · target</small></div>
+      </div>
+      <div class="uc">
+        <div class="code">24/7 service desk</div>
+        <h4>Duty-of-care &amp; disruption agent</h4>
+        <p>When a flight cancels overnight, the system detects it, identifies every affected traveller, and prepares rebooking options before the client calls. A person approves, and the client hears the problem and the solution in one message.</p>
+        <div class="m"><b>Minutes</b><small>from disruption to a prepared answer</small></div>
+      </div>
+      <div class="uc">
+        <div class="code">MiceMinds · events</div>
+        <h4>MICE proposal engine</h4>
+        <p>Past proposals and supplier rates become a costed library. An incoming event RFP turns into a draft proposal, every line traceable to a source rate, the same day it arrives, so the team competes on speed as well as content.</p>
+        <div class="m"><b>Days → hours</b><small>proposal turnaround · modeled</small></div>
+      </div>
+      <div class="uc">
+        <div class="code">group operations</div>
+        <h4>Group &amp; event operations</h4>
+        <p>Group visa batches, rooming lists, transport manifests, and event logistics are assembled and tracked automatically at peak scale, from incentive groups and student cohorts to pilgrimage seasons. The spike loads the system rather than the team.</p>
+        <div class="m"><b>Peak season</b><small>absorbed without seasonal strain</small></div>
+      </div>
+      <div class="uc pick">
+        <div class="code">and beyond</div>
+        <h4>The sharper list is internal.</h4>
+        <p>These come from external research into ITL&#8217;s published footprint, and they are offered as places value may sit, not as a plan. Sitting with the people who run the operation is what surfaces the really valuable ones; that list would be theirs.</p>
+      </div>
+    </div>
+    <div class="dnote2 rv"><b>On everything above.</b> Whatever is built runs behind a human gate, inside ITL&#8217;s own environment, with accuracy reported weekly, and we maintain what we ship: monitoring, rule updates, and retraining continue after launch.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fmeta">
+      <div class="fmark">Shiftora<em>.ai</em></div>
+      <span>Prepared for ITL World · Dubai · July 2026</span>
+      <a href="mailto:info@shiftora.ai">info@shiftora.ai</a>
+    </div>
+    <div class="fnote">This document is confidential and prepared solely for ITL World. It does not constitute a binding offer; commercial terms would be agreed in a definitive engagement agreement. Figures are labelled where they appear: verified figures derive from production deployments; modeled figures are estimates based on published information and industry benchmarks; illustrative data is generated within this page. Where a client is not named, confidentiality obligations apply, and ITL World would receive the same protection. &#169; 2026 Shiftora.ai. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+document.body.classList.add('js-anim');
+
+// reveal on scroll
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// interactive result charts (section 02)
+function wireLine(id,pts,unit){
+  const svg=document.getElementById(id);if(!svg)return;
+  const ln=svg.querySelector('.hln'),pt=svg.querySelector('.hpt'),out=document.getElementById(id+'-r'),d0=out.textContent;
+  function show(clientX){
+    const r=svg.getBoundingClientRect(),x=(clientX-r.left)*(280/r.width);
+    let b=pts[0];for(const p of pts){if(Math.abs(p.x-x)<Math.abs(b.x-x))b=p;}
+    ln.setAttribute('x1',b.x);ln.setAttribute('x2',b.x);ln.classList.add('on');
+    pt.setAttribute('cx',b.x);pt.setAttribute('cy',b.y);pt.classList.add('on');
+    out.innerHTML=b.t+' · <i>'+b.v+'</i> '+unit;
+  }
+  svg.addEventListener('mousemove',e=>show(e.clientX));
+  svg.addEventListener('touchmove',e=>{show(e.touches[0].clientX);e.preventDefault();},{passive:false});
+  svg.addEventListener('mouseleave',()=>{ln.classList.remove('on');pt.classList.remove('on');out.textContent=d0;});
+}
+wireLine('vzA',[
+  {x:28,y:81,t:'test month 1',v:'71%'},{x:68,y:74,t:'test month 2',v:'73%'},
+  {x:108,y:62,t:'test month 3',v:'76%'},{x:148,y:50,t:'test month 4',v:'79%'},
+  {x:188,y:38,t:'test month 5',v:'82%'},{x:228,y:30,t:'test month 6',v:'84%'},
+  {x:268,y:26,t:'test month 7',v:'86%'}],'forecast accuracy');
+wireLine('vzB',[
+  {x:28,y:86,t:'week 1',v:'85%'},{x:58,y:78,t:'week 3',v:'86.5%'},
+  {x:88,y:68,t:'week 5',v:'88%'},{x:118,y:57,t:'week 7',v:'89.5%'},
+  {x:148,y:46,t:'week 9',v:'91%'},{x:178,y:36,t:'week 11',v:'92.5%'},
+  {x:208,y:28,t:'week 13',v:'94%'},{x:238,y:22,t:'week 15',v:'95.5%'},
+  {x:268,y:18,t:'week 16',v:'96.8%'}],'accuracy under supervision');
+(function(){
+  const svg=document.getElementById('vzC');if(!svg)return;
+  const out=document.getElementById('vzC-r'),d0=out.textContent;
+  const info={
+    s1:'<i>P(Set)</i> · odds a consultation gets set, scored the moment a lead arrives',
+    s2:'<i>P(Complete)</i> · odds the matter completes the funnel',
+    s3:'<i>P(Deal)</i> · odds it becomes paid work; this sets the rank'};
+  svg.querySelectorAll('.barb').forEach(b=>{
+    const on=()=>{svg.querySelectorAll('.barb').forEach(x=>x.classList.remove('on'));b.classList.add('on');out.innerHTML=info[b.dataset.k];};
+    b.addEventListener('mouseenter',on);b.addEventListener('touchstart',on,{passive:true});
+  });
+  svg.addEventListener('mouseleave',()=>{svg.querySelectorAll('.barb').forEach(x=>x.classList.remove('on'));out.textContent=d0;});
+})();
+
+// hover-readout diagrams (section 01 · beyond the visa engine)
+function wireHot(id){
+  const svg=document.getElementById(id);if(!svg)return;
+  const out=document.getElementById(id+'-r'),d0=out.textContent;
+  svg.querySelectorAll('g.hz').forEach(n=>{
+    const on=()=>{svg.querySelectorAll('g.hz').forEach(x=>x.classList.remove('on'));n.classList.add('on');out.innerHTML=n.dataset.t;};
+    n.addEventListener('mouseenter',on);n.addEventListener('touchstart',on,{passive:true});
+  });
+  svg.addEventListener('mouseleave',()=>{svg.querySelectorAll('g.hz').forEach(x=>x.classList.remove('on'));out.textContent=d0;});
+}
+wireHot('vxB2B');wireHot('vxFin');wireHot('vxInt');
+</script>
+</body>
+</html>
