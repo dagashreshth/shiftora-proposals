@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Shiftora designs and builds tailored AI systems, enterprise automation and integrated software for complex operations.">
+<meta property="og:title" content="Shiftora.ai — Tailored Enterprise AI Systems &amp; Automation">
+<meta property="og:description" content="Custom AI systems, enterprise software, integrations and intelligent automation engineered around complex operations.">
+<meta name="twitter:card" content="summary">
+<title>Shiftora.ai — Tailored Enterprise AI Systems &amp; Automation</title>
+<style>
+  :root{
+    --bg:#efefef;
+    --panel:#ffffff;
+    --panel-2:#f7f7f7;
+    --panel-3:#e7e7e7;
+    --ink:#111111;
+    --ink-2:#3f4348;
+    --muted:#717780;
+    --line:#d8dadd;
+    --line-2:#bfc3c8;
+    --signal:#111111;
+    --signal-2:#333333;
+    --blue:#454b54;
+    --amber:#80652e;
+    --red:#9e4141;
+    --mono:ui-monospace,"SFMono-Regular",Menlo,Monaco,Consolas,monospace;
+    --sans:Arial,"Helvetica Neue",Helvetica,sans-serif;
+    --heavy:"Arial Black",Arial,"Helvetica Neue",sans-serif;
+    --max:1180px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--bg);overflow-x:hidden}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body:before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 12% 4%,rgba(255,255,255,.94),transparent 30%),radial-gradient(ellipse at 82% 18%,rgba(198,198,198,.38),transparent 34%),radial-gradient(ellipse at 45% 62%,rgba(255,255,255,.58),transparent 28%);opacity:.72;z-index:0}
+  a{color:inherit;text-decoration:none}
+  button{font:inherit}
+  button,a{outline-offset:4px}
+  button:focus-visible,a:focus-visible{outline:2px solid var(--signal)}
+  ::selection{background:#111;color:#fff}
+  .wrap{width:min(var(--max),calc(100% - 48px));margin:0 auto;position:relative;z-index:1}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font:11px/1.3 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .label{font:10px/1.3 var(--mono);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .label.signal{color:var(--signal)}
+  .label.blue{color:var(--blue)}
+  .label.amber{color:var(--amber)}
+  .progress{position:fixed;left:0;top:0;width:100%;height:2px;background:transparent;z-index:100}
+  .progress i{display:block;width:0;height:100%;background:#111}
+
+  /* navigation */
+  .topbar{position:sticky;top:0;z-index:80;height:68px;border-bottom:0;background:rgba(239,239,239,.84);backdrop-filter:blur(16px)}
+  .topbar .wrap{height:52px;top:8px;display:flex;align-items:center;justify-content:space-between;gap:24px;background:#fff;border-radius:999px;padding:0 8px 0 16px;box-shadow:0 1px 0 rgba(17,17,17,.05)}
+  .brand{display:flex;align-items:baseline;gap:10px;font-family:var(--heavy);font-size:20px;letter-spacing:-.03em;white-space:nowrap}
+  .brand i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#111;box-shadow:0 0 0 5px rgba(17,17,17,.08)}
+  .brand small{font:10px/1 var(--mono);letter-spacing:.08em;color:var(--muted);text-transform:uppercase}
+  .nav{display:flex;align-items:center;gap:22px}
+  .nav a{font:11px/1 var(--mono);letter-spacing:.04em;color:var(--muted);transition:color .15s}
+  .nav a:hover,.nav a.active{color:var(--ink)}
+  .top-cta{border:1px solid #111;border-radius:999px;padding:10px 15px;font:10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;background:#111;color:#fff;transition:transform .2s,background .2s}
+  .top-cta:hover{background:#333;transform:translateY(-1px)}
+  .menu-btn{display:none;border:1px solid #111;border-radius:999px;background:#111;color:#fff;padding:9px 12px;font:10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase}
+
+  /* hero */
+  .hero{padding:70px 0 62px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(255,255,255,.12),rgba(255,255,255,0))}
+  .hero:after{content:"SHIFTORA";position:absolute;right:-1.8vw;bottom:-4vw;font-family:var(--heavy);font-size:clamp(90px,16vw,240px);line-height:.7;letter-spacing:-.08em;color:rgba(17,17,17,.025);pointer-events:none}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:54px;align-items:stretch}
+  h1,h2,h3,h4,p{margin-top:0}
+  .hero-wordmark{font-family:var(--heavy);font-size:clamp(38px,5.2vw,72px);line-height:.9;letter-spacing:-.05em;margin-bottom:26px;text-transform:uppercase}
+  h1{font-family:var(--sans);font-weight:600;font-size:clamp(40px,5.1vw,67px);line-height:1.02;letter-spacing:-.048em;margin:18px 0 26px;max-width:830px}
+  h1 .soft{color:#70747a}
+  h1 .signal{color:var(--ink)}
+  .lede{max-width:690px;color:var(--ink-2);font-size:19px;line-height:1.55;margin-bottom:14px}
+  .sub{max-width:690px;color:var(--muted);font-size:14px}
+  .hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+  .btn{border:1px solid var(--line-2);background:var(--panel);color:var(--ink);padding:11px 14px;font:11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:.18s}
+  .btn:hover{border-color:var(--signal);transform:translateY(-1px)}
+  .btn.primary{background:#111;border-color:#111;color:#fff;font-weight:700;border-radius:999px;padding-left:18px;padding-right:18px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);margin-top:38px}
+  .stat{padding:17px 16px 0 0;border-right:1px solid var(--line);margin-right:16px}
+  .stat:last-child{border-right:0;margin-right:0}
+  .stat b{display:block;font-family:var(--heavy);font-size:27px;line-height:1;letter-spacing:-.035em}
+  .stat small{display:block;margin-top:8px;color:var(--muted);font:9px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+
+  .pulse{--bg:#07090c;--panel:#0d1117;--panel-2:#111722;--ink:#f5f7fb;--ink-2:#c4cad4;--muted:#858e9e;--line:#242c38;--line-2:#354051;--signal:#69d987;--blue:#6f91ff;--amber:#e7b45d;height:100%;min-height:510px;background:var(--panel);color:var(--ink);border:1px solid var(--line-2);display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .pulse:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 0%,rgba(111,145,255,.10),transparent 45%),radial-gradient(circle at 0% 100%,rgba(105,217,135,.07),transparent 40%);pointer-events:none}
+  .chrome{height:43px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px;position:relative;z-index:1}
+  .chrome .left{display:flex;align-items:center;gap:8px;font:10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .live-dot{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 0 rgba(105,217,135,.45);animation:pulse 2.2s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 8px rgba(105,217,135,0)}}
+  .pulse-tabs{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line);position:relative;z-index:1}
+  .pulse-tab{border:0;border-right:1px solid var(--line);background:transparent;color:var(--muted);padding:12px 7px;cursor:pointer;font:9px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+  .pulse-tab:last-child{border-right:0}
+  .pulse-tab[aria-pressed="true"]{color:var(--ink);background:rgba(105,217,135,.08);box-shadow:inset 0 -2px var(--signal)}
+  .pulse-body{padding:18px;display:flex;flex-direction:column;flex:1;position:relative;z-index:1}
+  .pulse-kpi{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+  .pulse-kpi>div{padding:15px;background:var(--panel-2)}
+  .pulse-kpi b{display:block;font-family:var(--heavy);font-size:23px;letter-spacing:-.03em}
+  .pulse-kpi small{display:block;color:var(--muted);font:9px/1.45 var(--mono);text-transform:uppercase;letter-spacing:.05em;margin-top:5px}
+  .trace{font:11px/1.75 var(--mono);color:var(--ink-2);padding:17px 0 12px;flex:1;min-height:194px}
+  .trace-line{opacity:0;transform:translateY(5px);animation:traceIn .28s forwards}
+  .trace-line .key{color:var(--muted)} .trace-line .ok{color:var(--signal)} .trace-line .warn{color:var(--amber)} .trace-line .blue{color:var(--blue)}
+  @keyframes traceIn{to{opacity:1;transform:none}}
+  .pulse-foot{border-top:1px solid var(--line);padding-top:12px;color:var(--muted);font:9px/1.55 var(--mono);text-transform:uppercase;letter-spacing:.05em}
+
+  /* shared sections */
+  section{padding:72px 0;border-bottom:1px solid var(--line);scroll-margin-top:74px}
+  #definition{--bg:#0b0b0c;--panel:#111214;--panel-2:#17191d;--panel-3:#202329;--ink:#f7f7f7;--ink-2:#c7c9cd;--muted:#8b9098;--line:#292c31;--line-2:#3d4148;--signal:#ffffff;background:var(--bg);color:var(--ink)}
+  .section-head{display:grid;grid-template-columns:70px minmax(0,1fr);gap:14px;align-items:start;margin-bottom:30px}
+  .section-head .code{font:11px/1 var(--mono);color:var(--signal);letter-spacing:.1em;padding-top:10px}
+  .section-head h2{font-family:var(--heavy);font-size:clamp(31px,4.2vw,50px);line-height:1;letter-spacing:-.035em;margin:0}
+  .section-intro{max-width:760px;color:var(--ink-2);font-size:17px;margin:16px 0 0}
+  .note{color:var(--muted);font:11px/1.65 var(--mono)}
+  .rv{opacity:0;transform:translateY(14px);transition:opacity .55s ease,transform .55s ease}
+  .rv.in{opacity:1;transform:none}
+
+  /* definition */
+  .definition-grid{display:grid;grid-template-columns:1.05fr .95fr;border:1px solid var(--line)}
+  .manifesto{padding:34px;border-right:1px solid var(--line);background:var(--panel)}
+  .manifesto h3{font-family:var(--heavy);font-size:29px;line-height:1.08;letter-spacing:-.03em;margin:11px 0 18px}
+  .manifesto p{font-size:16px;color:var(--ink-2);max-width:58ch}
+  .manifesto .line{margin-top:24px;border-left:2px solid var(--signal);padding:2px 0 2px 16px;color:var(--ink);font-size:17px}
+  .model{display:grid;grid-template-rows:repeat(3,1fr)}
+  .model-step{padding:25px 28px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start;background:var(--panel-2)}
+  .model-step:last-child{border-bottom:0}
+  .model-step .n{font-family:var(--heavy);font-size:28px;color:var(--line-2);line-height:1}
+  .model-step h4{font-family:var(--heavy);font-size:18px;letter-spacing:-.02em;margin:0 0 6px}
+  .model-step p{color:var(--muted);font-size:13.5px;margin:0}
+  .principles{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-top:0}
+  .principle{padding:20px;background:var(--bg)}
+  .principle b{display:block;font-size:14px;margin:6px 0;color:var(--ink)}
+  .principle span{display:block;color:var(--muted);font-size:12.5px}
+
+  /* system explorer */
+  .system-shell{--bg:#07090c;--panel:#0d1117;--panel-2:#111722;--ink:#f5f7fb;--ink-2:#c4cad4;--muted:#858e9e;--line:#242c38;--line-2:#354051;--signal:#69d987;--blue:#6f91ff;--amber:#e7b45d;border:1px solid var(--line);background:var(--panel);color:var(--ink);overflow:hidden}
+  .system-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px;border-bottom:1px solid var(--line)}
+  .system-tabs{display:flex;gap:8px;flex-wrap:wrap}
+  .system-tab{border:1px solid var(--line-2);background:transparent;color:var(--muted);padding:8px 10px;font:10px/1 var(--mono);letter-spacing:.05em;text-transform:uppercase;cursor:pointer}
+  .system-tab[aria-pressed="true"]{background:var(--signal);border-color:var(--signal);color:#07100a}
+  .system-diagram{padding:34px 26px 28px;position:relative}
+  .flow{display:grid;grid-template-columns:1fr 54px 1.25fr 54px 1fr;align-items:stretch}
+  .flow-node{border:1px solid var(--line-2);padding:22px;background:var(--panel-2);min-height:190px;position:relative}
+  .flow-node.core{background:linear-gradient(145deg,rgba(105,217,135,.10),rgba(111,145,255,.05)),var(--panel-2);border-color:rgba(105,217,135,.45)}
+  .flow-node h3{font-family:var(--heavy);font-size:20px;line-height:1.1;letter-spacing:-.02em;margin:8px 0 12px}
+  .flow-node p{font-size:13px;color:var(--muted);margin:0}
+  .flow-list{list-style:none;padding:0;margin:14px 0 0}
+  .flow-list li{font:10px/1.6 var(--mono);color:var(--ink-2);padding:3px 0 3px 12px;position:relative}
+  .flow-list li:before{content:"";position:absolute;left:0;top:11px;width:5px;height:1px;background:var(--signal)}
+  .arrow{display:flex;align-items:center;justify-content:center;color:var(--muted);font:22px/1 var(--mono);position:relative}
+  .arrow:before{content:"";position:absolute;left:8px;right:8px;height:1px;background:var(--line-2)}
+  .arrow span{position:relative;background:var(--panel);padding:0 7px}
+  .system-base{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:18px;background:var(--line);border:1px solid var(--line)}
+  .system-base div{background:var(--bg);padding:12px 14px;color:var(--muted);font:9px/1.5 var(--mono);text-align:center;text-transform:uppercase;letter-spacing:.05em}
+
+  /* proof */
+  .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
+  .proof{padding:24px;border-right:1px solid var(--line);background:var(--panel);min-height:330px;display:flex;flex-direction:column}
+  .proof:last-child{border-right:0}
+  .proof h3{font-family:var(--heavy);font-size:19px;line-height:1.08;letter-spacing:-.02em;margin:10px 0 9px}
+  .proof p{font-size:13px;color:var(--muted);margin-bottom:18px}
+  .proof .big{font-family:var(--heavy);font-size:34px;line-height:1;letter-spacing:-.04em;margin-top:auto}
+  .proof .big .green{color:var(--signal)}
+  .proof .metric-label{font:9px/1.5 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:7px}
+  .mini{width:100%;height:78px;margin-top:16px;display:block;overflow:visible}
+  .mini .axis{stroke:var(--line-2);stroke-width:1}
+  .mini .line{fill:none;stroke:var(--signal);stroke-width:2}
+  .mini .fill{fill:rgba(105,217,135,.11)}
+  .mini .bar{fill:rgba(111,145,255,.22);stroke:var(--blue);stroke-width:1}
+  .mini text{fill:var(--muted);font:8px var(--mono)}
+  .evidence-note{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);border-top:0;padding:15px;background:var(--bg);color:var(--muted);font:10px/1.6 var(--mono)}
+  .evidence-note i{width:7px;height:7px;border-radius:50%;background:var(--signal);margin-top:4px;flex:0 0 auto}
+
+  /* portfolio */
+  .portfolio-toolbar{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;border:1px solid var(--line);padding:18px;background:var(--panel)}
+  .filter-set{display:flex;gap:8px;flex-wrap:wrap}
+  .filter{border:1px solid var(--line-2);background:transparent;color:var(--muted);padding:9px 11px;font:10px/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;cursor:pointer}
+  .filter[aria-pressed="true"]{border-color:#111;color:#fff;background:#111}
+  .portfolio-count{text-align:right;min-width:160px}
+  .portfolio-count b{display:block;font-family:var(--heavy);font-size:25px;line-height:1}
+  .portfolio-count small{color:var(--muted);font:9px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.05em}
+  .work-grid{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--line)}
+  .work-card{border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel);padding:23px;display:flex;flex-direction:column;min-height:290px;transition:background .18s,transform .18s}
+  .work-card:hover{background:var(--panel-2);transform:translateY(-1px)}
+  .work-card h3{font-family:var(--heavy);font-size:20px;line-height:1.08;letter-spacing:-.02em;margin:9px 0 10px}
+  .work-card p{font-size:13px;color:var(--muted);margin-bottom:16px}
+  .work-card .what{font-size:12px;color:var(--ink-2);padding-top:13px;border-top:1px solid var(--line);margin-top:auto}
+  .work-card .outcome{display:flex;align-items:baseline;gap:8px;margin-top:14px}
+  .work-card .outcome b{font-family:var(--heavy);font-size:21px;letter-spacing:-.03em;color:var(--signal)}
+  .work-card .outcome span{font:9px/1.45 var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  .status{display:inline-flex;align-items:center;gap:7px;font:9px/1 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+  .status:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--muted)}
+
+  /* capability sequence */
+  .cap-map{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line)}
+  .cap-stage{padding:26px 22px;border-right:1px solid var(--line);background:var(--panel);position:relative}
+  .cap-stage:last-child{border-right:0}
+  .cap-stage:after{content:"→";position:absolute;right:-12px;top:42px;width:24px;height:24px;display:grid;place-items:center;background:var(--bg);color:var(--muted);font:14px var(--mono);z-index:2}
+  .cap-stage:last-child:after{display:none}
+  .cap-stage .verb{font-family:var(--heavy);font-size:24px;letter-spacing:-.03em;margin:8px 0 10px}
+  .cap-stage p{font-size:13px;color:var(--muted);margin:0}
+  .cap-stage ul{list-style:none;padding:0;margin:16px 0 0}
+  .cap-stage li{font:10px/1.6 var(--mono);color:var(--ink-2);padding:3px 0}
+
+  footer{border-top:1px solid var(--line);padding:24px 0 36px;background:#05070a}
+  .footer-grid{display:grid;grid-template-columns:1fr auto;gap:28px;align-items:start}
+  .footer-grid p{color:var(--muted);font:9px/1.7 var(--mono);margin:0;max-width:900px}
+  .footer-grid .stamp{font:9px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:right;white-space:nowrap}
+
+  @media(max-width:1020px){
+    .hero-grid{grid-template-columns:1fr;gap:38px}.pulse{min-height:470px}.proof-grid{grid-template-columns:1fr 1fr}.proof:nth-child(2){border-right:0}.proof:nth-child(-n+2){border-bottom:1px solid var(--line)}.work-grid{grid-template-columns:1fr 1fr}.cap-map{grid-template-columns:1fr 1fr}.cap-stage:nth-child(2){border-right:0}.cap-stage:nth-child(-n+2){border-bottom:1px solid var(--line)}.cap-stage:nth-child(2):after{display:none}
+  }
+  @media(max-width:960px){
+    .nav{position:absolute;display:none;top:60px;left:-24px;right:-24px;background:var(--bg);border-bottom:1px solid var(--line);padding:16px 24px;flex-direction:column;align-items:flex-start}.nav.open{display:flex}.menu-btn{display:block}.top-cta{display:none}.definition-grid{grid-template-columns:1fr}.manifesto{border-right:0;border-bottom:1px solid var(--line)}.principles{grid-template-columns:1fr 1fr}.flow{grid-template-columns:1fr}.arrow{height:45px;transform:rotate(90deg)}.flow-node{min-height:0}.system-base{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:660px){
+    .wrap{width:min(var(--max),calc(100% - 30px))}.hero{padding:58px 0 46px}.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){padding-bottom:16px;border-bottom:1px solid var(--line)}.pulse{min-height:505px}.pulse-tabs{grid-template-columns:1fr 1fr}.pulse-tab:nth-child(2){border-right:0}.pulse-tab:nth-child(-n+2){border-bottom:1px solid var(--line)}section{padding:56px 0}.section-head{grid-template-columns:1fr;gap:8px}.section-head .code{padding-top:0}.principles,.proof-grid,.work-grid,.cap-map{grid-template-columns:1fr}.principle,.proof,.cap-stage{border-right:0;border-bottom:1px solid var(--line)}.principle:last-child,.proof:last-child,.cap-stage:last-child{border-bottom:0}.cap-stage:after{display:none}.portfolio-toolbar{flex-direction:column}.portfolio-count{text-align:left}.system-toolbar{align-items:flex-start;flex-direction:column}.system-base{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-grid .stamp{text-align:left}.hero-actions .btn{width:100%}
+  }
+  @media(max-width:380px){
+    .topbar .wrap{gap:10px;padding-left:12px}.brand small{display:none}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.live-dot{animation:none}.rv{opacity:1;transform:none;transition:none}.trace-line{animation:none;opacity:1;transform:none}.work-card,.btn{transition:none}}
+  @media print{
+    :root{--bg:#fff;--panel:#fff;--panel-2:#f6f7f8;--panel-3:#eee;--ink:#0a0b0d;--ink-2:#2c3035;--muted:#5e6670;--line:#d7dadd;--line-2:#bfc4ca;--signal:#238246;--blue:#3659bc;--amber:#8d6418}
+    body:before,.progress,.topbar,.hero-actions,.pulse-tabs,.filter-set{display:none!important}.hero{padding-top:30px}.rv{opacity:1!important;transform:none!important}.pulse{min-height:400px}section{break-inside:avoid-page;padding:38px 0}.work-card,.proof,.flow-node{break-inside:avoid}.wrap{width:calc(100% - 34px)}
+  }
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Shiftora home">shiftora.ai <i aria-hidden="true"></i><small>enterprise AI systems</small></a>
+    <nav class="nav" id="mainNav" aria-label="Page sections">
+      <a href="#definition">01 About</a>
+      <a href="#system">02 Capabilities</a>
+      <a href="#proof">03 Outcomes</a>
+      <a href="#portfolio">04 Selected work</a>
+    </nav>
+    <a class="top-cta" href="mailto:hello@shiftora.ai?subject=Enterprise%20AI%20workflow">Discuss a workflow</a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav">Menu</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-wordmark">Shiftora.ai</div>
+          <div class="eyebrow">Dubai + Mumbai · enterprise AI systems · custom software · intelligent automation</div>
+          <h1 id="heroTitle">Shiftora builds tailored AI systems <span class="soft">and enterprise automation for complex operations at scale.</span></h1>
+          <p class="lede">Shiftora helps mid-to-large enterprises turn high-value workflows into integrated software, decision systems and controlled automation—designed around the data, rules and technology already running the organisation.</p>
+          <p class="sub">Full-scale platforms, enterprise integrations, document intelligence, forecasting, computer vision and AI agents—engineered for measurable performance across complex operating environments.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#portfolio">Explore the systems</a>
+            <a class="btn" href="#system">See the capabilities</a>
+          </div>
+          <div class="stats" aria-label="Selected system metrics">
+            <div class="stat"><b>1.07M</b><small>legal-tech accounts scored</small></div>
+            <div class="stat"><b>86.2%</b><small>manufacturing holdout accuracy</small></div>
+            <div class="stat"><b>50K+</b><small>EdTech inbound interactions handled</small></div>
+            <div class="stat"><b>Web + API</b><small>GCC travel platform</small></div>
+          </div>
+        </div>
+
+        <aside class="pulse" aria-label="Interactive Shiftora project pulse">
+          <div class="chrome">
+            <div class="left"><span class="live-dot" aria-hidden="true"></span> project pulse · system view</div>
+            <span class="label" id="pulseStatus">integrated platform</span>
+          </div>
+          <div class="pulse-tabs" role="group" aria-label="Choose a system">
+            <button class="pulse-tab" type="button" data-pulse="travel" aria-pressed="true">Travel</button>
+            <button class="pulse-tab" type="button" data-pulse="revenue" aria-pressed="false">Revenue</button>
+            <button class="pulse-tab" type="button" data-pulse="forecast" aria-pressed="false">Forecast</button>
+            <button class="pulse-tab" type="button" data-pulse="vision" aria-pressed="false">Vision</button>
+          </div>
+          <div class="pulse-body">
+            <div class="pulse-kpi">
+              <div><span class="label" id="pulseKpiLabel1">Surface</span><b id="pulseKpi1">B2C web</b><small id="pulseKpiNote1">customer-facing platform</small></div>
+              <div><span class="label" id="pulseKpiLabel2">Operating layer</span><b id="pulseKpi2">Rules + OCR</b><small id="pulseKpiNote2">workflow spine</small></div>
+            </div>
+            <div class="trace" id="trace" aria-live="polite"></div>
+            <div class="pulse-foot" id="pulseFoot">Travel and visa operations · platform, rules, documents and integrations</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="definition">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div class="code">01 / 04</div>
+        <div><h2>What Shiftora builds.</h2><p class="section-intro">Tailored software and intelligence systems that move complex enterprise operations from fragmented inputs to controlled action.</p></div>
+      </div>
+      <div class="definition-grid rv">
+        <div class="manifesto">
+          <div class="label signal">Integrated engineering capability</div>
+          <h3>Shiftora creates tailored AI systems, custom enterprise software and intelligent automation.</h3>
+          <p>Product engineering, data, AI and systems integration come together to redesign high-value workflows as one connected operating layer. Architectures are shaped around the organisation’s rules, data, stack and controls, with a foundation that supports expansion across workflows, functions and teams.</p>
+          <p class="line">One accountable delivery capability across strategy, architecture, software, AI, integration, governance, launch and continuous improvement.</p>
+        </div>
+        <div class="model" aria-label="Shiftora delivery model">
+          <div class="model-step"><div class="n">01</div><div><div class="label">Map</div><h4>Define the operating architecture.</h4><p>Map decisions, data, hand-offs, dependencies and measurable outcomes across the operating environment.</p></div></div>
+          <div class="model-step"><div class="n">02</div><div><div class="label">Engineer</div><h4>Build across the full stack.</h4><p>Software, models, agents and integrations are engineered inside real systems with traceability and control built in.</p></div></div>
+          <div class="model-step"><div class="n">03</div><div><div class="label">Scale</div><h4>Operate, improve and expand.</h4><p>Monitor performance, refine rules and models, and extend the operating layer across workflows, functions and teams.</p></div></div>
+        </div>
+      </div>
+      <div class="principles rv">
+        <div class="principle"><span class="label">Tailored</span><b>Designed for the enterprise</b><span>Architecture reflects the organisation’s workflows, systems and control requirements.</span></div>
+        <div class="principle"><span class="label">Connected</span><b>One layer across the stack</b><span>APIs, platforms and data sources work as one coordinated operating environment.</span></div>
+        <div class="principle"><span class="label">Governed</span><b>Enterprise control by design</b><span>Permissions, approvals, observability and auditability are built into consequential actions.</span></div>
+        <div class="principle"><span class="label">Scalable</span><b>Designed to expand</b><span>New workflows, functions and operating contexts can build on the same architecture.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="system">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div class="code">02 / 04</div>
+        <div><h2>Connect the enterprise stack. Automate the workflow. Add intelligence with control.</h2><p class="section-intro">Shiftora combines systems integration, workflow automation, decision intelligence and AI products into one engineering capability configured around each enterprise environment. The same model extends across functions, industries and technology stacks.</p></div>
+      </div>
+      <div class="system-shell rv">
+        <div class="system-toolbar">
+          <div class="system-tabs" role="group" aria-label="Enterprise system patterns">
+            <button class="system-tab" type="button" data-system="integration" aria-pressed="true">Systems integration</button>
+            <button class="system-tab" type="button" data-system="automation" aria-pressed="false">Workflow automation</button>
+            <button class="system-tab" type="button" data-system="intelligence" aria-pressed="false">Decision intelligence</button>
+            <button class="system-tab" type="button" data-system="agents" aria-pressed="false">AI products + agents</button>
+          </div>
+          <span class="label" id="systemEvidence">Capability pattern</span>
+        </div>
+        <div class="system-diagram">
+          <div class="flow" role="img" aria-label="Input signals pass through a Shiftora operating spine to controlled action">
+            <div class="flow-node">
+              <span class="label">01 · signals in</span>
+              <h3 id="inputTitle">ERP, CRM, databases, files and APIs</h3>
+              <p id="inputCopy">Bring the systems and data already running the enterprise into one dependable flow.</p>
+              <ul class="flow-list" id="inputList"><li>legacy and cloud platforms</li><li>structured + unstructured data</li><li>batch, event and real-time inputs</li></ul>
+            </div>
+            <div class="arrow" aria-hidden="true"><span>→</span></div>
+            <div class="flow-node core">
+              <span class="label signal">02 · operating spine</span>
+              <h3 id="coreTitle">Connect, map and synchronise</h3>
+              <p id="coreCopy">Custom services reconcile data, permissions, events and business rules across the stack.</p>
+              <ul class="flow-list" id="coreList"><li>API and schema orchestration</li><li>identity + permission controls</li><li>retries, queues and observability</li></ul>
+            </div>
+            <div class="arrow" aria-hidden="true"><span>→</span></div>
+            <div class="flow-node">
+              <span class="label">03 · controlled action</span>
+              <h3 id="outputTitle">One reliable operating layer</h3>
+              <p id="outputCopy">Teams work from consistent records and coordinated actions while existing platforms remain trusted systems of record.</p>
+              <ul class="flow-list" id="outputList"><li>synchronised systems of record</li><li>cross-platform actions</li><li>traceable data movement</li></ul>
+            </div>
+          </div>
+          <div class="system-base" aria-label="Foundation controls">
+            <div>Enterprise platforms · APIs · data sources</div><div>Approval gates for consequential actions</div><div>Observability + evaluation</div><div>Traceable action history</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proof">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div class="code">03 / 04</div>
+        <div><h2>Operational systems and measured outcomes.</h2><p class="section-intro">Delivered work across revenue, travel, manufacturing and high-volume service operations.</p></div>
+      </div>
+      <div class="proof-grid rv">
+        <article class="proof">
+          <span class="status">Revenue intelligence · legal operations</span>
+          <h3>Three-stage sales intelligence.</h3>
+          <p>Every Salesforce account scored on the probability of setting, completing and converting a sales appointment.</p>
+          <div class="big">1.07<span class="green">M</span></div>
+          <div class="metric-label">accounts scored · under 100 ms scoring API</div>
+          <svg class="mini" viewBox="0 0 220 78" role="img" aria-label="Three legal sales models with AUC scores 0.954, 0.776 and 0.955">
+            <line class="axis" x1="8" y1="65" x2="212" y2="65"/><rect class="bar" x="27" y="13" width="34" height="52"/><rect class="bar" x="93" y="25" width="34" height="40"/><rect class="bar" x="159" y="13" width="34" height="52"/><text x="31" y="75">SET .954</text><text x="91" y="75">COMP .776</text><text x="157" y="75">DEAL .955</text>
+          </svg>
+        </article>
+        <article class="proof">
+          <span class="status">Full-stack platform · travel operations</span>
+          <h3>An end-to-end visa operating platform.</h3>
+          <p>A B2C web experience backed by APIs, documents, dynamic rules and booking, with mobile and partner architecture designed for subsequent phases.</p>
+          <div class="big"><span class="green">Web</span> + APIs</div>
+          <div class="metric-label">customer, documents, rules, booking and partner flows</div>
+          <svg class="mini" viewBox="0 0 220 78" role="img" aria-label="Visa platform flow from discover to track">
+            <line class="axis" x1="12" y1="39" x2="208" y2="39"/><g fill="var(--signal)"><circle cx="18" cy="39" r="4"/><circle cx="65" cy="39" r="4"/><circle cx="112" cy="39" r="4"/><circle cx="159" cy="39" r="4"/><circle cx="206" cy="39" r="4"/></g><text x="7" y="63">DISCOVER</text><text x="55" y="63">APPLY</text><text x="103" y="63">PAY</text><text x="147" y="63">REVIEW</text><text x="194" y="63">TRACK</text>
+          </svg>
+        </article>
+        <article class="proof">
+          <span class="status">Forecasting + planning · manufacturing</span>
+          <h3>Forecasting on real enterprise data.</h3>
+          <p>A demand and inventory cockpit built from SAP stock, project POs, shipments and 63,289 billing lines.</p>
+          <div class="big">86.2<span class="green">%</span></div>
+          <div class="metric-label">holdout accuracy · 13.8% WAPE · enterprise operating data</div>
+          <svg class="mini" viewBox="0 0 220 78" role="img" aria-label="Manufacturing forecast holdout accuracy of 86.2 percent">
+            <path class="fill" d="M8,63 L42,58 L76,51 L110,42 L144,33 L178,24 L212,18 L212,65 L8,65 Z"/><polyline class="line" points="8,63 42,58 76,51 110,42 144,33 178,24 212,18"/><text x="8" y="76">HOLDOUT TEST</text><text x="165" y="13">86.2 accuracy</text>
+          </svg>
+        </article>
+        <article class="proof">
+          <span class="status">Workflow platform · education operations</span>
+          <h3>High-volume inquiry operations.</h3>
+          <p>Full-stack engineering, executive reporting and a CRM/query layer built to standardise inbound handling and visibility.</p>
+          <div class="big">50K<span class="green">+</span></div>
+          <div class="metric-label">inbound interactions handled across unified operations</div>
+          <svg class="mini" viewBox="0 0 220 78" role="img" aria-label="Illustrative routing of inbound interactions into a unified operations layer">
+            <path class="axis" d="M12 16 H77 M12 39 H77 M12 62 H77 M77 16 V62 M77 39 H139 M139 39 H208"/><circle cx="12" cy="16" r="4" fill="var(--blue)"/><circle cx="12" cy="39" r="4" fill="var(--blue)"/><circle cx="12" cy="62" r="4" fill="var(--blue)"/><rect x="83" y="26" width="50" height="26" class="bar"/><circle cx="208" cy="39" r="5" fill="var(--signal)"/><text x="87" y="42">ROUTE</text><text x="169" y="58">ONE VIEW</text>
+          </svg>
+        </article>
+      </div>
+      <div class="evidence-note rv"><i aria-hidden="true"></i><span><b>Enterprise range:</b> Full platforms, predictive services, document workflows, visual quality systems, planning tools and operational automations—all engineered around the surrounding enterprise stack.</span></div>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div class="code">04 / 04</div>
+        <div><h2>Systems engineered across industries.</h2><p class="section-intro">Shiftora brings together platforms, intelligence, automation and integration to solve complex operational problems across different business environments.</p></div>
+      </div>
+      <div class="portfolio-toolbar rv">
+        <div class="filter-set" role="group" aria-label="Filter delivered systems">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">All systems</button>
+          <button class="filter" type="button" data-filter="platform" aria-pressed="false">Platforms</button>
+          <button class="filter" type="button" data-filter="intelligence" aria-pressed="false">AI + decision systems</button>
+          <button class="filter" type="button" data-filter="automation" aria-pressed="false">Workflow automation</button>
+          <button class="filter" type="button" data-filter="integration" aria-pressed="false">Data + integrations</button>
+        </div>
+        <div class="portfolio-count" aria-live="polite"><b id="visibleCount">9</b><small id="visibleLabel">systems in view</small></div>
+      </div>
+      <div class="work-grid rv" id="workGrid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="capabilityTitle">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div class="code">THE CAPABILITY RANGE</div>
+        <div><h2 id="capabilityTitle">One engineering capability across the full operating loop.</h2><p class="section-intro">Shiftora combines product engineering, enterprise integration and applied AI to connect inputs, automate work, improve decisions and scale the operating layer.</p></div>
+      </div>
+      <div class="cap-map rv">
+        <div class="cap-stage"><span class="label blue">01</span><div class="verb">Connect</div><p>Unite the systems, data, documents and events behind the operation.</p><ul><li>API + enterprise integration</li><li>structured + unstructured data</li><li>identity + permissions</li></ul></div>
+        <div class="cap-stage"><span class="label blue">02</span><div class="verb">Automate</div><p>Orchestrate routine work and route exceptions with control.</p><ul><li>document + media workflows</li><li>business rules + approvals</li><li>cross-system actions</li></ul></div>
+        <div class="cap-stage"><span class="label blue">03</span><div class="verb">Decide</div><p>Put models, agents and policy engines behind real operating decisions.</p><ul><li>scoring + forecasting</li><li>computer vision + retrieval</li><li>recommendations + explanations</li></ul></div>
+        <div class="cap-stage"><span class="label blue">04</span><div class="verb">Scale</div><p>Operate reliably and expand across workflows, functions and teams.</p><ul><li>observability + evaluation</li><li>versioned rules + models</li><li>dashboards + audit trails</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-grid">
+    <p>Shiftora.ai builds tailored AI systems, enterprise software and intelligent automation from Dubai and Mumbai. Client identities are omitted by design; the examples focus on systems delivered and operational outcomes. © 2026 Shiftora.ai.</p>
+    <div class="stamp"><a href="mailto:hello@shiftora.ai?subject=Enterprise%20AI%20workflow">hello@shiftora.ai</a><br><a href="https://shiftora.ai">shiftora.ai</a> · Dubai + Mumbai</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // scroll progress and section awareness
+  const progress=document.getElementById('progressBar');
+  const navLinks=[...document.querySelectorAll('.nav a')];
+  function onScroll(){
+    const max=document.documentElement.scrollHeight-window.innerHeight;
+    progress.style.width=(max>0?Math.min(100,(window.scrollY/max)*100):0)+'%';
+    let current='';
+    document.querySelectorAll('main section[id]').forEach(s=>{if(s.getBoundingClientRect().top<150)current=s.id});
+    navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current));
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  const menuBtn=document.getElementById('menuBtn'),mainNav=document.getElementById('mainNav');
+  menuBtn.addEventListener('click',()=>{const open=!mainNav.classList.contains('open');mainNav.classList.toggle('open',open);menuBtn.setAttribute('aria-expanded',String(open))});
+  navLinks.forEach(a=>a.addEventListener('click',()=>{mainNav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}));
+
+  // reveal only while visible
+  if(!reduced && 'IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.09});
+    document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  }else document.querySelectorAll('.rv').forEach(el=>el.classList.add('in'));
+
+  // hero project pulse
+  const pulseData={
+    travel:{status:'integrated platform',k1l:'Surface',k1:'B2C web',k1n:'customer-facing platform',k2l:'Operating layer',k2:'Rules + OCR',k2n:'workflow spine',foot:'Travel and visa operations · platform, rules, documents and integrations',lines:[
+      '<span class="key">› intake</span> passport + route context received',
+      '<span class="key">› extract</span> document fields · confidence routed · <span class="ok">review ready</span>',
+      '<span class="key">› rules</span> nationality × destination × visa mode · version resolved',
+      '<span class="key">› exception</span> stale bank statement · <span class="warn">human gate</span>',
+      '<span class="key">› workflow</span> corrected document rejoins the application',
+      '<span class="key">› status</span> traveller notified · <span class="ok">one operating record</span>'
+    ]},
+    revenue:{status:'predictive intelligence',k1l:'Coverage',k1:'1.07M',k1n:'accounts scored',k2l:'Latency',k2:'<100ms',k2n:'real-time scoring API',foot:'Legal revenue operations · predictive intelligence inside CRM',lines:[
+      '<span class="key">› account</span> Salesforce event received · feature contract validated',
+      '<span class="key">› model_1</span> P(Set) score generated',
+      '<span class="key">› model_2</span> P(Complete) score generated',
+      '<span class="key">› model_3</span> P(Deal) score generated',
+      '<span class="key">› rank</span> expected value updated · <span class="ok">top-decile queue</span>',
+      '<span class="key">› explain</span> drivers attached for sales review'
+    ]},
+    forecast:{status:'planning intelligence',k1l:'Holdout accuracy',k1:'86.2%',k1n:'13.8% total WAPE',k2l:'Source',k2:'63,289',k2n:'billing lines',foot:'Manufacturing planning · forecasting, inventory risk and action views',lines:[
+      '<span class="key">› ingest</span> SAP stock + POs + shipments reconciled',
+      '<span class="key">› classify</span> project, retail and intermittent demand separated',
+      '<span class="key">› backtest</span> rolling-origin holdout · <span class="ok">13.8% WAPE</span>',
+      '<span class="key">› simulate</span> ETA risk + demand paths sampled',
+      '<span class="key">› alert</span> commitment deficit surfaced by SKU',
+      '<span class="key">› export</span> planning view generated · <span class="blue">Excel ready</span>'
+    ]},
+    vision:{status:'computer vision operations',k1l:'Workflow',k1:'Vision QC',k1n:'property handover',k2l:'Control',k2:'Per asset',k2n:'baseline comparison',foot:'Distributed property operations · visual quality and audit trail',lines:[
+      '<span class="key">› capture</span> property media received at handover',
+      '<span class="key">› compare</span> current state vs property baseline',
+      '<span class="key">› detect</span> damage, missing items, cleanliness signals',
+      '<span class="key">› route</span> uncertain findings · <span class="warn">operator review</span>',
+      '<span class="key">› record</span> decision + media + timestamp linked',
+      '<span class="key">› outcome</span> standardised, auditable handover'
+    ]}
+  };
+  let pulseTimer=null,activePulse='travel';
+  const trace=document.getElementById('trace');
+  function setPulse(key){
+    const d=pulseData[key];activePulse=key;clearTimeout(pulseTimer);trace.innerHTML='';
+    document.getElementById('pulseStatus').textContent=d.status;
+    ['1','2'].forEach((n)=>{document.getElementById('pulseKpiLabel'+n).textContent=d['k'+n+'l'];document.getElementById('pulseKpi'+n).textContent=d['k'+n];document.getElementById('pulseKpiNote'+n).textContent=d['k'+n+'n']});
+    document.getElementById('pulseFoot').textContent=d.foot;
+    document.querySelectorAll('.pulse-tab').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.pulse===key)));
+    let i=0;function add(){if(i>=d.lines.length)return;const row=document.createElement('div');row.className='trace-line';row.innerHTML=d.lines[i++];trace.appendChild(row);if(!reduced)pulseTimer=setTimeout(add,420);else add()}add();
+  }
+  document.querySelectorAll('.pulse-tab').forEach(b=>b.addEventListener('click',()=>setPulse(b.dataset.pulse)));setPulse('travel');
+
+  // operating-system explorer
+  const systems={
+    integration:{e:'Capability pattern',iT:'ERP, CRM, databases, files and APIs',iC:'Bring the systems and data already running the enterprise into one dependable flow.',iL:['legacy and cloud platforms','structured + unstructured data','batch, event and real-time inputs'],cT:'Connect, map and synchronise',cC:'Custom services reconcile data, permissions, events and business rules across the stack.',cL:['API and schema orchestration','identity + permission controls','retries, queues and observability'],oT:'One reliable operating layer',oC:'Teams work from consistent records and coordinated actions while existing platforms remain trusted systems of record.',oL:['synchronised systems of record','cross-platform actions','traceable data movement']},
+    automation:{e:'Capability pattern',iT:'Requests, documents, events and approvals',iC:'Capture the work entering through forms, inboxes, files, portals and internal tools.',iL:['document + media intake','business events + exceptions','human requests + approvals'],cT:'Extract, validate and orchestrate',cC:'Rules, AI and workflow state move routine work forward while escalating judgement.',cL:['document intelligence','multi-step orchestration','human gates + fallback paths'],oT:'Execute, route and notify',oC:'The system creates work, updates records and coordinates the next action automatically.',oL:['work queues + assignments','transactions + system updates','alerts + status communication']},
+    intelligence:{e:'Capability pattern',iT:'Transactions, behaviour and operating history',iC:'Combine live signals and historical outcomes into a decision-ready data layer.',iL:['commercial + operational history','contextual and behavioural signals','external + internal data'],cT:'Predict, rank and optimise',cC:'Models, forecasts and policy engines turn information into explainable priorities.',cL:['scoring + forecasting','simulation + optimisation','rules + model evaluation'],oT:'Prioritise, recommend and intervene',oC:'Teams see what matters now, why it matters and the next controlled action.',oL:['ranked opportunities','exception-first planning','recommendations + explanations']},
+    agents:{e:'Capability pattern',iT:'Users, enterprise knowledge, tools and context',iC:'Give an AI product the governed knowledge and tool access required for real work.',iL:['documents + knowledge bases','role and conversation context','approved enterprise tools'],cT:'Retrieve, reason and coordinate',cC:'Agents combine retrieval, models, rules and tool calls inside a monitored workflow.',cL:['RAG + structured memory','multi-agent orchestration','permissions + evaluation'],oT:'Assist, act and continuously improve',oC:'People receive useful work product while approvals, feedback and outcomes improve the system.',oL:['copilots + task agents','drafts, actions + hand-offs','feedback loops + monitoring']}
+  };
+  function fillList(id,items){const ul=document.getElementById(id);ul.innerHTML='';items.forEach(t=>{const li=document.createElement('li');li.textContent=t;ul.appendChild(li)})}
+  function setSystem(key){const d=systems[key];document.getElementById('systemEvidence').textContent=d.e;[['inputTitle','iT'],['inputCopy','iC'],['coreTitle','cT'],['coreCopy','cC'],['outputTitle','oT'],['outputCopy','oC']].forEach(([id,k])=>document.getElementById(id).textContent=d[k]);fillList('inputList',d.iL);fillList('coreList',d.cL);fillList('outputList',d.oL);document.querySelectorAll('.system-tab').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.system===key)))}
+  document.querySelectorAll('.system-tab').forEach(b=>b.addEventListener('click',()=>setSystem(b.dataset.system)));setSystem('integration');
+
+  // selected systems from past work
+  const work=[
+    {name:'GCC Travel & Visa Platform',sector:'Travel tech · GCC',kind:'Platform + integration',tags:['platform','automation','integration'],desc:'A multi-phase visa platform spanning the customer experience and the operating spine.',what:'B2C web, API and workflow layers, dynamic visa logic, document handling, booking and wider mobile/B2B architecture.',metric:'Web + APIs',metricNote:'connected customer + operations platform'},
+    {name:'US Legal Sales Intelligence',sector:'Legal tech · USA',kind:'Predictive intelligence',tags:['intelligence','integration'],desc:'CRM-native predictive intelligence aligned to three distinct conversion stages across the operating funnel.',what:'Three-stage models, real-time scoring service and an AI-assisted sales workflow.',metric:'1.07M accounts',metricNote:'scored across three models'},
+    {name:'Distributed Property Operations',sector:'Hospitality · India',kind:'Vision + workflow automation',tags:['intelligence','automation','integration'],desc:'A quality-control system for distributed property and handover operations.',what:'Vision-based checks, email automation, an internal chatbot and backend process optimisation.',metric:'Vision QC',metricNote:'image-to-action workflow'},
+    {name:'High-volume Inquiry Operations',sector:'EdTech · India',kind:'Full-stack operations',tags:['platform','automation','integration'],desc:'Inbound operations redesigned as one full-stack commercial layer.',what:'CRM and query management, response automation, executive reporting and live demand visibility.',metric:'50K+ interactions',metricNote:'handled across unified operations'},
+    {name:'FMCG Commercial Intelligence',sector:'FMCG · India',kind:'CRM + commercial intelligence',tags:['platform','intelligence','integration'],desc:'A CRM and prioritisation system for a national B2B sales motion.',what:'Custom B2B CRM, account scoring and targeted outreach workflow.',metric:'CRM + scoring',metricNote:'prioritised B2B sales workflow'},
+    {name:'Venture Operations Platform',sector:'Fintech / venture · India',kind:'Platform + document automation',tags:['platform','automation','integration'],desc:'A connected platform spanning legal, fundraising and investor workflows.',what:'Legal document automation, formation-to-funding workflow, investor matching and portfolio dashboards.',metric:'4 linked systems',metricNote:'one connected operating layer'},
+    {name:'Manufacturing Demand Intelligence',sector:'Manufacturing · India',kind:'Forecasting + planning',tags:['intelligence','integration'],desc:'A demand and inventory system built on real stock, sales, project and shipment data.',what:'Data reconciliation, statistical forecasting, risk-adjusted ETA, alerts, daily brief and Excel export.',metric:'86.2% accuracy',metricNote:'holdout backtest'},
+    {name:'Travel Call Intelligence',sector:'Travel support · India',kind:'Conversation intelligence',tags:['intelligence','automation'],desc:'A bilingual support-intelligence system built around real service workflows.',what:'Transcription, sentiment trajectory, escalation detection, coaching and supervisor assistance.',metric:'Bilingual analysis',metricNote:'sentiment + escalation + coaching'},
+    {name:'Supplier Form Automation',sector:'Real estate · operations',kind:'Document automation',tags:['automation','integration'],desc:'A supplier onboarding workflow engineered around repetitive forms and field mapping.',what:'Structured intake, field extraction, validation and automated form completion.',metric:'Field-mapped workflow',metricNote:'structured onboarding automation'}
+  ];
+  const workGrid=document.getElementById('workGrid');
+  function renderWork(filter){
+    workGrid.innerHTML='';const items=work.filter(w=>filter==='all'||w.tags.includes(filter));
+    items.forEach(w=>{const card=document.createElement('article');card.className='work-card';card.innerHTML='<span class="status">'+w.kind+'</span><h3>'+w.name+'</h3><div class="label">'+w.sector+'</div><p>'+w.desc+'</p><div class="what">'+w.what+'</div><div class="outcome"><b>'+w.metric+'</b><span>'+w.metricNote+'</span></div>';workGrid.appendChild(card)});
+    document.getElementById('visibleCount').textContent=items.length;
+    document.getElementById('visibleLabel').textContent=filter==='all'?'systems in view':'matching systems';
+  }
+  document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));renderWork(b.dataset.filter)}));
+  renderWork('all');
+
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)clearTimeout(pulseTimer);else setPulse(activePulse)});
+})();
+</script>
+</body>
+</html>
