@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiftora.ai &#183; For Veritas &#183; A Strategic Assessment</title>
+<style>
+  :root{
+    --ink:#0B0B0C; --ink2:#2A2A2E; --paper:#FFFFFF; --paper2:#F5F5F4; --paper3:#EDEDEA;
+    --line:#E2E2DF; --line2:#CFCFCB; --muted:#6C6C70; --muted2:#9A9A9E;
+    --con-bg:#0B0B0C; --con-panel:#141416; --con-line:#262629; --con-text:#EAEAE7; --con-dim:#7C7C82;
+    --signal:#47A45A; --signal-bg:rgba(71,164,90,.14); --signal-line:rgba(71,164,90,.35);
+    --warn:#B98322;
+    --sans:Arial,'Helvetica Neue',Helvetica,sans-serif;
+    --heavy:'Arial Black',Arial,'Helvetica Neue',sans-serif;
+    --mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,Consolas,monospace;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ink);color:var(--paper)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- top bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .mark{font-family:var(--heavy);font-size:19px;letter-spacing:-.02em}
+  .mark em{font-style:normal;font-family:var(--sans);font-weight:700;color:var(--muted);letter-spacing:0}
+  .nav{display:flex;gap:22px;align-items:center}
+  .nav a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);transition:color .15s}
+  .nav a:hover{color:var(--ink)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line2);padding:5px 9px}
+  @media(max-width:960px){.nav{display:none}}
+  @media(max-width:600px){.tag{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 50px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:stretch}
+  .hero h1{font-family:var(--heavy);font-size:clamp(30px,4.3vw,88px);line-height:1.02;letter-spacing:-.026em}
+  .hero h1 .lo{color:var(--muted2)}
+  .hero .lede{margin-top:24px;font-size:18.5px;max-width:50ch;color:var(--ink2)}
+  .hero .sub{margin-top:13px;font-size:15px;color:var(--muted);max-width:52ch}
+  .stat-row{display:flex;gap:0;margin-top:34px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .stat{padding:16px 22px 0 0;margin-right:22px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:0}
+  .stat b{font-family:var(--heavy);font-size:28px;letter-spacing:-.02em;display:block;line-height:1}
+  .stat small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:7px}
+  .stackrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .sk{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink2);border:1px solid var(--line2);padding:6px 10px;background:var(--paper2)}
+
+  .shipped{border:1px solid var(--ink);height:100%;box-sizing:border-box;display:flex;flex-direction:column;background:var(--paper)}
+  .shipped .hd{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:12px 18px;display:flex;justify-content:space-between;gap:12px}
+  .shipped .hd i{font-style:normal;color:var(--signal)}
+  .shipped .row{padding:14px 18px;border-bottom:1px solid var(--line);flex:1;display:flex;flex-direction:column;justify-content:center}
+  .shipped .row:last-of-type{border-bottom:0}
+  .shipped .row b{font-family:var(--heavy);font-size:15.5px;letter-spacing:-.01em;display:block}
+  .shipped .row span{font-size:13px;color:var(--muted);display:block;margin-top:3px;line-height:1.5}
+  .shipped .ft{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ink);padding:11px 18px;background:var(--paper2)}
+  .shipped .ft b{color:var(--signal);font-weight:400}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+
+  /* ---------- section frame ---------- */
+  section{padding:70px 0;border-bottom:1px solid var(--line)}
+  section{scroll-margin-top:72px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+  .sec-code{font-family:var(--mono);font-size:12px;color:var(--muted2);letter-spacing:.06em}
+  .sec-head h2{font-family:var(--heavy);font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;line-height:1.02}
+  .sec-intro{max-width:64ch;color:var(--ink2);margin:16px 0 8px;font-size:17px}
+
+  /* ---------- domain groups ---------- */
+  .domhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:52px 0 6px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+  .domhead h3{font-family:var(--heavy);font-size:22px;letter-spacing:-.01em}
+  .domhead .dm{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- case study block ---------- */
+  .cs{display:grid;grid-template-columns:1.25fr .75fr;gap:0;border:1px solid var(--line);border-top:0}
+  .cs:first-of-type{border-top:1px solid var(--line)}
+  .cs .l{padding:28px;border-right:1px solid var(--line)}
+  .cs .r{padding:28px;background:var(--paper2)}
+  .cs .kick{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .cs .client{font-family:var(--heavy);font-size:20px;letter-spacing:-.01em}
+  .cs .geo{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .cs .prob{margin-top:12px;color:var(--ink2);font-size:15px}
+  .cs .prob b{color:var(--ink)}
+  .cs h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+  .cs .agents{list-style:none}
+  .cs .agents li{font-size:14px;color:var(--ink2);padding:5px 0 5px 16px;position:relative}
+  .cs .agents li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--ink)}
+  .cs .agents li b{font-weight:700;color:var(--ink)}
+  .stackline{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+  .stackline i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--ink2);border:1px solid var(--line2);background:var(--paper);padding:4px 9px}
+  .met{display:flex;flex-direction:column}
+  .met .m{padding:14px 0;border-bottom:1px solid var(--line)}
+  .met .m:last-child{border-bottom:0}
+  .met .m b{font-family:var(--heavy);font-size:26px;letter-spacing:-.02em;display:block;line-height:1}
+  .met .m b.g{color:var(--signal)}
+  .met .m small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px}
+  .mathnote{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.65;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line2)}
+  .mathnote b{color:var(--ink);font-weight:400}
+  @media(max-width:820px){.cs{grid-template-columns:1fr}.cs .l{border-right:0;border-bottom:1px solid var(--line)}.cs .kick{flex-direction:column;align-items:flex-start;gap:5px}.cs .geo{white-space:normal}}
+
+  .callout{border-left:2px solid var(--ink);background:var(--paper2);padding:18px 22px;margin-top:22px;max-width:920px}
+  .callout .ct{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .callout p{font-size:14.5px;color:var(--ink2);line-height:1.6}
+  .callout p b{color:var(--ink)}
+
+  /* ---------- architecture panels ---------- */
+  .archwrap{background:var(--con-bg);border:1px solid var(--con-line);margin-top:30px;padding:20px 16px 10px}
+  .archwrap .ah{display:flex;justify-content:space-between;color:var(--con-dim);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:0 4px 12px;border-bottom:1px solid var(--con-line);margin-bottom:10px}
+  .archwrap .ah b{color:var(--con-text);font-weight:400}
+  .archwrap svg{width:100%;height:auto;display:block}
+  svg.arch text{font-family:var(--mono)}
+  svg.arch .bx{fill:var(--con-panel);stroke:var(--con-line)}
+  svg.arch .bxg{fill:rgba(71,164,90,.08);stroke:rgba(71,164,90,.45)}
+  svg.arch .bxw{fill:rgba(185,131,34,.08);stroke:rgba(185,131,34,.5)}
+  svg.arch .tt{fill:var(--con-text);font-size:11px}
+  svg.arch .ts{fill:var(--con-dim);font-size:9px}
+  svg.arch .tg{fill:var(--signal);font-size:9px}
+  svg.arch .tw{fill:var(--warn);font-size:9px}
+  svg.arch .lane{fill:var(--con-dim);font-size:9.5px;letter-spacing:.12em}
+  svg.arch .ar{stroke:var(--con-dim);stroke-width:1;fill:none}
+  svg.arch .arg{stroke:rgba(71,164,90,.55);stroke-width:1;fill:none;stroke-dasharray:5 4}
+
+  /* explainer under diagrams */
+  .anat{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-top:0}
+  .anat > div{padding:24px}
+  .anat > div:first-child{border-right:1px solid var(--line)}
+  .anat h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .anat ul{list-style:none}
+  .anat li{font-size:14px;color:var(--ink2);padding:5px 0 5px 15px;position:relative;line-height:1.55}
+  .anat li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .anat li b{color:var(--ink)}
+  @media(max-width:760px){.anat{grid-template-columns:1fr}.anat>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+
+  /* ---------- mini result visuals ---------- */
+  .viz3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--con-line);margin-top:26px;background:var(--con-bg)}
+  .viz3 .vc{padding:18px 18px 14px;border-right:1px solid var(--con-line)}
+  .viz3 .vc:last-child{border-right:0}
+  .viz3 .vt{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--con-dim)}
+  .viz3 .vn{font-family:var(--heavy);font-size:23px;letter-spacing:-.02em;color:var(--con-text);margin-top:6px}
+  .viz3 .vn i{font-style:normal;color:var(--signal)}
+  .viz3 svg{width:100%;height:auto;display:block;margin-top:10px}
+  .viz3 .vs{font-family:var(--mono);font-size:10px;color:var(--con-dim);line-height:1.6;margin-top:10px}
+  .viz3 .vs b{color:var(--con-text);font-weight:400}
+  .viz3 .vrow{margin-top:13px}
+  .viz3 .vlbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);display:block}
+  .viz3 .vrow p{font-size:12.5px;color:#ADADAA;line-height:1.6;margin-top:4px}
+  .viz3 .vrow p b{color:var(--con-text);font-weight:400}
+  .viz3 .vread{font-family:var(--mono);font-size:10px;color:var(--con-dim);margin-top:9px;min-height:16px;border-top:1px dashed var(--con-line);padding-top:8px}
+  .viz3 .vread i{font-style:normal;color:var(--signal)}
+  @media(max-width:820px){.viz3{grid-template-columns:1fr}.viz3 .vc{border-right:0;border-bottom:1px solid var(--con-line)}.viz3 .vc:last-child{border-bottom:0}}
+  svg.mini text{font-family:var(--mono);font-size:8.5px;fill:var(--con-dim)}
+  svg.mini .axis{stroke:var(--con-line);stroke-width:1}
+  svg.mini .ser{fill:none;stroke:var(--signal);stroke-width:2}
+  svg.mini .ser2{fill:none;stroke:var(--con-dim);stroke-width:1.5;stroke-dasharray:4 3}
+  svg.mini .pt{fill:var(--con-text)}
+  svg.mini .barb{fill:rgba(71,164,90,.25);stroke:rgba(71,164,90,.6)}
+  svg.mini .lbl{fill:var(--con-text)}
+  svg.mini.ix{cursor:crosshair}
+  svg.mini .hln{stroke:rgba(71,164,90,.45);stroke-width:1;stroke-dasharray:2 3;opacity:0}
+  svg.mini .hpt{fill:var(--signal);opacity:0}
+  svg.mini .hln.on,svg.mini .hpt.on{opacity:1}
+  svg.mini rect.barb{cursor:pointer;transition:fill .15s}
+  svg.mini rect.barb.on{fill:rgba(71,164,90,.55)}
+  .js-anim .viz3 .ser{stroke-dasharray:1;stroke-dashoffset:1}
+  .js-anim .viz3.in .ser{transition:stroke-dashoffset 1.5s ease .25s;stroke-dashoffset:0}
+  .js-anim .viz3 rect.barb{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0)}
+  .js-anim .viz3.in rect.barb{transition:transform .7s ease .1s;transform:scaleY(1)}
+  .js-anim .viz3.in rect.barb:nth-of-type(2){transition-delay:.25s}
+  .js-anim .viz3.in rect.barb:nth-of-type(3){transition-delay:.4s}
+  @media(prefers-reduced-motion:reduce){.js-anim .viz3 .ser{stroke-dasharray:none;stroke-dashoffset:0}.js-anim .viz3 rect.barb{transform:none}}
+  svg.mini .nd{fill:var(--con-panel);stroke:var(--con-line)}
+  svg.mini .lnk{stroke:var(--con-line);stroke-width:1;fill:none}
+  svg.mini .lnkg{stroke:rgba(71,164,90,.55);stroke-width:1;fill:none;stroke-dasharray:4 3}
+  svg.mini g.hz{cursor:pointer}
+  svg.mini g.hz.on rect{stroke:var(--signal)}
+  svg.mini g.hz.on path{stroke:var(--signal)}
+  svg.mini g.hz.on text{fill:var(--con-text)}
+
+  /* ---------- assessment grid (03) ---------- */
+  .darch{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-top:30px}
+  .darch .da{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 24px}
+  .darch .da:nth-child(2n){border-right:0}
+  .darch .da:nth-last-child(-n+2){border-bottom:0}
+  .darch .da .dcode{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+  .darch .da h4{font-family:var(--heavy);font-size:18px;letter-spacing:-.01em;margin:6px 0 8px}
+  .darch .da p{font-size:14px;color:var(--ink2);line-height:1.55}
+  .darch .da p b{font-weight:700;color:var(--ink)}
+  @media(max-width:760px){.darch{grid-template-columns:1fr}.darch .da{border-right:0}.darch .da:nth-last-child(2){border-bottom:1px solid var(--line)}}
+
+  /* ---------- use case cards (04) ---------- */
+  .ucgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:26px}
+  .uc{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px;display:flex;flex-direction:column;position:relative;background:var(--paper)}
+  .uc .code{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+  .uc h4{font-family:var(--heavy);font-size:18px;letter-spacing:-.01em;margin:7px 0 9px;line-height:1.15}
+  .uc p{font-size:13.5px;color:var(--ink2);line-height:1.55;flex:1}
+  .uc .m{margin-top:16px;padding-top:13px;border-top:1px solid var(--line)}
+  .uc .m b{font-family:var(--heavy);font-size:19px;letter-spacing:-.02em;display:block;line-height:1.05}
+  .uc .m b.g{color:var(--signal)}
+  .uc .m small{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px;line-height:1.5}
+  .uc .own{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);margin-top:10px}
+  .uc.pick{background:var(--paper2)}
+  @media(max-width:900px){.ucgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:640px){.ucgrid{grid-template-columns:1fr}}
+
+  .uclist{border:1px solid var(--line);border-bottom:0;margin-top:26px}
+  .uclist .ur{display:grid;grid-template-columns:190px 1fr 250px;gap:18px;align-items:baseline;padding:13px 20px;border-bottom:1px solid var(--line)}
+  .uclist .ur .c{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--signal);white-space:nowrap}
+  .uclist .ur .t{font-size:14px;color:var(--ink2)}
+  .uclist .ur .t b{font-family:var(--heavy);font-size:14px;letter-spacing:-.01em;color:var(--ink)}
+  .uclist .ur .mres{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;white-space:nowrap}
+  .uclist .ur .mres b{color:var(--ink);font-weight:400}
+  @media(max-width:820px){.uclist .ur{grid-template-columns:1fr;gap:3px}.uclist .ur .mres{text-align:left}}
+
+  .roi{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:stretch;border:1px solid var(--ink);margin-top:26px;background:var(--paper)}
+  .roi .rc{padding:22px 20px}
+  .roi .rc b{font-family:var(--heavy);font-size:25px;letter-spacing:-.02em;display:block;line-height:1.08}
+  .roi .rc b.g{color:var(--signal)}
+  .roi .rc span{font-size:13px;color:var(--muted);display:block;margin-top:8px;line-height:1.55}
+  .roi .ra{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:17px;color:var(--muted2);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  @media(max-width:820px){.roi{grid-template-columns:1fr}.roi .ra{display:none}.roi .rc{border-bottom:1px solid var(--line)}.roi .rc:last-child{border-bottom:0}}
+
+  /* ---------- engagement ---------- */
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-top:30px}
+  .twocol > div{padding:24px}
+  .twocol > div:first-child{border-right:1px solid var(--line)}
+  .twocol h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .twocol ul{list-style:none}
+  .twocol li{font-size:14.5px;color:var(--ink2);padding:6px 0 6px 15px;position:relative;list-style:none}
+  .twocol li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .twocol li b{color:var(--ink)}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}.twocol>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+
+  .dnote2{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.65;margin-top:14px;max-width:86ch}
+  .dnote2 b{color:var(--ink);font-weight:400}
+
+  /* ---------- footer ---------- */
+  footer{padding:46px 0;background:var(--con-bg);color:var(--con-text)}
+  footer .fmeta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  footer .fmark{font-family:var(--heavy);font-size:17px;color:var(--con-text);letter-spacing:-.01em}
+  footer .fmark em{font-style:normal;font-family:var(--sans);font-weight:700;color:var(--con-dim);letter-spacing:0}
+  footer .fmeta a,footer .fmeta span{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--con-dim)}
+  footer .fmeta a:hover{color:var(--con-text)}
+  footer .fnote{font-family:var(--mono);font-size:11px;color:var(--con-dim);margin-top:18px;border-top:1px solid var(--con-line);padding-top:16px;line-height:1.7}
+
+  .js-anim .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .js-anim .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="bar">
+  <div class="wrap">
+    <div class="mark">Shiftora<em>.ai</em></div>
+    <nav class="nav">
+      <a href="#built">01 What we run</a>
+      <a href="#record">02 Proof</a>
+      <a href="#assessment">03 What we see</a>
+      <a href="#proposal">04 Where we would start</a>
+    </nav>
+    <div class="tag">Prepared for Veritas</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Shiftora.ai &#215; Veritas &nbsp;/&nbsp; strategic assessment &nbsp;/&nbsp; August 2026 &nbsp;/&nbsp; confidential</div>
+        <h1>You trained<br>the eye.<br><span class="lo">Now teach<br>the system.</span></h1>
+        <p class="lede">Veritas built a lending business where the balance sheet is the officer&#8217;s eyes: shops with no statements, incomes with no proof, assessed in person and written into a file by hand. It works, which is why the book keeps growing. But a number that depends on who wrote it is hard to review, slow to teach, and expensive to scale across every new branch.<br><br><b>Shiftora builds custom AI systems for enterprise operations.</b> We remove the repetitive work, integrate with the systems you already run, and leave every decision with your team.</p>
+        <div class="stat-row">
+          <div class="stat"><b>7 wks</b><small>Document-heavy platform, kickoff to live &#183; verified</small></div>
+          <div class="stat"><b>96.8%</b><small>Decision accuracy at week 16, in production &#183; verified</small></div>
+          <div class="stat"><b>40+</b><small>Production APIs on a single core</small></div>
+          <div class="stat"><b>100%</b><small>Uncertain decisions reviewed by a person</small></div>
+        </div>
+        <div class="stackrow">
+          <span class="sk">custom AI systems</span><span class="sk">document intelligence</span><span class="sk">versioned rule engines</span><span class="sk">works on your stack</span><span class="sk">human gates</span><span class="sk">weekly accuracy reporting</span>
+        </div>
+      </div>
+      <div>
+        <div class="shipped">
+          <div class="hd"><span>What Shiftora does</span><span><i>&#9679;</i> implementation partner</span></div>
+          <div class="row"><b>Custom systems, built for you</b><span>Designed, built and operated for your business alone.</span></div>
+          <div class="row"><b>Built around how you work</b><span>No migration and no new processes to adopt.</span></div>
+          <div class="row"><b>Repetitive work goes, judgement stays</b><span>Your team keeps every decision that matters.</span></div>
+          <div class="row"><b>Proven in production</b><span>Every system carries a measured accuracy number and a human approval step.</span></div>
+          <div class="row"><b>We stay after launch</b><span>Monitoring, updates and retraining for the life of the system.</span></div>
+          <div class="ft">enterprise systems &#183; UAE &#183; India &#183; USA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 01 WHAT WE RUN -->
+<section id="built">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">01</span><h2>What we run in production</h2></div>
+    <p class="sec-intro">Two examples from the systems we run today. One reads evidence in whatever form a shop keeps it and holds your policy as configuration. The other is what makes automated decisions safe to trust at volume.</p>
+
+    <div class="domhead"><h3>Reading what the officer saw, and keeping it with the number</h3><div class="dm">the pattern most relevant to Veritas</div></div>
+
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">One reading, many rulebooks</div><div class="geo">Musafir.com &#183; UAE &#183; in production</div></div>
+        <p class="prob"><b>The problem.</b> A leading UAE travel enterprise. Every case arrived as documents in whatever form the customer had them, each checked by hand against rules that differed by case. Errors surfaced at submission, when they cost the most.<br><br><b>What we built.</b> The complete platform in seven weeks, plus the intelligence around it: <b>documents read once with a confidence score, every rulebook held as versioned configuration, and nothing allowed to proceed while it breached one</b>.</p>
+        <h5>Why it worked</h5>
+        <ul class="agents">
+          <li><b>Format stopped mattering.</b> The same fields are found whether the source is a clean scan or a photograph of a khata page.</li>
+          <li><b>Rules are configuration, not code.</b> Each rulebook changes independently, and the people who own it change it without an engineer.</li>
+          <li><b>Uncertainty is routed, not guessed.</b> Anything the system is unsure of goes to a person. It never passes silently.</li>
+        </ul>
+        <h5>Discipline</h5>
+        <div class="stackline"><i>document intelligence</i><i>versioned rule engines</i><i>confidence routing</i><i>human gate</i><i>full audit trail</i></div>
+      </div>
+      <div class="r">
+        <div class="met">
+          <div class="m"><b class="g">7 weeks</b><small>kickoff to live &#183; verified</small></div>
+          <div class="m"><b>40+ APIs</b><small>across search, booking and order flows</small></div>
+          <div class="m"><b>Validated</b><small>before review, never after</small></div>
+        </div>
+        <div class="mathnote"><b>The outcome.</b> An entire document-heavy operation moved online in one quarter. <b>Why it matters here.</b> An assessment file is the same shape: evidence in any form, a rulebook per product, and a number at the end that has to survive review. Here the evidence starts as photographs in a shop.</div>
+      </div>
+    </div>
+
+    <div class="domhead"><h3>Making it safe to trust</h3><div class="dm">the discipline behind every system we ship</div></div>
+
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">A continuous review loop</div><div class="geo">enterprise logistics operator &#183; in production</div></div>
+        <p class="prob"><b>The problem.</b> Expert judgement applied one case at a time, at national volume. Capacity capped by how many experienced people were working.<br><br><b>What we built.</b> A supervised loop. The system decides and rates its own confidence. Anything uncertain goes to a person, and <b>every correction trains it further</b>. Accuracy improves in production rather than being promised at launch.</p>
+        <h5>Why it holds up</h5>
+        <ul class="agents">
+          <li><b>Nothing silent.</b> Accuracy is reported weekly against live work. A number that stops holding stops being claimed.</li>
+          <li><b>Nothing unearned.</b> The system earns more autonomy only as the results justify it.</li>
+          <li><b>Nothing unexplained.</b> Every decision carries its reasoning and a full audit trail.</li>
+        </ul>
+      </div>
+      <div class="r">
+        <div class="met">
+          <div class="m"><b class="g">85 &#8594; 96.8%</b><small>accuracy, week 1 to week 16 &#183; verified</small></div>
+          <div class="m"><b>Weekly</b><small>retraining and reporting cadence</small></div>
+          <div class="m"><b>100%</b><small>of uncertain calls seen by a person</small></div>
+        </div>
+        <div class="mathnote"><b>The outcome.</b> Capacity stopped depending on headcount. <b>Why it matters here.</b> A number credit has to re-derive has saved nobody anything. When the number is authored in the field, it has to arrive with the evidence that lets review believe it.</div>
+      </div>
+    </div>
+
+    <div class="archwrap rv">
+      <div class="ah"><span>The review loop &#183; <b>as it runs today</b></span><span>simplified &#183; production system</span></div>
+      <svg class="arch" viewBox="0 0 940 210" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arrL" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+        <rect class="bx" x="20" y="46" width="200" height="50" rx="2"/>
+        <text class="tt" x="34" y="67">Live traffic</text>
+        <text class="ts" x="34" y="83">enquiries &#183; rates &#183; status requests</text>
+        <line class="ar" x1="220" y1="71" x2="256" y2="71" marker-end="url(#arrL)"/>
+        <rect class="bxg" x="260" y="46" width="220" height="50" rx="2"/>
+        <text class="tt" x="274" y="67">Model decides</text>
+        <text class="ts" x="274" y="83">confidence scored per item</text>
+        <line class="ar" x1="480" y1="60" x2="536" y2="44" marker-end="url(#arrL)"/>
+        <line class="ar" x1="480" y1="84" x2="536" y2="102" marker-end="url(#arrL)"/>
+        <rect class="bxg" x="540" y="20" width="180" height="44" rx="2"/>
+        <text class="tt" x="554" y="40">Auto-handled</text>
+        <text class="ts" x="554" y="55">high confidence &#183; full audit trail</text>
+        <rect class="bxw" x="540" y="84" width="180" height="44" rx="2"/>
+        <text class="tt" x="554" y="104">Human queue</text>
+        <text class="ts" x="554" y="119">low confidence only</text>
+        <line class="ar" x1="720" y1="106" x2="756" y2="106" marker-end="url(#arrL)"/>
+        <rect class="bx" x="760" y="84" width="160" height="44" rx="2"/>
+        <text class="tt" x="774" y="104">Correction logged</text>
+        <text class="ts" x="774" y="119">by the person</text>
+        <path class="arg" d="M840,128 L840,168 L370,168 L370,100" marker-end="url(#arrL)"/>
+        <text class="tg" x="440" y="188">every correction becomes training data &#183; accuracy reported weekly</text>
+      </svg>
+    </div>
+
+    <div class="archwrap rv" style="border-top:0;margin-top:0">
+      <div class="ah"><span>Accuracy as a monitored curve &#183; <b>weeks 1 to 16</b></span><span>verified &#183; trace the curve</span></div>
+      <div style="max-width:460px">
+        <svg class="mini ix" id="vzB" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="axis" x1="28" y1="10" x2="28" y2="88"/>
+          <line class="axis" x1="28" y1="88" x2="270" y2="88"/>
+          <text x="6" y="16">97</text><text x="6" y="52">91</text><text x="6" y="90">85</text>
+          <polyline class="ser" pathLength="1" points="28,86 58,78 88,68 118,57 148,46 178,36 208,28 238,22 268,18"/>
+          <line class="hln" x1="28" y1="10" x2="28" y2="88"/>
+          <circle class="hpt" cx="268" cy="18" r="3"/>
+          <text x="34" y="80" class="lbl">week 1</text>
+          <text x="216" y="12" class="lbl">week 16</text>
+          <text x="66" y="103">every correction becomes training</text>
+        </svg>
+        <div class="vread" id="vzB-r" style="color:#7C7C82">hover the curve for the week-by-week climb</div>
+      </div>
+    </div>
+
+    <div class="domhead"><h3>The same anatomy, inside Veritas</h3><div class="dm">illustrative &#183; how it would sit beside your team</div></div>
+    <div class="archwrap rv">
+      <div class="ah"><span>Visit to credit-ready &#183; <b>how the system would sit</b></span><span>illustrative &#183; beside your team, not in place of it</span></div>
+      <svg class="arch" viewBox="0 0 940 400" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+        <text class="lane" x="20" y="26">WHAT ARRIVES TODAY</text>
+        <text class="lane" x="330" y="26">THE ASSESSMENT SPINE &#183; ALL RULES AS CONFIGURATION</text>
+        <text class="lane" x="726" y="26">YOUR CREDIT TEAM &amp; YOUR BORROWERS</text>
+
+        <rect class="bx" x="20" y="40" width="240" height="86" rx="2"/>
+        <text class="tt" x="34" y="63">The field visit</text>
+        <text class="ts" x="34" y="80">khata books &#183; receipts &#183; stock &#183; the shop</text>
+        <text class="ts" x="34" y="94">captured as photographs, on the spot</text>
+        <text class="tg" x="34" y="112">read before the officer leaves</text>
+
+        <rect class="bx" x="20" y="138" width="240" height="70" rx="2"/>
+        <text class="tt" x="34" y="161">Repayment history</text>
+        <text class="ts" x="34" y="178">your own book, borrower by borrower</text>
+        <text class="tw" x="34" y="192">today it barely reaches the next file</text>
+
+        <rect class="bx" x="20" y="220" width="240" height="64" rx="2"/>
+        <text class="tt" x="34" y="243">The rulebooks</text>
+        <text class="ts" x="34" y="260">credit policy &#183; product norms &#183; trade patterns</text>
+        <text class="tw" x="34" y="274">nothing reaches credit outside them</text>
+
+        <rect class="bxg" x="330" y="40" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="60">Evidence reader</text>
+        <text class="ts" x="344" y="76">khata pages and receipts, read as photographed</text>
+
+        <rect class="bxg" x="330" y="96" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="116">Income builder</text>
+        <text class="ts" x="344" y="132">the template filled, every figure sourced</text>
+
+        <rect class="bxg" x="330" y="152" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="172">Anomaly check</text>
+        <text class="ts" x="344" y="188">against trade, cluster and history norms</text>
+
+        <rect class="bxg" x="330" y="208" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="228">Renewal engine</text>
+        <text class="ts" x="344" y="244">the book read first, files start half-written</text>
+
+        <rect class="bxg" x="330" y="264" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="284">Date watch</text>
+        <text class="ts" x="344" y="300">visits, reviews and disbursals tracked</text>
+
+        <text class="tg" x="330" y="336">every policy versioned &#183; every assessment reproducible with its evidence</text>
+
+        <rect class="bx" x="700" y="40" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="63">Review queue</text>
+        <text class="ts" x="714" y="80">ranked by doubt, evidence attached</text>
+
+        <rect class="bxw" x="700" y="116" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="139">Human gate</text>
+        <text class="ts" x="714" y="156">your credit team decides;</text>
+        <text class="ts" x="714" y="168">nothing is sanctioned by software</text>
+
+        <rect class="bx" x="700" y="192" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="215">Borrower, answered</text>
+        <text class="ts" x="714" y="232">days sooner, visited once</text>
+        <text class="ts" x="714" y="244">branch &#183; field &#183; WhatsApp</text>
+
+        <rect class="bx" x="700" y="268" width="220" height="44" rx="2"/>
+        <text class="tt" x="714" y="288">Weekly accuracy report</text>
+        <text class="ts" x="714" y="302">to your team, good news or not</text>
+
+        <line class="ar" x1="260" y1="83" x2="326" y2="83" marker-end="url(#arr)"/>
+        <line class="ar" x1="260" y1="173" x2="326" y2="173" marker-end="url(#arr)"/>
+        <line class="ar" x1="260" y1="252" x2="326" y2="252" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="72" x2="696" y2="72" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="148" x2="696" y2="148" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="232" x2="696" y2="224" marker-end="url(#arr)"/>
+        <line class="arg" x1="810" y1="180" x2="810" y2="192"/>
+
+        <rect class="bx" x="20" y="352" width="900" height="34" rx="2"/>
+        <text class="ts" x="34" y="373">FOUNDATION &nbsp;&#183;&nbsp; works beside your LOS and the phones your officers already carry: reads first, sanctions nothing without approval &nbsp;&#183;&nbsp; full audit trail &nbsp;&#183;&nbsp; nothing replaced</text>
+      </svg>
+    </div>
+
+    <div class="archwrap rv" style="margin-top:26px">
+      <div class="ah"><span>One assessment, end to end &#183; <b>as the loop would run it</b></span><span>illustrative timings</span></div>
+      <svg class="arch" viewBox="0 0 940 150" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arr2" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+        <rect class="bx"  x="20"  y="30" width="118" height="46" rx="2"/><text class="tt" x="32"  y="50">Visit</text><text class="ts" x="32"  y="65">at the shop</text>
+        <rect class="bxg" x="158" y="30" width="118" height="46" rx="2"/><text class="tt" x="170" y="50">Capture</text><text class="ts" x="170" y="65">khata &#183; receipts &#183; stock</text>
+        <rect class="bxg" x="296" y="30" width="118" height="46" rx="2"/><text class="tt" x="308" y="50">Build</text><text class="ts" x="308" y="65">income, sourced</text>
+        <rect class="bxg" x="434" y="30" width="118" height="46" rx="2"/><text class="tt" x="446" y="50">Check</text><text class="ts" x="446" y="65">policy &#183; norms</text>
+        <rect class="bxw" x="572" y="30" width="118" height="46" rx="2"/><text class="tt" x="584" y="50">Review</text><text class="ts" x="584" y="65">your credit team</text>
+        <rect class="bx"  x="710" y="30" width="118" height="46" rx="2"/><text class="tt" x="722" y="50">Disbursed</text><text class="ts" x="722" y="65">days sooner</text>
+        <rect class="bx"  x="848" y="30" width="72"  height="46" rx="2"/><text class="tt" x="858" y="50">Learn</text><text class="ts" x="858" y="65">loop</text>
+        <line class="ar" x1="138" y1="53" x2="154" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="276" y1="53" x2="292" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="414" y1="53" x2="430" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="552" y1="53" x2="568" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="690" y1="53" x2="706" y2="53" marker-end="url(#arr2)"/>
+        <line class="ar" x1="828" y1="53" x2="844" y2="53" marker-end="url(#arr2)"/>
+        <rect class="bxw" x="158" y="98" width="272" height="34" rx="2"/>
+        <text class="ts" x="170" y="119">anything doubtful &#8594; a senior, with the evidence</text>
+        <line class="arg" x1="217" y1="76" x2="217" y2="94"/>
+        <line class="arg" x1="355" y1="94" x2="355" y2="80"/>
+        <text class="tg" x="470" y="119">every outcome trains the next assessment</text>
+      </svg>
+    </div>
+
+    <div class="anat rv">
+      <div>
+        <h4>What this means in practice</h4>
+        <ul>
+          <li><b>The evidence is read at the shop.</b> Khata pages and receipts photographed and read before the officer leaves, so a gap is one more question now rather than a second visit later.</li>
+          <li><b>The template fills from what was seen.</b> Every figure in the assessment is traceable to a photograph, a page or an observation.</li>
+          <li><b>Anomalies surface before credit does.</b> Numbers that sit oddly against trade, cluster or history norms are flagged with confidence, for a person.</li>
+          <li><b>The book is read first.</b> A returning borrower&#8217;s history and past assessment pre-fill the renewal instead of starting it blank.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Why Veritas, and why now</h4>
+        <ul>
+          <li><b>The craft is the moat, and it walks.</b> Growth opens branches faster than exposure can train assessors, and attrition takes the standard with it. Structure is how a craft stays.</li>
+          <li><b>The rules are yours already.</b> Credit policy and product norms are written documents. This is configuration work before it is judgement work.</li>
+          <li><b>Nothing is replaced.</b> The LOS, the branches and the visit itself stay exactly as they are. This sits behind them.</li>
+          <li><b>Your book is the bureau.</b> In this segment your repayment record is the only credit history that exists, and it is yours alone. It simply is not read yet.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 02 PROOF -->
+<section id="record">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">02</span><h2>Clients we can name</h2></div>
+    <p class="sec-intro">Three enterprises, three different problems, three systems still running today. Other clients remain unnamed under confidentiality, which is the protection Veritas would receive.</p>
+
+    <div class="viz3 rv">
+      <div class="vc">
+        <div class="vt">Musafir.com &#183; UAE &#183; rate search &amp; customer response</div>
+        <div class="vn">7 <i>weeks to live</i></div>
+        <div class="vrow"><span class="vlbl">The problem</span><p>A leading UAE travel enterprise. Pricing researched by hand across suppliers. Customer questions waiting for someone to be free.</p></div>
+        <div class="vrow"><span class="vlbl">What we built</span><p>The complete platform in seven weeks, plus the automation around it: <b>continuous pricing across suppliers, tracking on every order, and customers updated automatically at each stage</b>.</p></div>
+        <div class="vrow"><span class="vlbl">How it works &#183; hover a node</span></div>
+        <svg class="mini" id="vxTrav" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="arrM" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+          <g class="hz" data-t="&lt;i&gt;the request&lt;/i&gt; &#183; arrives in free text and is structured automatically, whatever format it comes in">
+            <rect class="nd" x="4" y="22" width="78" height="32" rx="2"/>
+            <text class="lbl" x="10" y="36">Request</text><text x="10" y="48">any format</text>
+          </g>
+          <line class="lnk" x1="82" y1="38" x2="100" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;the search&lt;/i&gt; &#183; suppliers compared automatically for the cheapest viable option; no person starts it">
+            <rect class="nd" x="102" y="22" width="84" height="32" rx="2"/>
+            <text class="lbl" x="108" y="36">Search</text><text x="108" y="48">suppliers</text>
+          </g>
+          <line class="lnk" x1="186" y1="38" x2="204" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;the answer&lt;/i&gt; &#183; prepared for a person to approve, then sent; the customer is updated at every stage after">
+            <rect class="nd" x="206" y="22" width="70" height="32" rx="2"/>
+            <text class="lbl" x="212" y="36">Answered</text><text x="212" y="48">and tracked</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;self-healing&lt;/i&gt; &#183; a failed step is retried, re-planned, or handed to a person; it does not stall silently">
+            <path class="lnkg" d="M241,54 L241,74 L43,74 L43,58" marker-end="url(#arrM)"/>
+            <text x="53" y="92">failed steps re-plan themselves</text>
+          </g>
+        </svg>
+        <div class="vread" id="vxTrav-r">hover a node for what it does</div>
+        <div class="vs"><b>Business outcome: an entire revenue line moved online in one quarter, with response speed no longer tied to staffing.</b> For Veritas: it reads financial evidence in whatever form a shop keeps it, in production today.</div>
+      </div>
+      <div class="vc">
+        <div class="vt">LegalMatch.com &#183; USA &#183; enquiry scoring</div>
+        <div class="vn">3 <i>calibrated models</i></div>
+        <div class="vrow"><span class="vlbl">The problem</span><p>A US marketplace approaching $100M revenue. More enquiries than the sales team could work, with effort spread evenly regardless of value.</p></div>
+        <div class="vrow"><span class="vlbl">What we built</span><p>Scoring models inside the system the team already used. <b>Every enquiry ranked by what it is worth, and every ranking explained to the person working it</b>.</p></div>
+        <div class="vrow"><span class="vlbl">How it works &#183; hover a stage</span></div>
+        <svg class="mini" id="vzC" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="axis" x1="28" y1="88" x2="270" y2="88"/>
+          <rect class="barb" data-k="s1" x="46" y="48" width="48" height="40"/>
+          <rect class="barb" data-k="s2" x="122" y="34" width="48" height="54"/>
+          <rect class="barb" data-k="s3" x="198" y="20" width="48" height="68"/>
+          <text x="44" y="100">P(Set)</text><text x="110" y="100">P(Complete)</text><text x="198" y="100">P(Deal)</text>
+          <text x="46" y="42" class="lbl">stage 1</text><text x="122" y="28" class="lbl">stage 2</text><text x="198" y="14" class="lbl">stage 3</text>
+        </svg>
+        <div class="vread" id="vzC-r">hover a bar to see what each model scores</div>
+        <div class="vs"><b>Business outcome: the same sales team producing more, without hiring.</b> For Veritas: the same method ranks the day&#8217;s files by doubt and completeness, so senior review starts where it is needed most.</div>
+      </div>
+      <div class="vc">
+        <div class="vt">StayVista.com &#183; India &#183; AI vision QC</div>
+        <div class="vn">Every <i>handover audited</i></div>
+        <div class="vrow"><span class="vlbl">The problem</span><p>India&#8217;s leading luxury villa operator. Quality checks depended on which staff member walked the property, so standards varied by person and site.</p></div>
+        <div class="vrow"><span class="vlbl">What we built</span><p>A system that inspects photographs automatically and writes the handover report itself. <b>The same standard applied to every property, every time, with a record behind it</b>.</p></div>
+        <div class="vrow"><span class="vlbl">How it works &#183; hover a node</span></div>
+        <svg class="mini" id="vxVis" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <g class="hz" data-t="&lt;i&gt;evidence&lt;/i&gt; &#183; captured on site in the existing app; no new hardware, no new habits">
+            <rect class="nd" x="4" y="22" width="78" height="32" rx="2"/>
+            <text class="lbl" x="10" y="36">Photos</text><text x="10" y="48">site &#183; app</text>
+          </g>
+          <line class="lnk" x1="82" y1="38" x2="100" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;vision checks&lt;/i&gt; &#183; every frame scored against configurable rules; uncertain frames go to a person">
+            <rect class="nd" x="102" y="22" width="84" height="32" rx="2"/>
+            <text class="lbl" x="108" y="36">Vision</text><text x="108" y="48">checks &#183; rules</text>
+          </g>
+          <line class="lnk" x1="186" y1="38" x2="204" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;report&lt;/i&gt; &#183; the file writes itself, auditable and identical in format every time">
+            <rect class="nd" x="206" y="22" width="70" height="32" rx="2"/>
+            <text class="lbl" x="212" y="36">Report</text><text x="212" y="48">auto-built</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;the discipline&lt;/i&gt; &#183; same rules, every time; exceptions surface to people with context">
+            <path class="lnkg" d="M241,54 L241,74 L43,74 L43,58" marker-end="url(#arrM)"/>
+            <text x="50" y="92">every check judged the same way</text>
+          </g>
+        </svg>
+        <div class="vread" id="vxVis-r">hover a node for what it does</div>
+        <div class="vs"><b>Business outcome: a subjective check became consistent, auditable evidence.</b> For Veritas: the same approach scores its own confidence on every page and photograph read, which is what lets an authored number be verified instead of trusted.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 WHAT WE SEE -->
+<section id="assessment">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">03</span><h2>What we see at Veritas</h2></div>
+    <p class="sec-intro">Four observations from public sources, each with the business consequence attached.</p>
+
+    <div class="darch rv">
+      <div class="da">
+        <div class="dcode">Observation 01 &#183; the craft</div>
+        <h4>The assessment is authored, not collected.</h4>
+        <p>There is no balance sheet to request. Your officer reconstructs one, from khata books, purchase slips, stock on the shelves and the conversation itself, and writes the income into the file.<br><br><b>Every file is an original composition. The same shop read by two officers can produce two numbers, and credit has to choose which to believe with nothing but the file in front of them.</b></p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 02 &#183; the evidence</div>
+        <h4>What the officer saw never fully reaches the file.</h4>
+        <p>The khata page was turned, the stock was counted, the receipts were leafed through, and what survives into the file is a conclusion.<br><br><b>Review trusts the officer because it cannot see what the officer saw. Making the evidence travel with the number is what turns that trust into verification.</b></p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 03 &#183; the apprenticeship</div>
+        <h4>The craft takes years, and it walks.</h4>
+        <p>Your best assessors learned by years of shops, corrections and seniors looking over their shoulder. Growth opens branches faster than that exposure can be repeated, and attrition takes it away entirely.<br><br><b>The standard lives in people. Every new branch starts at the bottom of a learning curve the company has already paid for somewhere else.</b></p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 04 &#183; the repeat borrower</div>
+        <h4>Your own book is the bureau.</h4>
+        <p>For borrowers who exist nowhere on paper, the bureaus are nearly blank. What does exist is their history with you: every instalment, every delay, every past assessment.<br><br><b>A returning borrower&#8217;s file should start half-written from your own record. Today it starts blank, and the reassessment costs what the first assessment did.</b></p>
+      </div>
+    </div>
+
+    <div class="callout rv">
+      <div class="ct">Why this matters commercially</div>
+      <p>None of this is a failure. The ability to underwrite people the rest of the system cannot see is the entire moat, and it was built shop by shop.<br><br><b>The opportunity is to structure the capture and the evidence, never the judgement. When what the officer saw travels with the number, review becomes verification, teaching becomes faster, and the craft becomes the company&#8217;s instead of the individual&#8217;s.</b><br><br>Your credit policy, your field visit and your branch relationships stay untouched.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 04 WHERE WE WOULD START -->
+<section id="proposal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">04</span><h2>Where we would start</h2></div>
+    <p class="sec-intro"><b>One place to start.</b> Structure what the field visit captures, read the evidence on the spot, and hand credit an assessment where every number carries its source. Nothing changes in your policy or your visits. Prove it in one region, then widen.</p>
+
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">The assessment, with its evidence</div><div class="geo">the recommended first build</div></div>
+        <p class="prob">At the shop, the officer photographs what they are already looking at: the khata pages, the receipts, the stock. The system reads it on the spot, fills the assessment template with every figure traceable to its source, flags what sits oddly against trade and cluster norms, and lists what is still missing while the officer can still ask.<br><br>Your officers assess. Your credit team sanctions. Nothing is decided by software.<br><br><b>The bigger gain is that the number stops depending on its author.</b> When every figure arrives with what the officer saw, review verifies instead of trusts, and the standard becomes the company&#8217;s.</p>
+        <h5>How the rollout runs</h5>
+        <ul class="agents">
+          <li><b>Discovery.</b> One region. We map how an assessment travels from first visit to sanction and agree the single number we will be judged on.</li>
+          <li><b>Design.</b> Credit policy, product norms and the assessment template become versioned settings your team can edit, not code only we understand.</li>
+          <li><b>Integration.</b> Read-only against the LOS and the phones your officers already carry. No migration. Nothing changes for a borrower.</li>
+          <li><b>Deployment.</b> Two weeks running quietly alongside the live process, so the baseline is measured rather than guessed. Then live, with your credit team deciding every file.</li>
+          <li><b>Continuous improvement.</b> Results reported weekly. Every sanction, and every default, improves the next assessment.</li>
+        </ul>
+        <h5>What stays exactly as it is</h5>
+        <div class="stackline"><i>your credit policy</i><i>your field visit</i><i>your branches</i><i>read-only to begin</i><i>a person on every sanction</i></div>
+      </div>
+      <div class="r">
+        <div class="met">
+          <div class="m"><b class="g">&#8722;50-60%</b><small>days from first visit to credit-ready &#183; modeled</small></div>
+          <div class="m"><b>~5 wks</b><small>from start to live in one region</small></div>
+        </div>
+        <div class="mathnote"><b>Why five weeks is realistic.</b> The document reading, the versioned rule engines and the review loop already exist and run in production. What remains is connection and configuration, not invention. <b>If the agreed number is missed, that is our commercial problem, not yours.</b></div>
+      </div>
+    </div>
+
+    <div class="domhead"><h3>What comes next</h3><div class="dm">each phase funded by the results of the last</div></div>
+    <div class="roi rv">
+      <div class="rc"><b>Phase 1 &#183; The assessment file</b><span>One region, decided by your credit team and measured weekly. It widens region by region only as the numbers hold. This is what this document proposes.</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b>Phase 2 &#183; The returning borrower</b><span>Renewals start half-written from your own book: repayment history and the past assessment read first, so the customer who came back is not assessed like a stranger.</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b class="g">Phase 3 &#183; The craft, kept</b><span>Every assessment and its outcome becomes a teachable record: what good files look like, trade by trade. New officers learn from the book, and the standard survives attrition.</span></div>
+    </div>
+
+    <div class="domhead"><h3>What Veritas should expect</h3><div class="dm">what changes for the business</div></div>
+    <div class="roi rv">
+      <div class="rc"><b>Consistency you can audit</b><span>The same shop produces the same number whoever wrote the file, and the evidence behind every figure is one click from the reviewer.</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b>Growth stops diluting the standard</b><span>A new branch starts from the book, not the bottom of the learning curve, and second visits for missed papers stop eating the field day.</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b class="g">A bureau nobody else has</b><span>The repeat segment underwritten from your own record, at a speed no competitor without the history can match. The book becomes the moat&#8217;s second layer.</span></div>
+    </div>
+
+    <div class="domhead"><h3>Other places this would help</h3><div class="dm">beyond the first build</div></div>
+    <div class="ucgrid rv">
+      <div class="uc pick">
+        <div class="code">UC-01 &#183; the assessment, evidenced</div>
+        <h4>Every figure carries its source.</h4>
+        <p>The visit&#8217;s evidence read on the spot, the template filled with each number traceable to a photograph or page, and gaps listed while the officer can still ask. This is the recommended first build.</p>
+        <div class="m"><b class="g">&#8722;50-60%</b><small>days from first visit to credit-ready &#183; the number we would be judged on</small></div>
+        <div class="own">Owner &#183; credit operations</div>
+      </div>
+      <div class="uc">
+        <div class="code">UC-02 &#183; evidence capture</div>
+        <h4>Read before the officer leaves.</h4>
+        <p>Khata pages, receipts and stock photographed in the shop and read immediately, so a missing answer is a question asked now, not a second visit.</p>
+        <div class="m"><b>Traceable</b><small>every number to its source</small></div>
+        <div class="own">Owner &#183; field operations</div>
+      </div>
+      <div class="uc">
+        <div class="code">UC-03 &#183; the renewal, pre-filled</div>
+        <h4>The customer who came back.</h4>
+        <p>Repayment history and the past assessment read first, so a returning borrower&#8217;s file starts half-written instead of blank.</p>
+        <div class="m"><b>Days</b><small>per renewal file</small></div>
+        <div class="own">Owner &#183; branch operations</div>
+      </div>
+      <div class="uc">
+        <div class="code">UC-04 &#183; review, from evidence</div>
+        <h4>Ranked by doubt.</h4>
+        <p>The review queue ordered by anomaly and completeness, with the evidence attached, so senior hours land where the doubt actually is.</p>
+        <div class="m"><b>Reviews</b><small>per senior, per day</small></div>
+        <div class="own">Owner &#183; credit</div>
+      </div>
+      <div class="uc">
+        <div class="code">UC-05 &#183; the anomaly lens</div>
+        <h4>Flagged, never assumed.</h4>
+        <p>Assessments that sit oddly against trade, cluster or history norms surfaced with a confidence score for a person to examine.</p>
+        <div class="m"><b>Anomalies</b><small>surfaced for review</small></div>
+        <div class="own">Owner &#183; risk</div>
+      </div>
+      <div class="uc pick">
+        <div class="code">and beyond</div>
+        <h4>Your list will be better.</h4>
+        <p>These came from public research. The people running your desks know where the hours actually go. Thirty minutes with them would produce a sharper list than this one, and we would rather build against that.</p>
+      </div>
+    </div>
+    <div class="dnote2 rv"><b>On all of the above.</b> Everything runs behind a human approval step, inside your own environment, alongside how your team already works, with results reported weekly. We operate what we build, for the life of the system.</div>
+
+    <div class="domhead"><h3>How you would hold us to it</h3><div class="dm">baseline measured in shadow mode &#183; target agreed jointly</div></div>
+    <div class="uclist rv">
+      <div class="ur"><div class="c">speed</div><div class="t"><b>Days from first visit to credit-ready</b> &#183; From the officer&#8217;s visit to a reviewable file at the credit desk. This is the single number we would be judged on.</div><div class="mres"><b>Baseline &#8594; target</b></div></div>
+      <div class="ur"><div class="c">rework</div><div class="t"><b>Files returned by credit</b> &#183; Assessments sent back for gaps or doubts, which should fall as evidence travels with the number.</div><div class="mres"><b>% returned</b></div></div>
+      <div class="ur"><div class="c">visits</div><div class="t"><b>Second visits per file</b> &#183; Trips made only to collect what the first visit missed, which the on-the-spot reading is designed to end.</div><div class="mres"><b>Per file</b></div></div>
+      <div class="ur"><div class="c">renewals</div><div class="t"><b>Renewals pre-filled from the book</b> &#183; Share of returning borrowers whose file started from your own record rather than blank.</div><div class="mres"><b>% pre-filled</b></div></div>
+      <div class="ur"><div class="c">evidence</div><div class="t"><b>Figures with source attached</b> &#183; The share of assessment numbers traceable to a photograph or page, which is what makes review verification.</div><div class="mres"><b>% traceable</b></div></div>
+      <div class="ur"><div class="c">adoption</div><div class="t"><b>Override rate</b> &#183; How often an officer or reviewer corrects a read figure or a flag. Rising means we are wrong. Falling means it is trusted.</div><div class="mres"><b>% &#183; weekly</b></div></div>
+    </div>
+    <div class="dnote2 rv"><b>One number decides it.</b> The first row is the gate metric: agreed in writing before we start, evaluated on a date fixed in advance. If it is missed, that is explicit, and the commercial consequence sits with us.</div>
+
+    <div class="twocol rv">
+      <div>
+        <h4>How we work</h4>
+        <ul>
+          <li><b>One agreed number.</b> Fixed in writing before we start, measured on a date set in advance.</li>
+          <li><b>Weekly reporting.</b> The same format every week, good news or bad.</li>
+          <li><b>People decide.</b> The system reads, builds and flags. Your officers assess and your credit team sanctions.</li>
+          <li><b>Your environment.</b> Data stays in your systems and jurisdiction. We integrate rather than extract.</li>
+          <li><b>We stay.</b> Monitoring, updates, retraining and support for the life of the system.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>What we will not do</h4>
+        <ul>
+          <li><b>Change how borrowers reach you.</b> The same branches, the same officers, the same visit to the same shop. This sits behind them.</li>
+          <li><b>Replace the visit.</b> Nothing here works without your officer standing in the shop. The system structures what the visit captures. It cannot make the visit.</li>
+          <li><b>Send anything automatically.</b> No sanction, no disbursal and no message to a borrower moves without a person approving it.</li>
+          <li><b>Expose you to other clients.</b> We work with lending businesses and carry nothing between them, in either direction. Isolation is audited, not assumed.</li>
+          <li><b>Create dependency.</b> Your team is trained to run it without us.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="fmeta">
+      <div class="fmark">Shiftora<em>.ai</em></div>
+      <span>Prepared for Veritas &#183; Chennai &#183; August 2026</span>
+      <a href="mailto:info@shiftora.ai">info@shiftora.ai</a>
+    </div>
+    <div class="fnote">This document is confidential and prepared solely for Veritas. It does not constitute a binding offer; commercial terms would be agreed in a definitive engagement agreement. Figures are labelled where they appear: verified figures derive from production deployments and are reproducible on request; modeled figures are estimates based on published information and industry benchmarks; illustrative data is generated within this page. Veritas figures are taken from its own published pages and are cited in section 04; no third-party revenue or headcount estimates have been used. Where a client is not named, confidentiality obligations apply, and Veritas would receive the same protection. &#169; 2026 Shiftora.ai. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+document.body.classList.add('js-anim');
+
+// reveal on scroll
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// interactive charts
+function wireLine(id,pts,unit){
+  const svg=document.getElementById(id);if(!svg)return;
+  const ln=svg.querySelector('.hln'),pt=svg.querySelector('.hpt'),out=document.getElementById(id+'-r');
+  if(!ln||!pt||!out)return;
+  const d0=out.textContent;
+  function show(clientX){
+    const r=svg.getBoundingClientRect(),x=(clientX-r.left)*(280/r.width);
+    let b=pts[0];for(const p of pts){if(Math.abs(p.x-x)<Math.abs(b.x-x))b=p;}
+    ln.setAttribute('x1',b.x);ln.setAttribute('x2',b.x);ln.classList.add('on');
+    pt.setAttribute('cx',b.x);pt.setAttribute('cy',b.y);pt.classList.add('on');
+    out.innerHTML=b.t+' &#183; <i>'+b.v+'</i> '+unit;
+  }
+  svg.addEventListener('mousemove',e=>show(e.clientX));
+  svg.addEventListener('touchmove',e=>{show(e.touches[0].clientX);e.preventDefault();},{passive:false});
+  svg.addEventListener('mouseleave',()=>{ln.classList.remove('on');pt.classList.remove('on');out.textContent=d0;});
+}
+wireLine('vzB',[
+  {x:28,y:86,t:'week 1',v:'85%'},{x:58,y:78,t:'week 3',v:'86.5%'},
+  {x:88,y:68,t:'week 5',v:'88%'},{x:118,y:57,t:'week 7',v:'89.5%'},
+  {x:148,y:46,t:'week 9',v:'91%'},{x:178,y:36,t:'week 11',v:'92.5%'},
+  {x:208,y:28,t:'week 13',v:'94%'},{x:238,y:22,t:'week 15',v:'95.5%'},
+  {x:268,y:18,t:'week 16',v:'96.8%'}],'accuracy under supervision');
+
+(function(){
+  const svg=document.getElementById('vzC');if(!svg)return;
+  const out=document.getElementById('vzC-r');if(!out)return;
+  const d0=out.textContent;
+  const info={
+    s1:'<i>P(Set)</i> &#183; odds a first conversation happens, scored the moment an enquiry arrives',
+    s2:'<i>P(Complete)</i> &#183; odds the opportunity completes the funnel',
+    s3:'<i>P(Deal)</i> &#183; odds it becomes paid work; this sets the rank'};
+  svg.querySelectorAll('.barb').forEach(b=>{
+    const on=()=>{svg.querySelectorAll('.barb').forEach(x=>x.classList.remove('on'));b.classList.add('on');out.innerHTML=info[b.dataset.k];};
+    b.addEventListener('mouseenter',on);b.addEventListener('touchstart',on,{passive:true});
+  });
+  svg.addEventListener('mouseleave',()=>{svg.querySelectorAll('.barb').forEach(x=>x.classList.remove('on'));out.textContent=d0;});
+})();
+
+// hover-readout diagrams
+function wireHot(id){
+  const svg=document.getElementById(id);if(!svg)return;
+  const out=document.getElementById(id+'-r');if(!out)return;
+  const d0=out.textContent;
+  svg.querySelectorAll('g.hz').forEach(n=>{
+    const on=()=>{svg.querySelectorAll('g.hz').forEach(x=>x.classList.remove('on'));n.classList.add('on');out.innerHTML=n.dataset.t;};
+    n.addEventListener('mouseenter',on);n.addEventListener('touchstart',on,{passive:true});
+  });
+  svg.addEventListener('mouseleave',()=>{svg.querySelectorAll('g.hz').forEach(x=>x.classList.remove('on'));out.textContent=d0;});
+}
+wireHot('vxTrav');wireHot('vxVis');
+</script>
+</body>
+</html>
