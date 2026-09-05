@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shiftora.ai &#183; For Indoco Remedies &#183; A Strategic Assessment</title>
+<!--
+  Shiftora.ai proposal for Indoco Remedies Limited. September 2026. Confidential.
+  Built from proposal-system/template-short.html. Short form: ~4 minute read.
+-->
+<style>
+  :root{
+    --ink:#0B0B0C; --ink2:#2A2A2E; --paper:#FFFFFF; --paper2:#F5F5F4; --paper3:#EDEDEA;
+    --line:#E2E2DF; --line2:#CFCFCB; --muted:#6C6C70; --muted2:#9A9A9E;
+    --con-bg:#0B0B0C; --con-panel:#141416; --con-line:#262629; --con-text:#EAEAE7; --con-dim:#7C7C82;
+    --signal:#47A45A; --signal-bg:rgba(71,164,90,.14); --signal-line:rgba(71,164,90,.35);
+    --warn:#B98322;
+    --sans:Arial,'Helvetica Neue',Helvetica,sans-serif;
+    --heavy:'Arial Black',Arial,'Helvetica Neue',sans-serif;
+    --mono:ui-monospace,'SF Mono','JetBrains Mono',Menlo,Consolas,monospace;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--ink);color:var(--paper)}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- top bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .bar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+  .mark{font-family:var(--heavy);font-size:19px;letter-spacing:-.02em}
+  .mark em{font-style:normal;font-family:var(--sans);font-weight:700;color:var(--muted);letter-spacing:0}
+  .nav{display:flex;gap:22px;align-items:center}
+  .nav a{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--muted);transition:color .15s}
+  .nav a:hover{color:var(--ink)}
+  .tag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);border:1px solid var(--line2);padding:5px 9px}
+  @media(max-width:960px){.nav{display:none}}
+  @media(max-width:600px){.tag{display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:72px 0 50px;border-bottom:1px solid var(--line)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:stretch}
+  .hero h1{font-family:var(--heavy);font-size:clamp(22px,4.3vw,39px);line-height:1.02;letter-spacing:-.026em}
+  .hero h1 .lo{color:var(--muted2)}
+  .hero .lede{margin-top:24px;font-size:18.5px;max-width:50ch;color:var(--ink2)}
+  .hero .sub{margin-top:13px;font-size:15px;color:var(--muted);max-width:52ch}
+  .stat-row{display:flex;gap:0;margin-top:34px;border-top:1px solid var(--line);flex-wrap:wrap}
+  .stat{padding:16px 22px 0 0;margin-right:22px;border-right:1px solid var(--line)}
+  .stat:last-child{border-right:0}
+  .stat b{font-family:var(--heavy);font-size:28px;letter-spacing:-.02em;display:block;line-height:1}
+  .stat small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:7px}
+  .stackrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .sk{font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;color:var(--ink2);border:1px solid var(--line2);padding:6px 10px;background:var(--paper2)}
+
+  .shipped{border:1px solid var(--ink);height:100%;box-sizing:border-box;display:flex;flex-direction:column;background:var(--paper)}
+  .shipped .hd{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:12px 18px;display:flex;justify-content:space-between;gap:12px}
+  .shipped .hd i{font-style:normal;color:var(--signal)}
+  .shipped .row{padding:14px 18px;border-bottom:1px solid var(--line);flex:1;display:flex;flex-direction:column;justify-content:center}
+  .shipped .row:last-of-type{border-bottom:0}
+  .shipped .row b{font-family:var(--heavy);font-size:15.5px;letter-spacing:-.01em;display:block}
+  .shipped .row span{font-size:13px;color:var(--muted);display:block;margin-top:3px;line-height:1.5}
+  .shipped .ft{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--ink);padding:11px 18px;background:var(--paper2)}
+  .shipped .ft b{color:var(--signal);font-weight:400}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+
+  /* ---------- section frame ---------- */
+  section{padding:70px 0;border-bottom:1px solid var(--line)}
+  section{scroll-margin-top:72px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:8px}
+  .sec-code{font-family:var(--mono);font-size:12px;color:var(--muted2);letter-spacing:.06em}
+  .sec-head h2{font-family:var(--heavy);font-size:clamp(26px,3.4vw,40px);letter-spacing:-.02em;line-height:1.02}
+  .sec-intro{max-width:64ch;color:var(--ink2);margin:16px 0 8px;font-size:17px}
+
+  /* ---------- domain groups ---------- */
+  .domhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin:52px 0 6px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+  .domhead h3{font-family:var(--heavy);font-size:22px;letter-spacing:-.01em}
+  .domhead .dm{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- case study block ---------- */
+  .cs{display:grid;grid-template-columns:1.25fr .75fr;gap:0;border:1px solid var(--line);border-top:0}
+  .cs:first-of-type{border-top:1px solid var(--line)}
+  .cs .l{padding:28px;border-right:1px solid var(--line)}
+  .cs .r{padding:28px;background:var(--paper2)}
+  .cs .kick{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+  .cs .client{font-family:var(--heavy);font-size:20px;letter-spacing:-.01em}
+  .cs .geo{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .cs .prob{margin-top:12px;color:var(--ink2);font-size:15px}
+  .cs .prob b{color:var(--ink)}
+  .cs h5{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+  .cs .agents{list-style:none}
+  .cs .agents li{font-size:14px;color:var(--ink2);padding:5px 0 5px 16px;position:relative}
+  .cs .agents li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:1px;background:var(--ink)}
+  .cs .agents li b{font-weight:700;color:var(--ink)}
+  .stackline{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+  .stackline i{font-style:normal;font-family:var(--mono);font-size:10.5px;color:var(--ink2);border:1px solid var(--line2);background:var(--paper);padding:4px 9px}
+  .met{display:flex;flex-direction:column}
+  .met .m{padding:14px 0;border-bottom:1px solid var(--line)}
+  .met .m:last-child{border-bottom:0}
+  .met .m b{font-family:var(--heavy);font-size:26px;letter-spacing:-.02em;display:block;line-height:1}
+  .met .m b.g{color:var(--signal)}
+  .met .m small{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px}
+  .mathnote{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.65;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line2)}
+  .mathnote b{color:var(--ink);font-weight:400}
+  @media(max-width:820px){.cs{grid-template-columns:1fr}.cs .l{border-right:0;border-bottom:1px solid var(--line)}.cs .kick{flex-direction:column;align-items:flex-start;gap:5px}.cs .geo{white-space:normal}}
+
+  .callout{border-left:2px solid var(--ink);background:var(--paper2);padding:18px 22px;margin-top:22px;max-width:920px}
+  .callout .ct{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .callout p{font-size:14.5px;color:var(--ink2);line-height:1.6}
+  .callout p b{color:var(--ink)}
+
+  /* ---------- architecture panels ---------- */
+  .archwrap{background:var(--con-bg);border:1px solid var(--con-line);margin-top:30px;padding:20px 16px 10px}
+  .archwrap .ah{display:flex;justify-content:space-between;color:var(--con-dim);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:0 4px 12px;border-bottom:1px solid var(--con-line);margin-bottom:10px}
+  .archwrap .ah b{color:var(--con-text);font-weight:400}
+  .archwrap svg{width:100%;height:auto;display:block}
+  svg.arch text{font-family:var(--mono)}
+  svg.arch .bx{fill:var(--con-panel);stroke:var(--con-line)}
+  svg.arch .bxg{fill:rgba(71,164,90,.08);stroke:rgba(71,164,90,.45)}
+  svg.arch .bxw{fill:rgba(185,131,34,.08);stroke:rgba(185,131,34,.5)}
+  svg.arch .tt{fill:var(--con-text);font-size:11px}
+  svg.arch .ts{fill:var(--con-dim);font-size:9px}
+  svg.arch .tg{fill:var(--signal);font-size:9px}
+  svg.arch .tw{fill:var(--warn);font-size:9px}
+  svg.arch .lane{fill:var(--con-dim);font-size:9.5px;letter-spacing:.12em}
+  svg.arch .ar{stroke:var(--con-dim);stroke-width:1;fill:none}
+  svg.arch .arg{stroke:rgba(71,164,90,.55);stroke-width:1;fill:none;stroke-dasharray:5 4}
+
+  /* explainer under diagrams */
+  .anat{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-top:0}
+  .anat > div{padding:24px}
+  .anat > div:first-child{border-right:1px solid var(--line)}
+  .anat h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .anat ul{list-style:none}
+  .anat li{font-size:14px;color:var(--ink2);padding:5px 0 5px 15px;position:relative;line-height:1.55}
+  .anat li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .anat li b{color:var(--ink)}
+  @media(max-width:760px){.anat{grid-template-columns:1fr}.anat>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+
+  /* ---------- mini result visuals ---------- */
+  .viz3{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--con-line);margin-top:26px;background:var(--con-bg)}
+  .viz3 .vc{padding:18px 18px 14px;border-right:1px solid var(--con-line)}
+  .viz3 .vc:last-child{border-right:0}
+  .viz3 .vt{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--con-dim)}
+  .viz3 .vn{font-family:var(--heavy);font-size:23px;letter-spacing:-.02em;color:var(--con-text);margin-top:6px}
+  .viz3 .vn i{font-style:normal;color:var(--signal)}
+  .viz3 svg{width:100%;height:auto;display:block;margin-top:10px}
+  .viz3 .vs{font-family:var(--mono);font-size:10px;color:var(--con-dim);line-height:1.6;margin-top:10px}
+  .viz3 .vs b{color:var(--con-text);font-weight:400}
+  .viz3 .vrow{margin-top:13px}
+  .viz3 .vlbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--signal);display:block}
+  .viz3 .vrow p{font-size:12.5px;color:#ADADAA;line-height:1.6;margin-top:4px}
+  .viz3 .vrow p b{color:var(--con-text);font-weight:400}
+  .viz3 .vread{font-family:var(--mono);font-size:10px;color:var(--con-dim);margin-top:9px;min-height:16px;border-top:1px dashed var(--con-line);padding-top:8px}
+  .viz3 .vread i{font-style:normal;color:var(--signal)}
+  @media(max-width:820px){.viz3{grid-template-columns:1fr}.viz3 .vc{border-right:0;border-bottom:1px solid var(--con-line)}.viz3 .vc:last-child{border-bottom:0}}
+  svg.mini text{font-family:var(--mono);font-size:8.5px;fill:var(--con-dim)}
+  svg.mini .axis{stroke:var(--con-line);stroke-width:1}
+  svg.mini .ser{fill:none;stroke:var(--signal);stroke-width:2}
+  svg.mini .ser2{fill:none;stroke:var(--con-dim);stroke-width:1.5;stroke-dasharray:4 3}
+  svg.mini .pt{fill:var(--con-text)}
+  svg.mini .barb{fill:rgba(71,164,90,.25);stroke:rgba(71,164,90,.6)}
+  svg.mini .lbl{fill:var(--con-text)}
+  svg.mini.ix{cursor:crosshair}
+  svg.mini .hln{stroke:rgba(71,164,90,.45);stroke-width:1;stroke-dasharray:2 3;opacity:0}
+  svg.mini .hpt{fill:var(--signal);opacity:0}
+  svg.mini .hln.on,svg.mini .hpt.on{opacity:1}
+  svg.mini rect.barb{cursor:pointer;transition:fill .15s}
+  svg.mini rect.barb.on{fill:rgba(71,164,90,.55)}
+  .js-anim .viz3 .ser{stroke-dasharray:1;stroke-dashoffset:1}
+  .js-anim .viz3.in .ser{transition:stroke-dashoffset 1.5s ease .25s;stroke-dashoffset:0}
+  .js-anim .viz3 rect.barb{transform-box:fill-box;transform-origin:bottom;transform:scaleY(0)}
+  .js-anim .viz3.in rect.barb{transition:transform .7s ease .1s;transform:scaleY(1)}
+  .js-anim .viz3.in rect.barb:nth-of-type(2){transition-delay:.25s}
+  .js-anim .viz3.in rect.barb:nth-of-type(3){transition-delay:.4s}
+  @media(prefers-reduced-motion:reduce){.js-anim .viz3 .ser{stroke-dasharray:none;stroke-dashoffset:0}.js-anim .viz3 rect.barb{transform:none}}
+  svg.mini .nd{fill:var(--con-panel);stroke:var(--con-line)}
+  svg.mini .lnk{stroke:var(--con-line);stroke-width:1;fill:none}
+  svg.mini .lnkg{stroke:rgba(71,164,90,.55);stroke-width:1;fill:none;stroke-dasharray:4 3}
+  svg.mini g.hz{cursor:pointer}
+  svg.mini g.hz.on rect{stroke:var(--signal)}
+  svg.mini g.hz.on path{stroke:var(--signal)}
+  svg.mini g.hz.on text{fill:var(--con-text)}
+
+  /* ---------- assessment grid (03) ---------- */
+  .darch{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-top:30px}
+  .darch .da{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 24px}
+  .darch .da:nth-child(2n){border-right:0}
+  .darch .da:nth-last-child(-n+2){border-bottom:0}
+  .darch .da .dcode{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+  .darch .da h4{font-family:var(--heavy);font-size:18px;letter-spacing:-.01em;margin:6px 0 8px}
+  .darch .da p{font-size:14px;color:var(--ink2);line-height:1.55}
+  .darch .da p b{font-weight:700;color:var(--ink)}
+  @media(max-width:760px){.darch{grid-template-columns:1fr}.darch .da{border-right:0}.darch .da:nth-last-child(2){border-bottom:1px solid var(--line)}}
+
+  /* ---------- use case cards (04) ---------- */
+  .ucgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);margin-top:26px}
+  .uc{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px;display:flex;flex-direction:column;position:relative;background:var(--paper)}
+  .uc .code{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+  .uc h4{font-family:var(--heavy);font-size:18px;letter-spacing:-.01em;margin:7px 0 9px;line-height:1.15}
+  .uc p{font-size:13.5px;color:var(--ink2);line-height:1.55;flex:1}
+  .uc .m{margin-top:16px;padding-top:13px;border-top:1px solid var(--line)}
+  .uc .m b{font-family:var(--heavy);font-size:19px;letter-spacing:-.02em;display:block;line-height:1.05}
+  .uc .m b.g{color:var(--signal)}
+  .uc .m small{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-top:6px;line-height:1.5}
+  .uc .own{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted2);margin-top:10px}
+  .uc.pick{background:var(--paper2)}
+  @media(max-width:900px){.ucgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:640px){.ucgrid{grid-template-columns:1fr}}
+
+  .uclist{border:1px solid var(--line);border-bottom:0;margin-top:26px}
+  .uclist .ur{display:grid;grid-template-columns:190px 1fr 250px;gap:18px;align-items:baseline;padding:13px 20px;border-bottom:1px solid var(--line)}
+  .uclist .ur .c{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--signal);white-space:nowrap}
+  .uclist .ur .t{font-size:14px;color:var(--ink2)}
+  .uclist .ur .t b{font-family:var(--heavy);font-size:14px;letter-spacing:-.01em;color:var(--ink)}
+  .uclist .ur .mres{font-family:var(--mono);font-size:11px;color:var(--muted);text-align:right;white-space:nowrap}
+  .uclist .ur .mres b{color:var(--ink);font-weight:400}
+  @media(max-width:820px){.uclist .ur{grid-template-columns:1fr;gap:3px}.uclist .ur .mres{text-align:left}}
+
+  .roi{display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;align-items:stretch;border:1px solid var(--ink);margin-top:26px;background:var(--paper)}
+  .roi .rc{padding:22px 20px}
+  .roi .rc b{font-family:var(--heavy);font-size:25px;letter-spacing:-.02em;display:block;line-height:1.08}
+  .roi .rc b.g{color:var(--signal)}
+  .roi .rc span{font-size:13px;color:var(--muted);display:block;margin-top:8px;line-height:1.55}
+  .roi .ra{display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:17px;color:var(--muted2);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+  @media(max-width:820px){.roi{grid-template-columns:1fr}.roi .ra{display:none}.roi .rc{border-bottom:1px solid var(--line)}.roi .rc:last-child{border-bottom:0}}
+
+  /* ---------- engagement ---------- */
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);margin-top:30px}
+  .twocol > div{padding:24px}
+  .twocol > div:first-child{border-right:1px solid var(--line)}
+  .twocol h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+  .twocol ul{list-style:none}
+  .twocol li{font-size:14.5px;color:var(--ink2);padding:6px 0 6px 15px;position:relative;list-style:none}
+  .twocol li:before{content:"";position:absolute;left:0;top:12px;width:6px;height:1px;background:var(--ink)}
+  .twocol li b{color:var(--ink)}
+  @media(max-width:760px){.twocol{grid-template-columns:1fr}.twocol>div:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+
+  .dnote2{font-family:var(--mono);font-size:11px;color:var(--muted);line-height:1.65;margin-top:14px;max-width:86ch}
+  .dnote2 b{color:var(--ink);font-weight:400}
+
+  /* ---------- footer ---------- */
+  footer{padding:46px 0;background:var(--con-bg);color:var(--con-text)}
+  footer .fmeta{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+  footer .fmark{font-family:var(--heavy);font-size:17px;color:var(--con-text);letter-spacing:-.01em}
+  footer .fmark em{font-style:normal;font-family:var(--sans);font-weight:700;color:var(--con-dim);letter-spacing:0}
+  footer .fmeta a,footer .fmeta span{font-family:var(--mono);font-size:12px;letter-spacing:.04em;color:var(--con-dim)}
+  footer .fmeta a:hover{color:var(--con-text)}
+  footer .fnote{font-family:var(--mono);font-size:11px;color:var(--con-dim);margin-top:18px;border-top:1px solid var(--con-line);padding-top:16px;line-height:1.7}
+
+  .js-anim .rv{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .js-anim .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+  /* ---------- SHORT FORM ADDITIONS ---------- */
+  /* dark metric strip: replaces a written case study with its numbers only */
+  .mstrip{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--con-line);border-top:0;background:var(--con-bg)}
+  .mstrip .ms{padding:16px 18px;border-right:1px solid var(--con-line)}
+  .mstrip .ms:last-child{border-right:0}
+  .mstrip .ms b{font-family:var(--heavy);font-size:24px;color:var(--con-text);display:block;line-height:1;letter-spacing:-.02em}
+  .mstrip .ms b.g{color:var(--signal)}
+  .mstrip .ms small{font-family:var(--mono);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--con-dim);display:block;margin-top:7px;line-height:1.5}
+  @media(max-width:760px){.mstrip{grid-template-columns:1fr}.mstrip .ms{border-right:0;border-bottom:1px solid var(--con-line)}.mstrip .ms:last-child{border-bottom:0}}
+  /* reading-time marker in the eyebrow */
+  .rt{color:var(--signal)}
+</style>
+</head>
+<body>
+
+
+
+<!-- TOP BAR -->
+<div class="bar">
+  <div class="wrap">
+    <div class="mark">Shiftora<em>.ai</em></div>
+    <nav class="nav">
+      <a href="#built">01 What we run</a>
+      <a href="#record">02 Proof</a>
+      <a href="#assessment">03 What we see</a>
+      <a href="#proposal">04 Where we would start</a>
+    </nav>
+    <div class="tag">Prepared for Indoco Remedies</div>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="eyebrow">Shiftora.ai &#215; Indoco Remedies &nbsp;/&nbsp; September 2026 &nbsp;/&nbsp; confidential &nbsp;/&nbsp; <span class="rt">four minute read</span></div>
+        <!-- HEADLINE: two clauses with a turn. Grant competence, then name the repetitive
+             work. Never aim at their promise. Second half in .lo grey.
+             MEASURE the clamp: longest line at 85-95% of a 616px column. -->
+        <h1>Your medicines reach<br>regulated markets.<br><span class="lo">Your team still assembles<br>every dossier by hand.</span></h1>
+        <!-- LEDE: ONE sentence, then the fixed definition. Nothing else. -->
+        <p class="lede">Indoco Remedies has cleared the world&#8217;s strictest regulators since 1947. Every submission is still assembled document by document.<br><br><b>Shiftora builds custom AI systems for enterprise operations.</b> We remove the repetitive work, integrate with the systems you already run, and leave every decision with your team.</p>
+        <div class="stat-row">
+          <div class="stat"><b>7 wks</b><small>Musafir platform, kickoff to live &#183; verified</small></div>
+          <div class="stat"><b>96.8%</b><small>Decision accuracy at week 16 &#183; verified</small></div>
+          <div class="stat"><b>40+</b><small>Production APIs integrated &#183; verified</small></div>
+          <div class="stat"><b>100%</b><small>Uncertain decisions seen by a person</small></div>
+        </div>
+        <div class="stackrow">
+          <span class="sk">custom AI systems</span><span class="sk">document reading</span><span class="sk">confidence routing</span><span class="sk">audit trails</span><span class="sk">human gates</span><span class="sk">weekly accuracy reporting</span>
+        </div>
+      </div>
+      <div>
+        <!-- KEEP all five rows verbatim. -->
+        <div class="shipped">
+          <div class="hd"><span>What Shiftora does</span><span><i>&#9679;</i> implementation partner</span></div>
+          <div class="row"><b>Custom systems, built for you</b><span>Built and operated for your business alone.</span></div>
+          <div class="row"><b>Built around how you work</b><span>No migration, no new processes to adopt.</span></div>
+          <div class="row"><b>Repetitive work goes, judgement stays</b><span>Your team keeps every decision that matters.</span></div>
+          <div class="row"><b>Proven in production</b><span>A measured accuracy number and a human approval step.</span></div>
+          <div class="row"><b>We stay after launch</b><span>Monitoring and retraining for the life of the system.</span></div>
+          <div class="ft">enterprise systems &#183; UAE &#183; India &#183; USA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 01 WHAT WE RUN ============
+     SHORT FORM: ONE written case study, the one that maps to their wedge.
+     The review loop is no longer written out. It is the diagram plus a metric strip. -->
+<section id="built">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">01</span><h2>What we run in production</h2></div>
+    <p class="sec-intro">One system we run today, and the discipline behind every one we ship.</p>
+
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">Reading requests and answering them</div><div class="geo">Musafir.com &#183; UAE &#183; in production</div></div>
+        <p class="prob"><b>The problem.</b> A leading UAE travel enterprise. Every price researched by hand, every question awaiting a free person.<br><br><b>What we built.</b> The platform in seven weeks, plus the automation around it: <b>every request read on arrival, assembled from every source, answered without waiting</b>.</p>
+        <h5>Why it worked</h5>
+        <ul class="agents">
+          <li><b>Reading became instant.</b> Free text is structured the moment it arrives.</li>
+          <li><b>Nothing important is automatic.</b> The system prepares. A person approves.</li>
+        </ul>
+      </div>
+      <div class="r">
+        <div class="met">
+          <div class="m"><b class="g">7 weeks</b><small>kickoff to live &#183; verified</small></div>
+          <div class="m"><b>40+ APIs</b><small>across search, pricing and order flows</small></div>
+          <div class="m"><b>Automatic</b><small>customer updated at every stage</small></div>
+        </div>
+        <div class="mathnote"><b>Why it matters here.</b> The shape is identical: unstructured input arrives, the answer is assembled from many sources, and a person approves it.</div>
+      </div>
+    </div>
+
+    <!-- KEEP: the review loop, as a diagram only. No written case study in the short form. -->
+    <div class="archwrap rv">
+      <div class="ah"><span>Making it safe to trust &#183; <b>the review loop, as it runs today</b></span><span>simplified &#183; production system</span></div>
+      <svg class="arch" viewBox="0 0 940 210" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arrL" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+        <rect class="bx" x="20" y="46" width="200" height="50" rx="2"/>
+        <text class="tt" x="34" y="67">Live work arrives</text>
+        <text class="ts" x="34" y="83">reports &#183; queries &#183; source records</text>
+        <line class="ar" x1="220" y1="71" x2="256" y2="71" marker-end="url(#arrL)"/>
+        <rect class="bxg" x="260" y="46" width="220" height="50" rx="2"/>
+        <text class="tt" x="274" y="67">Model decides</text>
+        <text class="ts" x="274" y="83">confidence scored per item</text>
+        <line class="ar" x1="480" y1="60" x2="536" y2="44" marker-end="url(#arrL)"/>
+        <line class="ar" x1="480" y1="84" x2="536" y2="102" marker-end="url(#arrL)"/>
+        <rect class="bxg" x="540" y="20" width="180" height="44" rx="2"/>
+        <text class="tt" x="554" y="40">Auto-handled</text>
+        <text class="ts" x="554" y="55">high confidence &#183; full audit trail</text>
+        <rect class="bxw" x="540" y="84" width="180" height="44" rx="2"/>
+        <text class="tt" x="554" y="104">Human queue</text>
+        <text class="ts" x="554" y="119">low confidence only</text>
+        <line class="ar" x1="720" y1="106" x2="756" y2="106" marker-end="url(#arrL)"/>
+        <rect class="bx" x="760" y="84" width="160" height="44" rx="2"/>
+        <text class="tt" x="774" y="104">Correction logged</text>
+        <text class="ts" x="774" y="119">by the person</text>
+        <path class="arg" d="M840,128 L840,168 L370,168 L370,100" marker-end="url(#arrL)"/>
+        <text class="tg" x="410" y="188">every correction becomes training data &#183; accuracy reported weekly, good news or not</text>
+      </svg>
+    </div>
+
+    <!-- The review loop's numbers, as a strip. This replaces ~200 words of case study. -->
+    <div class="mstrip rv">
+      <div class="ms"><b class="g">85 &#8594; 96.8%</b><small>accuracy, week 1 to week 16 &#183; verified</small></div>
+      <div class="ms"><b>Weekly</b><small>retraining and reporting cadence</small></div>
+      <div class="ms"><b>100%</b><small>of uncertain calls seen by a person</small></div>
+    </div>
+
+    <div class="archwrap rv" style="border-top:0;margin-top:0">
+      <div class="ah"><span>Accuracy as a monitored curve &#183; <b>weeks 1 to 16</b></span><span>verified &#183; trace the curve</span></div>
+      <div style="max-width:460px">
+        <svg class="mini ix" id="vzB" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="axis" x1="28" y1="10" x2="28" y2="88"/>
+          <line class="axis" x1="28" y1="88" x2="270" y2="88"/>
+          <text x="6" y="16">97</text><text x="6" y="52">91</text><text x="6" y="90">85</text>
+          <polyline class="ser" pathLength="1" points="28,86 58,78 88,68 118,57 148,46 178,36 208,28 238,22 268,18"/>
+          <line class="hln" x1="28" y1="10" x2="28" y2="88"/>
+          <circle class="hpt" cx="268" cy="18" r="3"/>
+          <text x="34" y="80" class="lbl">week 1</text>
+          <text x="216" y="12" class="lbl">week 16</text>
+          <text x="66" y="103">every correction becomes training</text>
+        </svg>
+        <div class="vread" id="vzB-r" style="color:#7C7C82">hover the curve for the week-by-week climb</div>
+      </div>
+    </div>
+
+    <div class="domhead"><h3>The same anatomy, inside Indoco Remedies</h3><div class="dm">illustrative &#183; beside your team, not in place of it</div></div>
+    <!-- THE CENTREPIECE. Redraw in their nouns. Three lanes, amber human gate, foundation bar. -->
+    <div class="archwrap rv">
+      <div class="ah"><span>Report to signed record &#183; <b>how the system would sit</b></span><span>illustrative &#183; nothing replaced</span></div>
+      <svg class="arch" viewBox="0 0 940 400" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+        <text class="lane" x="20" y="26">WHAT ARRIVES TODAY</text>
+        <text class="lane" x="330" y="26">THE SPINE &#183; ALL RULES AS CONFIGURATION</text>
+        <text class="lane" x="726" y="26">YOUR TEAM &amp; CUSTOMERS</text>
+
+        <rect class="bx" x="20" y="40" width="240" height="86" rx="2"/>
+        <text class="tt" x="34" y="63">Safety reports</text>
+        <text class="ts" x="34" y="80">post &#183; toll-free call &#183; email</text>
+        <text class="ts" x="34" y="94">free text, any format, any language</text>
+        <text class="tg" x="34" y="112">read and structured on arrival</text>
+
+        <rect class="bx" x="20" y="138" width="240" height="70" rx="2"/>
+        <text class="tt" x="34" y="161">Regulatory queries</text>
+        <text class="ts" x="34" y="178">one market, one format each</text>
+        <text class="tw" x="34" y="192">today each one interrupts a person</text>
+
+        <rect class="bx" x="20" y="220" width="240" height="64" rx="2"/>
+        <text class="tt" x="34" y="243">Your source records</text>
+        <text class="ts" x="34" y="260">batch records &#183; specs &#183; past filings</text>
+        <text class="tw" x="34" y="274">nothing decided outside your rules</text>
+
+        <rect class="bxg" x="330" y="40" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="60">Report reader</text>
+        <text class="ts" x="344" y="76">patient, product, batch, reaction, dates, reporter</text>
+
+        <rect class="bxg" x="330" y="96" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="116">Criteria matcher</text>
+        <text class="ts" x="344" y="132">text compared against your seriousness criteria</text>
+
+        <rect class="bxg" x="330" y="152" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="172">Timeline engine</text>
+        <text class="ts" x="344" y="188">your SOPs and reporting clocks applied</text>
+
+        <rect class="bxg" x="330" y="208" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="228">Dossier assembler</text>
+        <text class="ts" x="344" y="244">a draft in your format, every line sourced</text>
+
+        <rect class="bxg" x="330" y="264" width="300" height="48" rx="2"/>
+        <text class="tt" x="344" y="284">Deadline monitor</text>
+        <text class="ts" x="344" y="300">clocks flagged before they run out</text>
+
+        <text class="tg" x="330" y="336">every rule versioned &#183; every decision reproducible as the data stood that day</text>
+
+        <rect class="bx" x="700" y="40" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="63">Draft queue</text>
+        <text class="ts" x="714" y="80">records ready to assess</text>
+
+        <rect class="bxw" x="700" y="116" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="139">Human gate</text>
+        <text class="ts" x="714" y="156">your qualified person signs</text>
+        <text class="ts" x="714" y="168">nothing commits itself</text>
+
+        <rect class="bx" x="700" y="192" width="220" height="64" rx="2"/>
+        <text class="tt" x="714" y="215">Regulator, on time</text>
+        <text class="ts" x="714" y="232">submission prepared in hours</text>
+        <text class="ts" x="714" y="244">email &#183; WhatsApp &#183; portal</text>
+
+        <rect class="bx" x="700" y="268" width="220" height="44" rx="2"/>
+        <text class="tt" x="714" y="288">Weekly accuracy report</text>
+        <text class="ts" x="714" y="302">to your team, good news or not</text>
+
+        <line class="ar" x1="260" y1="83" x2="326" y2="83" marker-end="url(#arr)"/>
+        <line class="ar" x1="260" y1="173" x2="326" y2="173" marker-end="url(#arr)"/>
+        <line class="ar" x1="260" y1="252" x2="326" y2="252" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="72" x2="696" y2="72" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="148" x2="696" y2="148" marker-end="url(#arr)"/>
+        <line class="ar" x1="630" y1="232" x2="696" y2="224" marker-end="url(#arr)"/>
+        <line class="arg" x1="810" y1="180" x2="810" y2="192"/>
+
+        <rect class="bx" x="20" y="352" width="900" height="34" rx="2"/>
+        <text class="ts" x="34" y="373">FOUNDATION &nbsp;&#183;&nbsp; works beside the systems your team already uses: reads first, sends nothing without approval &nbsp;&#183;&nbsp; full audit trail &nbsp;&#183;&nbsp; nothing replaced</text>
+      </svg>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ 02 PROOF ============
+     SHORT FORM: the three panels keep their diagrams and lose their prose.
+     One line of problem, one line of build, one line of outcome. KEEP the three clients. -->
+<section id="record">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">02</span><h2>Clients we can name</h2></div>
+    <p class="sec-intro">Three enterprises, three problems, three systems still running today.</p>
+
+    <div class="viz3 rv">
+      <div class="vc">
+        <div class="vt">Musafir.com &#183; UAE &#183; rate search &amp; customer response</div>
+        <div class="vn">7 <i>weeks to live</i></div>
+        <div class="vrow"><span class="vlbl">What we built</span><p>The platform in seven weeks: <b>pricing researched continuously, customers updated without being asked</b>.</p></div>
+        <div class="vrow"><span class="vlbl">How it works &#183; hover a node</span></div>
+        <svg class="mini" id="vxTrav" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <defs><marker id="arrM" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+          <g class="hz" data-t="&lt;i&gt;the request&lt;/i&gt; &#183; arrives in free text and is structured automatically, whatever format it comes in">
+            <rect class="nd" x="4" y="22" width="78" height="32" rx="2"/>
+            <text class="lbl" x="10" y="36">Request</text><text x="10" y="48">any format</text>
+          </g>
+          <line class="lnk" x1="82" y1="38" x2="100" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;the search&lt;/i&gt; &#183; suppliers compared automatically for the cheapest viable option; no person starts it">
+            <rect class="nd" x="102" y="22" width="84" height="32" rx="2"/>
+            <text class="lbl" x="108" y="36">Search</text><text x="108" y="48">suppliers</text>
+          </g>
+          <line class="lnk" x1="186" y1="38" x2="204" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;the answer&lt;/i&gt; &#183; prepared for a person to approve, then sent; the customer is updated at every stage after">
+            <rect class="nd" x="206" y="22" width="70" height="32" rx="2"/>
+            <text class="lbl" x="212" y="36">Answered</text><text x="212" y="48">and tracked</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;self-healing&lt;/i&gt; &#183; a failed step is retried, re-planned, or handed to a person; it does not stall silently">
+            <path class="lnkg" d="M241,54 L241,74 L43,74 L43,58" marker-end="url(#arrM)"/>
+            <text x="53" y="92">failed steps re-plan themselves</text>
+          </g>
+        </svg>
+        <div class="vread" id="vxTrav-r">hover a node for what it does</div>
+        <div class="vs"><b>Business outcome: a revenue line moved online in one quarter.</b> For Indoco: unstructured input read on arrival and assembled into your template.</div>
+      </div>
+      <div class="vc">
+        <div class="vt">LegalMatch.com &#183; USA &#183; enquiry scoring</div>
+        <div class="vn">3 <i>calibrated models</i></div>
+        <div class="vrow"><span class="vlbl">What we built</span><p>Scoring inside the system they already used. <b>Every enquiry ranked by what it is worth</b>.</p></div>
+        <div class="vrow"><span class="vlbl">How it works &#183; hover a stage</span></div>
+        <svg class="mini" id="vzC" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <line class="axis" x1="28" y1="88" x2="270" y2="88"/>
+          <rect class="barb" data-k="s1" x="46" y="48" width="48" height="40"/>
+          <rect class="barb" data-k="s2" x="122" y="34" width="48" height="54"/>
+          <rect class="barb" data-k="s3" x="198" y="20" width="48" height="68"/>
+          <text x="44" y="100">P(Set)</text><text x="110" y="100">P(Complete)</text><text x="198" y="100">P(Deal)</text>
+          <text x="46" y="42" class="lbl">stage 1</text><text x="122" y="28" class="lbl">stage 2</text><text x="198" y="14" class="lbl">stage 3</text>
+        </svg>
+        <div class="vread" id="vzC-r">hover a bar to see what each model scores</div>
+        <div class="vs"><b>Business outcome: the same sales team producing more, without hiring.</b> For Indoco: reports routed by what the text contains, so urgent ones reach a person first.</div>
+      </div>
+      <div class="vc">
+        <div class="vt">StayVista.com &#183; India &#183; AI vision QC</div>
+        <div class="vn">Every <i>handover audited</i></div>
+        <div class="vrow"><span class="vlbl">What we built</span><p>Photographs inspected automatically, the report written itself. <b>The same standard on every property</b>.</p></div>
+        <div class="vrow"><span class="vlbl">How it works &#183; hover a node</span></div>
+        <svg class="mini" id="vxVis" viewBox="0 0 280 110" xmlns="http://www.w3.org/2000/svg">
+          <g class="hz" data-t="&lt;i&gt;evidence&lt;/i&gt; &#183; captured on site in the existing app; no new hardware, no new habits">
+            <rect class="nd" x="4" y="22" width="78" height="32" rx="2"/>
+            <text class="lbl" x="10" y="36">Photos</text><text x="10" y="48">site &#183; app</text>
+          </g>
+          <line class="lnk" x1="82" y1="38" x2="100" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;vision checks&lt;/i&gt; &#183; every frame scored against configurable rules; uncertain frames go to a person">
+            <rect class="nd" x="102" y="22" width="84" height="32" rx="2"/>
+            <text class="lbl" x="108" y="36">Vision</text><text x="108" y="48">checks &#183; rules</text>
+          </g>
+          <line class="lnk" x1="186" y1="38" x2="204" y2="38" marker-end="url(#arrM)"/>
+          <g class="hz" data-t="&lt;i&gt;report&lt;/i&gt; &#183; the file writes itself, auditable and identical in format every time">
+            <rect class="nd" x="206" y="22" width="70" height="32" rx="2"/>
+            <text class="lbl" x="212" y="36">Report</text><text x="212" y="48">auto-built</text>
+          </g>
+          <g class="hz" data-t="&lt;i&gt;the discipline&lt;/i&gt; &#183; same rules, every time; exceptions surface to people with context">
+            <path class="lnkg" d="M241,54 L241,74 L43,74 L43,58" marker-end="url(#arrM)"/>
+            <text x="50" y="92">every check judged the same way</text>
+          </g>
+        </svg>
+        <div class="vread" id="vxVis-r">hover a node for what it does</div>
+        <div class="vs"><b>Business outcome: a subjective check became consistent, auditable evidence.</b> For Indoco: the same checks applied to every record, with the evidence kept behind them.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 WHAT WE SEE ============
+     SHORT FORM: this section GROWS. It is the only part about them.
+     Four observations, then the diagram that shows where the hours actually go.
+     NEVER quote the client's own figures. Describe the shape instead. -->
+<section id="assessment">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">03</span><h2>What we see at Indoco Remedies</h2></div>
+    <p class="sec-intro">Four observations from public sources, each with the business consequence attached.</p>
+
+    <div class="darch rv">
+      <div class="da">
+        <div class="dcode">Observation 01 &#183; the front door</div>
+        <h4>Safety reports still arrive by post.</h4>
+        <p>Your adverse-event page asks for a filled reporting form to be posted to the R&amp;D centre, phoned to a toll-free line, or emailed. There is no online submission.<br><br><b>So every report is transcribed before it can be assessed, and the clock starts before anyone has read it.</b></p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 02 &#183; the assessment</div>
+        <h4>Six criteria decide how fast the clock runs.</h4>
+        <p>Your own page lists what makes a reaction serious: death, life-threatening, hospitalisation, disability, congenital anomaly, or intervention to prevent damage.<br><br><b>Someone must read every report against those six, and they do not arrive in order of severity.</b></p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 03 &#183; the markets</div>
+        <h4>Every market wants the same evidence in a different shape.</h4>
+        <p>Approvals from the USFDA, UK-MHRA, EU-GMP and Health Canada each need the same data re-presented to a different specification.<br><br><b>The same facts are re-assembled by hand for each one, and every re-assembly is a chance to introduce an error.</b></p>
+      </div>
+      <div class="da">
+        <div class="dcode">Observation 04 &#183; the cost curve</div>
+        <h4>Your scarcest people do clerical work.</h4>
+        <p>While transcribing stays manual, every new market and every rise in volume needs more qualified people.<br><br><b>The people licensed to judge spend much of their time preparing the paperwork for it.</b></p>
+      </div>
+    </div>
+
+    <!-- NEW IN THE SHORT FORM: the observations, drawn. The same unit of work twice,
+         today in amber and with the system in green, on the same x-grid so the two rows
+         line up. This is the single most persuasive block in the document. -->
+    <div class="archwrap rv">
+      <div class="ah"><span>One safety report, today and with the system &#183; <b>where the hours go</b></span><span>illustrative &#183; from public research</span></div>
+      <svg class="arch" viewBox="0 0 940 265" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arrT" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+
+        <text class="lane" x="25" y="24">TODAY &#183; EVERY STEP WAITS FOR A PERSON TO BE FREE</text>
+        <rect class="bx"  x="25"  y="38" width="130" height="52" rx="2"/>
+        <text class="tt" x="37"  y="60">Report in</text><text class="ts" x="37"  y="76">post &#183; call &#183; email</text>
+        <rect class="bxw" x="177" y="38" width="130" height="52" rx="2"/>
+        <text class="tt" x="189" y="60">Read by hand</text><text class="tw" x="189" y="76">free text</text>
+        <rect class="bxw" x="329" y="38" width="130" height="52" rx="2"/>
+        <text class="tt" x="341" y="60">Transcribed</text><text class="tw" x="341" y="76">into your template</text>
+        <rect class="bxw" x="481" y="38" width="130" height="52" rx="2"/>
+        <text class="tt" x="493" y="60">Criteria checked</text><text class="tw" x="493" y="76">six of them</text>
+        <rect class="bxw" x="633" y="38" width="130" height="52" rx="2"/>
+        <text class="tt" x="645" y="60">Routed</text><text class="tw" x="645" y="76">by hand</text>
+        <rect class="bx"  x="785" y="38" width="130" height="52" rx="2"/>
+        <text class="tt" x="797" y="60">Assessed</text><text class="tw" x="797" y="76">days later</text>
+        <line class="ar" x1="155" y1="64" x2="173" y2="64" marker-end="url(#arrT)"/>
+        <line class="ar" x1="307" y1="64" x2="325" y2="64" marker-end="url(#arrT)"/>
+        <line class="ar" x1="459" y1="64" x2="477" y2="64" marker-end="url(#arrT)"/>
+        <line class="ar" x1="611" y1="64" x2="629" y2="64" marker-end="url(#arrT)"/>
+        <line class="ar" x1="763" y1="64" x2="781" y2="64" marker-end="url(#arrT)"/>
+        <text class="tw" x="177" y="108">the four middle steps are transcription, not assessment &#183; they are where the hours go</text>
+
+        <text class="lane" x="25" y="150">WITH THE SYSTEM &#183; THE SAME REPORT, THE SAME PEOPLE, THE SAME DECISION</text>
+        <rect class="bx"  x="25"  y="164" width="130" height="52" rx="2"/>
+        <text class="tt" x="37"  y="186">Report in</text><text class="ts" x="37"  y="202">unchanged</text>
+        <rect class="bxg" x="177" y="164" width="430" height="52" rx="2"/>
+        <text class="tt" x="189" y="186">Read, transcribed, criteria flagged and routed</text>
+        <text class="tg" x="189" y="202">automatically, on arrival, every field traced back to the original</text>
+        <rect class="bxw" x="633" y="164" width="130" height="52" rx="2"/>
+        <text class="tt" x="645" y="186">Human gate</text><text class="tw" x="645" y="202">qualified person</text>
+        <rect class="bx"  x="785" y="164" width="130" height="52" rx="2"/>
+        <text class="tt" x="797" y="186">Assessed</text><text class="tg" x="797" y="202">same day</text>
+        <line class="ar" x1="155" y1="190" x2="173" y2="190" marker-end="url(#arrT)"/>
+        <line class="ar" x1="607" y1="190" x2="629" y2="190" marker-end="url(#arrT)"/>
+        <line class="ar" x1="763" y1="190" x2="781" y2="190" marker-end="url(#arrT)"/>
+        <text class="tg" x="25" y="240">the transcription goes &#183; the assessment stays with your qualified person &#183; nothing is filed without a signature</text>
+      </svg>
+    </div>
+
+    <div class="callout rv">
+      <div class="ct">Why this matters commercially</div>
+      <p>None of this is a failure. It is how every regulated manufacturer is built, and the discipline is the point.<br><br><b>Transcribing a report is the highest-volume clerical work here, which makes it the cheapest to change and the fastest to prove.</b><br><br>We would not touch the seriousness assessment, the causality judgement, or anything a qualified person signs. That is your team&#8217;s ground, and the law&#8217;s.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 WHERE WE WOULD START ============
+     SHORT FORM: this section was 43% of the old document and had no diagrams.
+     REMOVED: the six use-case cards, the six-row metrics table, the research basis,
+     and the second phase strip. The five-stage rollout is now a diagram, not a list.
+     The document still ends on the exclusions. -->
+<section id="proposal">
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-code">04</span><h2>Where we would start</h2></div>
+    <p class="sec-intro"><b>One place to start.</b> Read every incoming safety report and structure it for a qualified person to assess. Prove it on one channel, then widen.</p>
+
+    <div class="cs rv">
+      <div class="l">
+        <div class="kick"><div class="client">Safety report intake, structured on arrival</div><div class="geo">the recommended first build</div></div>
+        <p class="prob">The system reads each report, by post, email or call transcript, and structures it into your template: patient, product, batch, reaction, dates and reporter.<br><br>It flags which seriousness criteria appear and routes accordingly. It never decides seriousness or causality. Your qualified person assesses and signs.<br><br><b>The faster intake is not the largest gain.</b> Nothing waits in a pile to be typed, so the clock on a serious case starts when it arrives.</p>
+        <h5>What stays exactly as it is</h5>
+        <div class="stackline"><i>your criteria</i><i>your SOPs</i><i>your reporting templates</i><i>read-only to begin</i><i>a qualified person on every assessment</i></div>
+      </div>
+      <div class="r">
+        <div class="met">
+          <div class="m"><b class="g">Hours &#8594; minutes</b><small>report received to structured record &#183; modeled</small></div>
+          <div class="m"><b>~5 wks</b><small>from start to live on one channel</small></div>
+        </div>
+        <div class="mathnote"><b>Why five weeks is realistic.</b> The document reader, the confidence routing and the review loop already run in production. What remains is connection and configuration, not invention. <b>If the agreed number is missed, that is our commercial problem, not yours.</b></div>
+      </div>
+    </div>
+
+    <!-- NEW IN THE SHORT FORM: the five-stage rollout, drawn instead of listed.
+         KEEP the five stages and their order. -->
+    <div class="archwrap rv">
+      <div class="ah"><span>How the rollout runs &#183; <b>five weeks to live on one channel</b></span><span>one channel, one market, measured weekly</span></div>
+      <svg class="arch" viewBox="0 0 940 175" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="arrR" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#7C7C82"/></marker></defs>
+
+        <rect class="bx"  x="20"  y="30" width="164" height="66" rx="2"/>
+        <text class="tt" x="32"  y="52">Discovery</text>
+        <text class="ts" x="32"  y="68">one channel, one market</text>
+        <text class="tg" x="32"  y="84">how a report is handled today</text>
+
+        <rect class="bx"  x="204" y="30" width="164" height="66" rx="2"/>
+        <text class="tt" x="216" y="52">Design</text>
+        <text class="ts" x="216" y="68">your SOPs become</text>
+        <text class="ts" x="216" y="84">settings you can edit</text>
+
+        <rect class="bxg" x="388" y="30" width="164" height="66" rx="2"/>
+        <text class="tt" x="400" y="52">Integration</text>
+        <text class="ts" x="400" y="68">read-only, your intake</text>
+        <text class="ts" x="400" y="84">no migration</text>
+
+        <rect class="bxw" x="572" y="30" width="164" height="66" rx="2"/>
+        <text class="tt" x="584" y="52">Deployment</text>
+        <text class="ts" x="584" y="68">two weeks in shadow mode</text>
+        <text class="tw" x="584" y="84">baseline measured, not guessed</text>
+
+        <rect class="bxg" x="756" y="30" width="164" height="66" rx="2"/>
+        <text class="tt" x="768" y="52">Continuous</text>
+        <text class="ts" x="768" y="68">reported weekly</text>
+        <text class="tg" x="768" y="84">every correction trains it</text>
+
+        <line class="ar" x1="184" y1="63" x2="200" y2="63" marker-end="url(#arrR)"/>
+        <line class="ar" x1="368" y1="63" x2="384" y2="63" marker-end="url(#arrR)"/>
+        <line class="ar" x1="552" y1="63" x2="568" y2="63" marker-end="url(#arrR)"/>
+        <line class="ar" x1="736" y1="63" x2="752" y2="63" marker-end="url(#arrR)"/>
+
+        <line class="ar" x1="20" y1="120" x2="920" y2="120"/>
+        <line class="ar" x1="102" y1="115" x2="102" y2="125"/>
+        <text class="ts" x="88"  y="140">week 1</text>
+        <line class="ar" x1="286" y1="115" x2="286" y2="125"/>
+        <text class="ts" x="272" y="140">week 2</text>
+        <line class="ar" x1="470" y1="115" x2="470" y2="125"/>
+        <text class="ts" x="456" y="140">week 3</text>
+        <line class="ar" x1="654" y1="115" x2="654" y2="125"/>
+        <text class="ts" x="640" y="140">week 5</text>
+        <line class="ar" x1="838" y1="115" x2="838" y2="125"/>
+        <text class="tg" x="820" y="140">ongoing</text>
+
+        <text class="tg" x="20" y="162">nothing goes live until the shadow-mode baseline is measured &#183; a qualified person assesses every report throughout</text>
+      </svg>
+    </div>
+
+    <div class="domhead"><h3>What comes next</h3><div class="dm">each phase funded by the results of the last</div></div>
+    <div class="roi rv">
+      <div class="rc"><b>Phase 1 &#183; Report intake</b><span>One channel, assessed by your qualified person, measured weekly. This is what we propose.</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b>Phase 2 &#183; Dossier assembly, drafted</b><span>The same facts re-presented for each market are drafted from your source records, not retyped.</span></div>
+      <div class="ra">&#8594;</div>
+      <div class="rc"><b class="g">Phase 3 &#183; Submission memory</b><span>What was filed, to which regulator, and what came back as a query.</span></div>
+    </div>
+
+    <!-- THE DOCUMENT ENDS ON THE EXCLUSIONS. No closing ask: the message carries it. -->
+    <div class="twocol rv">
+      <div>
+        <h4>How we work</h4>
+        <ul>
+          <li><b>Weekly reporting.</b> Good news or bad.</li>
+          <li><b>People decide.</b> The system structures, your qualified person assesses.</li>
+          <li><b>Your environment.</b> We integrate rather than extract.</li>
+        </ul>
+      </div>
+      <div>
+        <h4>What we will not do</h4>
+        <ul>
+          <li><b>Change how reports reach you.</b> The same address and helpline.</li>
+          <li><b>Assess seriousness or causality.</b> The system structures and flags; a qualified person signs.</li>
+          <li><b>File anything automatically.</b> Nothing reaches a regulator without a signature.</li>
+          <li><b>Create dependency.</b> Your team is trained to run it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER. KEEP. -->
+<footer>
+  <div class="wrap">
+    <div class="fmeta">
+      <div class="fmark">Shiftora<em>.ai</em></div>
+      <span>Prepared for Indoco Remedies &#183; Mumbai &#183; September 2026</span>
+      <a href="mailto:info@shiftora.ai">info@shiftora.ai</a>
+    </div>
+    <div class="fnote">This document is confidential and prepared solely for Indoco Remedies. It does not constitute a binding offer; commercial terms would be agreed in a definitive engagement agreement. Figures are labelled where they appear: verified figures derive from production deployments and are reproducible on request; modeled figures are estimates based on published information and industry benchmarks; illustrative data is generated within this page. Where a client is not named, confidentiality obligations apply, and Indoco Remedies would receive the same protection. &#169; 2026 Shiftora.ai. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+document.body.classList.add('js-anim');
+
+// reveal on scroll
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// interactive charts
+function wireLine(id,pts,unit){
+  const svg=document.getElementById(id);if(!svg)return;
+  const ln=svg.querySelector('.hln'),pt=svg.querySelector('.hpt'),out=document.getElementById(id+'-r');
+  if(!ln||!pt||!out)return;
+  const d0=out.textContent;
+  function show(clientX){
+    const r=svg.getBoundingClientRect(),x=(clientX-r.left)*(280/r.width);
+    let b=pts[0];for(const p of pts){if(Math.abs(p.x-x)<Math.abs(b.x-x))b=p;}
+    ln.setAttribute('x1',b.x);ln.setAttribute('x2',b.x);ln.classList.add('on');
+    pt.setAttribute('cx',b.x);pt.setAttribute('cy',b.y);pt.classList.add('on');
+    out.innerHTML=b.t+' &#183; <i>'+b.v+'</i> '+unit;
+  }
+  svg.addEventListener('mousemove',e=>show(e.clientX));
+  svg.addEventListener('touchmove',e=>{show(e.touches[0].clientX);e.preventDefault();},{passive:false});
+  svg.addEventListener('mouseleave',()=>{ln.classList.remove('on');pt.classList.remove('on');out.textContent=d0;});
+}
+wireLine('vzB',[
+  {x:28,y:86,t:'week 1',v:'85%'},{x:58,y:78,t:'week 3',v:'86.5%'},
+  {x:88,y:68,t:'week 5',v:'88%'},{x:118,y:57,t:'week 7',v:'89.5%'},
+  {x:148,y:46,t:'week 9',v:'91%'},{x:178,y:36,t:'week 11',v:'92.5%'},
+  {x:208,y:28,t:'week 13',v:'94%'},{x:238,y:22,t:'week 15',v:'95.5%'},
+  {x:268,y:18,t:'week 16',v:'96.8%'}],'accuracy under supervision');
+
+(function(){
+  const svg=document.getElementById('vzC');if(!svg)return;
+  const out=document.getElementById('vzC-r');if(!out)return;
+  const d0=out.textContent;
+  const info={
+    s1:'<i>P(Set)</i> &#183; odds a first conversation happens, scored the moment an enquiry arrives',
+    s2:'<i>P(Complete)</i> &#183; odds the opportunity completes the funnel',
+    s3:'<i>P(Deal)</i> &#183; odds it becomes paid work; this sets the rank'};
+  svg.querySelectorAll('.barb').forEach(b=>{
+    const on=()=>{svg.querySelectorAll('.barb').forEach(x=>x.classList.remove('on'));b.classList.add('on');out.innerHTML=info[b.dataset.k];};
+    b.addEventListener('mouseenter',on);b.addEventListener('touchstart',on,{passive:true});
+  });
+  svg.addEventListener('mouseleave',()=>{svg.querySelectorAll('.barb').forEach(x=>x.classList.remove('on'));out.textContent=d0;});
+})();
+
+// hover-readout diagrams
+function wireHot(id){
+  const svg=document.getElementById(id);if(!svg)return;
+  const out=document.getElementById(id+'-r');if(!out)return;
+  const d0=out.textContent;
+  svg.querySelectorAll('g.hz').forEach(n=>{
+    const on=()=>{svg.querySelectorAll('g.hz').forEach(x=>x.classList.remove('on'));n.classList.add('on');out.innerHTML=n.dataset.t;};
+    n.addEventListener('mouseenter',on);n.addEventListener('touchstart',on,{passive:true});
+  });
+  svg.addEventListener('mouseleave',()=>{svg.querySelectorAll('g.hz').forEach(x=>x.classList.remove('on'));out.textContent=d0;});
+}
+wireHot('vxTrav');wireHot('vxVis');
+</script>
+</body>
+</html>
