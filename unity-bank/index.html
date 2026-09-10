@@ -116,9 +116,8 @@
     }
     @media screen and (max-width: 400px) { .wrap { width: calc(100% - 32px); } .system-illustration { max-width: 220px; } }
     @media print {
-      .intro-layout { grid-template-columns: minmax(0, 1fr) 210px; gap: 24px; }
-      .global-visual { position: static; padding: 18px 0 0; break-inside: avoid; }
-      .system-illustration { width: 100%; max-width: none; }
+      .intro-layout { display: block; }
+      .global-visual { display: none !important; }
     }
   </style>
 </head>
